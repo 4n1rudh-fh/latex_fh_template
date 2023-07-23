@@ -1,0 +1,62 @@
+\documentclass[11pt]{report}
+
+\usepackage{emptypage} % prevents page numbers and headings to appear on empty pages.
+\usepackage[a4paper, top=20mm, bottom=25mm, left=30mm, right=20mm]{geometry}
+\usepackage[english]{babel}
+\usepackage[greek]{babel}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage[export]{adjustbox}
+\usepackage{setspace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Document Section %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Front Matter %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter % use lower case Roman numerals for page numbers
+
+% Title Page
+\input{src/title_page.tex}
+\newpage
+
+% Eidesstaatliche Erklärung
+\includepdf{pdfs/eidesstaatliche_erklaerung.pdf}
+
+% Acknowledgements
+\input{src/acknowledgements.tex}
+
+% Abstract
+\input{src/abstract.tex}
+
+% Table of Contents
+\tableofcontents
+
+% List of Figures
+\listoffigures
+
+% List of Tables
+\listoftables
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Main Matter %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+\input{src/introduction.tex}
+
+% Bibliography
+\bibliography{src/literature.bib}
+
+% Appendix
+\input{src/appendix.tex}
+
+% Glossary
+\input{src/glossaries.tex}
+
+\end{document}
