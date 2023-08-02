@@ -1,3 +1,5 @@
+% This is the main file. 
+
 \documentclass[11pt]{report}
 
 \usepackage{emptypage} % prevents page numbers and headings to appear on empty pages.
@@ -9,6 +11,7 @@
 \usepackage{titling}
 \usepackage[export]{adjustbox}
 \usepackage{setspace}
+\usepackage{cite}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -22,17 +25,17 @@
 \frontmatter % use lower case Roman numerals for page numbers
 
 % Title Page
-\input{src/title_page.tex}
+\input{src/00_title_page.tex}
 \newpage
 
 % Eidesstaatliche Erklärung
 \includepdf{pdfs/eidesstaatliche_erklaerung.pdf}
 
 % Acknowledgements
-\input{src/acknowledgements.tex}
+\input{src/01_acknowledgements.tex}
 
 % Abstract
-\input{src/abstract.tex}
+\input{src/02_abstract.tex}
 
 % Table of Contents
 \tableofcontents
@@ -48,15 +51,16 @@
 %%%%% Main Matter %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-\input{src/introduction.tex}
+\input{src/a_introduction.tex}
 
 % Bibliography
-\bibliography{src/literature.bib}
+\bibliographystyle{ieeetr}
+\bibliography{src/04_literature}
 
 % Appendix
-\input{src/appendix.tex}
+\input{src/j_appendix.tex}
 
 % Glossary
-\input{src/glossaries.tex}
+\input{src/03_glossaries.tex}
 
 \end{document}
