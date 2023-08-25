@@ -11,8 +11,13 @@
 \usepackage{titling}
 \usepackage[export]{adjustbox}
 \usepackage{setspace}
+\usepackage{siunitx}
 \usepackage{cite}
+\usepackage{hyperref}
+\usepackage[utf8]{imputenc}
+\usepackage[acronym]{glossaries}
 
+\makeglossaries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Document Section %%%%%
@@ -39,6 +44,10 @@
 
 % Table of Contents
 \tableofcontents
+\clearpage
+
+\input{src/04_abbreviations.tex}
+\printglossary[type=\acronymtype]
 
 % List of Figures
 \listoffigures
@@ -55,12 +64,13 @@
 
 % Bibliography
 \bibliographystyle{ieeetr}
-\bibliography{src/04_literature}
+\bibliography{src/05_literature}
 
 % Appendix
 \input{src/j_appendix.tex}
 
 % Glossary
 \input{src/03_glossaries.tex}
+\printglossary
 
 \end{document}
