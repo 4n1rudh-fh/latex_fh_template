@@ -4,13 +4,12 @@ In many areas of manufacturing it is advantageous to use robots because of their
 
 \vspace{5mm}
 
-\noindent Change the following image.
+% \noindent Change the following image.
 
     \vspace{5mm}
     \begin{figure}[h]
-        \hspace{3cm}
-        % \centering
-        \includegraphics[width=0.7\textwidth]{images/a_introduction/Pathaccuracy.png}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/a_introduction/Pathaccuracy.JPG}
         \caption{Attained path of a Universal Robot UR5e compared to command path (left) and the resulting specimen during laser cutting (right) (\textcopyright \ Philipp Walderich) \cite{img_walderich}}
         \label{fig:fig_walderich}
     \end{figure}
@@ -29,7 +28,7 @@ In many areas of manufacturing it is advantageous to use robots because of their
 
     \vspace{5mm}
     \begin{figure}[h]
-        \hspace{2cm}
+        \centering
         \includegraphics[width=0.7\textwidth]{images/a_introduction/perez_fig4.png}
         \caption{Physical marks used in marker-based stereo vision. (a) Stickers (b) Laser points. \cite{perez}}
         \label{fig:fig_perez_4}
@@ -52,7 +51,7 @@ In many areas of manufacturing it is advantageous to use robots because of their
     \end{figure}
     \vspace{5mm}
 
-    \noindent \gls{lsi} has been gaining traction in the recent years because of advancements made in camera and signal processing technology \cite{filter},\ \cite{farsad}, and has simpler image processing requirements in comparison to other machine vision techniques. Another one of the advantages of \gls{lsi} is, that it works on surfaces that are featureless \cite{francis_autonomous}. Feature tracking approaches can also be used in \gls{lsi}, because of \gls{lsp} property of producing unique keypoints and patterns even for featureless surfaces. As a result, it has found it's application in industry, vehicle odometry measurements \cite{charrett_mars}, for sound detection and regeneration of audio signals \cite{nan_wu}, and for recognizing solid metal components based on their "laser speckle fingerprint" \cite{sjoedahl}. For the use case of \gls{lmp}, occlusion of laser light for \gls{lsi} is not a problem, as is the case with other machine vision techniques mentioned before. This is because, in a typical scenario, no object should interfere between robot \gls{tcp} and workpiece surface. Apart from that, \Gls{lsp}'s shape and size is also not affected by high temperatures \cite{song}, and \gls{dic} using \gls{lsp} does not require database of images for correlation \cite{farsad}. The sensor setup for \Gls{lsi} being low-cost is another potential advantage \cite{charrett_2018}.
+    \noindent \gls{lsi} has been gaining traction in the recent years because of advancements made in camera and signal processing technology \cite{filter},\ \cite{farsad}, and has simpler image processing requirements in comparison to other machine vision techniques. Another one of the advantages of \gls{lsi} is, that it works on surfaces that are featureless \cite{francis_autonomous}. Feature tracking approaches can also be used in \gls{lsi}, because of \gls{lsp} property of producing unique keypoints and patterns even for featureless surfaces. As a result, it has found it's application in industry, vehicle odometry measurements \cite{charrett_mars}, for sound detection and regeneration of audio signals \cite{nan_wu}, and for recognizing solid metal components based on their "laser speckle fingerprint" \cite{sjoedahl}. For the use case of \gls{lmp}, occlusion of laser light for \gls{lsi} is not a problem, as is the case with other machine vision techniques mentioned before. This is because, in a typical scenario, no object should interfere between robot \gls{tcp} and workpiece surface during a \gls{lmp} process. Apart from that, \gls{lsp}'s shape and size is also not affected by high temperatures \cite{song}, and \gls{dic} using \gls{lsp} does not require database of images for correlation \cite{farsad}. The sensor setup for \Gls{lsi} being low-cost is another potential advantage \cite{charrett_2018}.
 
     \vspace{5mm}
     \noindent The motivation of the project is, to develop a \gls{lsi} sensor, that is more accurate than a typical robot, such that deviations in robot path can be recognized. In the future, these deviations can be worked upon by using control engineering methods to get a more accurate robot pose.
