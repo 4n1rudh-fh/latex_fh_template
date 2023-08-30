@@ -1,47 +1,66 @@
-\chapter{Fundamentals}
+\chapter{Fundamentals}\label{Chap:Fundamentals}
 
-In this chapter, the principles of important concepts will be explained. This helps, in better understanding of the factors affecting the experimental setup, which will be covered in Chapter \ref{chap:sota}.
+In this chapter, the principles of important concepts will be explained. This helps in better understanding of the factors affecting the experimental setup, which will be covered in Chapter \ref{Chap:Sota}.
 
     \section*{Laser Speckle Formation}
 
-    Most of the surfaces on a scale of wavelength of light are rough, and when any coherent light (or laser) is incident on those surfaces, it is scattered in many different directions. This is known as \emph{diffuse reflection}. Now, these reflected rays can be captured using a camera. The intensity at any point in the image depends on the interference of the reflected light waves. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the speckle pattern as shown in Fig. ~\ref{fig:laser_speckle_pattern}.
+    When surfaces are rough on a scale of wavelength of light, and coherent light (or laser) is incident on those surfaces, it is scattered in many different directions. This is known as \emph{diffuse reflection} (See Fig. \ref{fig:diffuse_reflection}). For e.g. in Fig. \ref{fig:green_laser}, with paper having a higher roughness than a polished hard drive surface, it undergoes diffuse reflection when laser is incident on it.
 
     \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/diffuse_reflection.jpg}
+        \caption{Diffuse Reflection. \cite{img_diffuse}}
+        \label{fig:diffuse_reflection}
+    \end{figure}
+    
+    \begin{figure}[h]
+        \begin{subfigure}{0.5\textwidth}
             \centering
-            \includegraphics[width=0.4\textwidth]{images/b_fundamentals/diffuse_reflection.jpg}
-            \caption{Diffuse Reflection (\cite{img_diffuse})}
-            \label{fig:diffuse_reflection}
-    \end{figure}
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/laser_speckle.jpg}
-        \caption{A typical laser speckle pattern (\cite{briers})}
-        \label{fig:laser_speckle_pattern}
-    \end{figure}
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/green_laser.jpg}
-        \caption{A laser reflected of a reflective object (here, a part of hard drive) (\textcopyright \ David Bode) (\cite{img_green_laser})}
+            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/white_paper.jpg}
+            \caption{Paper}
+            \label{subfig:white_paper.jpg}
+        \end{subfigure}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/green_laser.jpg}
+            \caption{Polished hard drive surface}
+            \label{subfig:hard_drive.jpg}
+        \end{subfigure}
+        \caption{Green laser hitting two different surfaces. (\textcopyright \ David Bode) \cite{img_green_laser}}
         \label{fig:green_laser}
-        \end{figure}
+    \end{figure}
+    
+    \clearpage
+
+    \noindent Now, these reflected rays can be captured using a camera. The intensity at any point inside the image depends on the interference of the reflected light waves. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the speckle pattern as shown in Fig. \ref{fig:img_leon}. If the image is captured using a monochrome camera, it will look similar to as shown in Fig. \ref{fig:laser_speckle.jpg}
 
     \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/white_paper.jpg}
-        \caption{A green laser hitting a white piece of paper (\textcopyright \ David Bode) (\cite{img_white_paper})}
-        \label{fig:white_paper}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/laser_pointer.jpg}
+            \caption{Red laser incident on a surface.}
+            \label{subfig:laser_pointer.jpg}
+        \end{subfigure}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/laser_speckle_view_2.jpg}
+            \caption{Focussing on incident laser point.}
+            \label{subfig:laser_speckle_view_2.jpg}
+        \end{subfigure}
+        \caption{Capturing \gls{lsp} using a camera. (\textcopyright \ Leon Gorissen) \cite{img_gorissen}}
+        \label{fig:img_leon}
     \end{figure}
-
-    \vspace{5mm}
-    \noindent As a paper is less reflective than a highly polished surface, it undergoes diffuse reflectance as seen from Fig. \ref{fig:white_paper}. On the other hand, for a surface with lower roughness, the reflection would resemble as shown in Fig. \ref{fig:green_laser}.
-
-    \clearpage
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/b_fundamentals/laser_speckle.png}
+        \caption{A typical laser speckle pattern.}
+        \label{fig:laser_speckle.jpg}
+    \end{figure}
 
     \section*{Diffraction and Airy Disk}\label{section:diffraction}
 
-    In diffraction, light waves bend around the corners of a slit as shown in Fig. \ref{fig:diffraction_slit}. In case of circular aperture inside a camera lens, as a result of diffraction, \emph{airy disk} can form on the image sensor (See Fig. \ref{fig:airy_disk}). The angle $\theta$ at which the first minimum of the light wave, i.e. the first dark ring surrounding the center bright spot, occurs is given by the following formula:
+    In diffraction, light waves bend around the corners of a slit as shown in Fig. \ref{subfig:diffraction_slit}. In case of circular aperture inside a camera lens, as a result of diffraction, \emph{airy disk} can form on the image sensor (See Fig. \ref{subfig:airy_disk}). The angle $\theta$ at which the first minimum of the light wave, i.e. the first dark ring surrounding the center bright spot, occurs is given by the following formula:
 
     \vspace{5mm}
     \begin{equation}\label{eqn:objective}
@@ -61,16 +80,16 @@ In this chapter, the principles of important concepts will be explained. This he
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.3\textwidth]{images/b_fundamentals/diffraction_slit.png}
-        \caption{Numerical approximation of diffraction pattern from a slit of width four wavelengths with an incident plane wave. The main central beam, nulls, and phase reversals are apparent. (\cite{img_diffraction_slit})}
-        \label{fig:diffraction_slit}
+        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/diffraction_slit.png}
+        \caption{Numerical approximation of diffraction pattern from a slit of width four wavelengths with an incident plane wave. \cite{img_diffraction_slit}}
+        \label{subfig:diffraction_slit}
     \end{figure}
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.3\textwidth]{images/b_fundamentals/airy_disk.jpeg}
-        \caption{A real Airy disk created by passing a red laser beam through a \SI{90}{\micro\meter} pinhole aperture with 27 orders of diffraction. (\cite{img_airy_disk})}
-        \label{fig:airy_disk}
+        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/airy_disk.jpeg}
+        \caption{A real Airy disk created by passing a red laser beam through a \SI{90}{\micro\meter} pinhole aperture with 27 orders of diffraction. \cite{img_airy_disk}}
+        \label{subfig:airy_disk}
     \end{figure}
 
 
@@ -84,25 +103,41 @@ In this chapter, the principles of important concepts will be explained. This he
     \end{itemize}
 
     \vspace{5mm}
-    \noindent In Fig. \ref{fig:template_matching}, the template on the right, is found in the image on the left inside the red box. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. The mathematical expression to perform template matching using \gls{ncc} can be found in greater detail in the paper by \cite{lewis}. In Fig. \ref{fig:wiki_ncc_fig1} and Fig. \ref{fig:wiki_ncc_fig2}, the template (shown as the white and black spotted pattern) is being compared with the image that contains this pattern inside a black rectangle. In \gls{ncc}, the match between template and image is shown by a peak in cross-correlation value.
+    \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. The mathematical expression to perform template matching using \gls{ncc} can be found in greater detail in the paper by Lewis \cite{lewis}. In \gls{ncc}, the match between template and image is shown by a peak in cross-correlation value, as shown in Fig. \ref{fig:corr_plot.png}.
+
+    \begin{figure}[h]
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.7\textwidth]{images/b_fundamentals/card.jpeg}
+            \caption{Image.}
+            \label{subfig:card.jpg}
+        \end{subfigure}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.3\textwidth]{images/b_fundamentals/template.jpg}
+            \caption{Template.}
+            \label{subfig:template.jpg}
+        \end{subfigure}
+        \caption{Image and template used for performing \gls{ncc}. \cite{img_card}}
+        \label{fig:ncc_example}
+    \end{figure}
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.6\textwidth]{images/b_fundamentals/template_matching.jpeg}
-        \caption{Template/Patch Image (\cite{ralph_caubalejo})}
-        \label{fig:template_matching}
+        \includegraphics[width=\textwidth]{images/b_fundamentals/corr_plot.png}
+        \caption{Plot showing peak of correlation values.}
+        \label{fig:corr_plot.png}
     \end{figure}
+
+    \clearpage
+    
+    \noindent Inside Fig. \ref{fig:corr_cmap.png}, the \gls{ncc} match is shown as the bright spot at the location where center of the template matches with the underlying image. The colorbar maps these correlation values such that darkest points inside this figure corresponds to no match and brightest point to the correlation peak.  
     
     \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/b_fundamentals/wiki_ncc_fig1.png}
-        \caption{Normalized cross-correlation - sliding a template over an image. Taken from (\cite{wiki_ncc})}
-        \label{fig:wiki_ncc_fig1}
+        \hspace{40pt}
+        \includegraphics[width=0.7\textwidth]{images/b_fundamentals/corr_cmap.png}
+        \caption{Peak of correlation shown as bright spot.}
+        \label{fig:corr_cmap.png}
     \end{figure}
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/b_fundamentals/wiki_ncc_fig2.png}
-        \caption{Normalized cross-correlation - sliding a template over an image. Taken from (\cite{wiki_ncc})}
-        \label{fig:wiki_ncc_fig2}
-    \end{figure}
+    \clearpage
