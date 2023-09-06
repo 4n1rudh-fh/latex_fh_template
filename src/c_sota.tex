@@ -1,2 +1,359 @@
 \chapter{State of the Art}\label{Chap:Sota}
-Describe what you discovered in your literature survey.
+In this chapter information collected from literature survey will cover the following topics:
+
+\begin{itemize}
+    \item Factors affecting \gls{lsp} formation
+    \item Effects of image filters on \gls{lsp}
+    \item Algorithms to perform template matching with focus on \gls{lsp}
+\end{itemize}
+
+\section{Factors affecting \glsfirst{lsp}}
+
+\subsection{Camera Parameters}
+
+    \subsubsection*{Exposure Time or Shutter Speed}\label{Subsubsection:Exposure_Time}
+    Exposure time is defined by the amount of time the digital sensor inside the camera is exposed to light. An increase in shutter speed or decrease in exposure time means, that less light is allowed to fall on the image sensor of a digital camera.
+
+    \vspace{5mm}
+    \noindent Higher shutter speeds helps in capturing more frames in a given time. As the image sensor is exposed to light for a shorter amount of time, combined with more number of frames being captured, results in movements that appear to be frozen in images. Thus, motion blur is minimized. If for the same movement exposure times are increased, motion blur happens, as a result of which speckles, as seen in Fig. \ref{fig:laser_speckle.jpg} would not be observed on the image sensor. Charrett et. al.  used an exposure time of \SI{200}{\micro\second} \cite{charrett_2018}. Bandari et. al. used an exposure time of \SI{600}{\micro\second}. No explanation was given by the authors for choosing these values \cite{bandari}.
+
+    \vspace{5mm}
+
+    \noindent Hu et. al. confirmed that speckle images captured for exposure values between \emph{B6-B10} gave speckle images of higher quality and higher contrast \noindent \cite{hu}. For their experiment defocussing degree is kept unchanged, and exposure time was adjusted from 1000-16000. A group of 16 \gls{lsp} was captured named \emph{Group B: B1-B16} (See Fig. \ref{fig:hu_fig8}). Unfortunately, no units were given for these values. Therefore, it is not possible to determine if these are actual exposure times or shutter speeds of the camera. However, it was concluded that a balance needs to be found between under- or overexposure of image sensor, as any of the extremes would result in decrease of contrast. This decrement in gray contrast of images negatively affects the algorithms used for correlation as covered in section \ref{Section:Algorithms}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/hu_fig8.png}
+        \caption{Speckle patterns collected at different exposure times. \cite{hu}}
+        \label{fig:hu_fig8}
+    \end{figure}
+
+    \subsubsection*{Frame Rate}\label{Subsubsection:Frame_Rate}
+    \Gls{lsp} captured with higher frame rate cameras would exhibit less motion blur owing to more frames being captured in a given time. Charret et. al. and Bandari et. al. have used 500 \gls{fps} high speed camera in their setup \cite{charrett_2018} \cite{bandari}. But, higher frame rate comes at a cost of low contrast in images, because of less incident light on the camera sensor. 
+
+    \vspace{5mm}
+    \noindent At a low relative velocity between camera and surface, higher frame rate would result in large quantity of images, that when seen consecutively would be indistinguishable from each other. As the velocities are low, with a large number of frames, pixel shifts between consecutive images would be very minute to be detected by the template matching algorithm. So, it may appear as if no relative displacement occurred between camera and the surface. This problem is exacerbated, when pixel size of the image sensor is large. If the relative movement between camera and surface is smaller than pixel size, no pixel shift can be recorded. Charrett et. al. mentioned that for shorter distances, frames captured would be indistinguishable from each other, which meant that, algorithms would have difficulty in detecting pixel shifts \cite{charrett_mars}.
+
+    
+    \subsubsection*{Aperture Size}
+    Aperture is the hole that allows the incoming light to fall on image sensor. It's size controls the exposure of image sensor to light. As a result of higher shutter speeds, larger aperture is required for adequate exposure. Charret et. al. did not use any lens in front of the image sensor. They called it \emph{objective speckle setup} (See Section \ref{Subsubsection:Objective_Subjective}). But, by introducing a lens in front of the image sensor (called \emph{subjective speckle setup}), the aperture hole size has an effect on speckle size because of \emph{diffraction} (See Chapter \ref{Chap:Fundamentals} Section \ref{Section:Diffraction}). As Charrett et. al. did not use a lens in front of the image sensor, the need for aperture - to control speckle size - was not there anymore \cite{charrett_2018}. Briers et. al. mentioned also that speckle size is entirely dependent on wavelength of the incident light and size of aperture hole used to image the pattern \cite{briers}.
+
+    \vspace{5mm}
+    \noindent Sjoedahl et. al. used \emph{f}/16 aperture for their setup, giving a speckle size of 3 pixels at the detector \cite{sjoedahl}. Song et. al. captured \gls{lsp} for different aperture numbers of 8, 11, 16, 22, 32 and named them respectively from C1--C5. As can be seen from Fig. \ref{fig:song_fig9}, as aperture size is decreasing, amount of available light falling on sensor decreases, as shown by \gls{agl} values, but \gls{ass} is increasing. The importance of speckle size is covered in the section \ref{Subsubsection:Speckle_Size}. Song et. al. also collected \Gls{lsp} at different aperture sizes while simultaneously adjusting the exposure times to get appropriate \gls{agl}. They found, as aperture \emph{f}-number is increasing, the speckle size increases. As can be seen from Fig. \ref{fig:song_fig5} with decreasing aperture size \gls{ass} is increasing \cite{song}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/song_fig9.png}
+        \caption{Speckle pattern collected under different external factors: Speckle patterns C1, C2, C3, C4, C5 are collected at different apertures and correspond to apertures 8, 11, 16, 22, 32; Speckle patterns collected at different laser power and the corresponding binary patterns: Speckle patterns D1, D2, D3, D4, D5 are collected at different laser power and correspond to laser powers 10 mW, 100 mW, 200 mW, 300 mW, 400 mW; Speckle patterns E1, E2, E3, E4, E5 are collected at different temperatures and correspond to temperatures 1200 °C, 1300 °C, 1400 °C, 1500 °C, 1600 °C. \cite{song}}
+        \label{fig:song_fig9}
+    \end{figure} 
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/song_fig5.png}
+        \caption{Speckle patterns collected at different apertures and their binary patterns: Speckle patterns A1, A2, A3, A4, A5 with the same \gls{mig} and correspond to apertures 8, 11, 16, 22, 32; Speckle patterns B1, B2, B3, B4, B5 with the same \gls{miosd} and correspond to apertures 8, 11, 16, 22, 32. \cite{song}}
+        \label{fig:song_fig5}
+    \end{figure}
+
+    \clearpage
+    
+    \subsubsection*{Resolution of Captured Image and Correlation Window Size}
+    Charrett et. al. used an image with resolution of 512 \times \ 512 pixels, with image sensor having a pixel size of \SI{4.8}{\micro\meter} \cite{charrett_2018}. The correlation window used for \gls{ncc} had dimensions of 128 \times \ 128 pixels. If the resolution is high, brute force algorithm used to perform template matching would take longer time. This is because, the template matching algorithm would take longer to perform \gls{ncc} on each pixel location. Therefore, a balance needs to be found. Smaller the correlation window, the easier it is to perform \Gls{ncc}, but too small a window means, higher chance to have outliers, thus decreasing the accuracy. Lewis stated that performance of fast-\Gls{ncc} depends on search window size and the ratio between feature window size and search window size \cite{lewis}.
+
+    \subsubsection*{Speckle Size}\label{Subsubsection:Speckle_Size}
+    The speckle size is determined by the size of the aperture hole. Particle size increases as aperture value (\emph{f-number}) increases as a result of \emph{diffraction} \cite{song}. Hu et. al. found that optimal speckle size is between 3 - 5 pixels for better quality of \Gls{lsp} \cite{hu}. If the speckle size is too small, it leads to image under-sampling causing large interpolation errors. This can be attributed to pixel size being comparable to translation between camera and surface. On the other hand, if the speckle size is too large, it leads to poor quality of images.
+    
+    \vspace{5mm}
+
+    \noindent Charrett et. al. used a speckle size of 4 pixels for their objective speckle setup (See Section \ref{Subsubsection:Objective_Subjective}) \cite{charrett_2019}. Francis et. al. suggested a pixel square of 2 \times \ 2, so that each speckle is made of 4 pixels \cite{francis_autonomous}. For an objective and a subjective speckle setup, speckle size can be measured by equation \ref{eqn:objective} and equation \ref{eqn:subjective} respectively \cite{cloud}. 
+    
+    \vspace{5mm}
+    \begin{itemize}
+        \item $\lambda$ is wavelength of laser used
+        \item \emph{L} is observation distance
+        \item \emph{A} is diameter of illuminated area
+        \item \emph{F/a} is the \emph{f}-number of the lens
+        \item \emph{M} is the magnification factor
+    \end{itemize}
+
+    \begin{equation}\label{eqn:objective}
+        \textlangle \sigma_O \textrangle \ = \  \frac{\lambda L}{A}
+    \end{equation}
+
+    \begin{equation}\label{eqn:subjective}
+        \textlangle \sigma_S \textrangle \ = \  \lambda \frac{F(1 + M)}{a}
+    \end{equation}
+
+    \vspace{5mm}
+
+    \noindent Sjoedahl et. al. suggested that speckle size greater than twice the pixel size is required to sample the speckle pattern \cite{sjoedahl}. Owing to use of lens and an aperture in subjective speckle setup (See section \ref{Subsubsection:Objective_Subjective}), if we want to increase speckle size, we have to decrease aperture hole size - \emph{a} (See Eqn. \ref{eqn:subjective}) or in other words higher \emph{f-number} camera setup is required. And if we are decreasing that hole size, we are letting in less light, therefore exposure time needs to be more in such a case. Charrett et. al. concluded that velocity measurement performance decreases over \SI{0.4}{\milli\meter/\second}, when increasing the speckle size over $\sim$8 pixels as seen in Fig. \ref{fig:charrett_mars_fig11} \cite{charrett_mars}. They also concluded that, best performance in velocity measurement was extracted, when speckle size was around $\sim$2 pixels.
+
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/charrett_mars_fig11.png}
+        \caption{(a) The mean calculated v component of velocity and (b) the minimum Q-value, plotted against stage velocity for various speckle sizes using the \gls{ncc} method. Q-value > 1.1 means that velocity estimate could be trusted. \cite{charrett_mars}}
+        \label{fig:charrett_mars_fig11}
+    \end{figure}
+
+    \subsubsection*{Objective vs Subjective Speckle Setup}\label{Subsubsection:Objective_Subjective}
+
+    As shown in Fig. \ref{fig:francis_fig2}, the objective speckle setup lacks a lens in front of image sensor. According to Francis et. al. and Charrett et. al. it has the following advantages: decreased number of components, and removal of small aperture to increase speckle size \cite{francis_autonomous} \cite{charrett_2018}. Removal of aperture removes the need for magnification of speckle size as a result of diffraction (See Chapter \ref{Chap:Fundamentals} Section \ref{Section:Diffraction}) by decreasing the size of aperture, hence reducing the available light falling on the image sensor. The differences between these two setups are outlined in Table \ref{table:francis_table1}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/francis_fig2.png}
+        \caption{Formation of objective speckle (a) and subjective speckle (b) \cite{francis_autonomous}}
+        \label{fig:francis_fig2}
+    \end{figure}
+
+    \noindent In a subjective speckle setup, insufficient signal levels and wide divergent beam are a result of small aperture. Hence, slower velocities were used for translation as compared to objective speckle setup \cite{francis_autonomous}. Subjective speckle setup requires a large divergent beam to overfill the \gls{fov} and reduce the influence from Gaussian beam profile. This helps in reducing the background intensity variations, which reduce the quality of the speckle image. One of the other differences noted here is, that in comparison with objective speckle setup, the \gls{lsp} captured with subjective speckle setup also have surface features being imaged (See Fig. \ref{fig:francis_fig12}(b), (c) and Fig. \ref{fig:francis_fig13}(b), (c)). This introduced errors into the correlation algorithm because of this background energy.
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
+            \hline
+            Parameter & Objective Speckle & Subjective Speckle \\
+            \hline
+            Signal    & Dependent on configuration. & Dependent of \emph{F}-number of imaging lens. \\
+            \hline
+            Scaling Factor  & Dependent on configuration. & Can be determined from measurement of field of view. \\
+            \hline
+            Illumination beam divergence & Relatively small to control speckle size. & Relatively large to overfill field of view. \\
+            \hline
+        \end{tabular}
+        \caption{Summary of Parameters Pertinent to Choice of Speckle Type for Velocimetry Applications \cite{francis_autonomous}}
+        \label{table:francis_table1}
+        
+    \end{table}
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/francis_fig12.png}
+        \caption{The path calculated by cross-correlation of objective speckle patterns with the stages running at a maximum velocity of \SI{80}{\milli\meter/\second} (a). A pair of speckle patterns in successive frames at a point where the stages are moving at maximum velocity (b) and (c), and the normalized cross-correlation between them (d).\cite{francis_autonomous}}
+        \label{fig:francis_fig12}
+    \end{figure}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/francis_fig13.png}
+        \caption{The path calculated by cross-correlation of subjective speckle patterns with the stages running at a maximum velocity of \SI{50}{\milli\meter/\second} (a). A pair of speckle patterns in successive frames at a point where the stages are moving at maximum velocity (b) and (c), and the normalized cross-correlation between them (d). \cite{francis_autonomous}}
+        \label{fig:francis_fig13}
+    \end{figure}
+\clearpage
+
+\subsection{Setup Parameters}
+
+    \subsubsection*{Distance between beam waist and detector}\label{Subsubsection:Distance_Beam_Waist_Detector}
+    Charrett et. al. decided the distance between detector (D) and beam waist (S) to be 20mm as seen from Fig. \ref{fig:charrett_2018_fig2} \cite{charrett_2018}. Francis et. al. in their setup were able to achieve a minimum distance of 65mm \cite{francis_autonomous}. By keeping the distance between S \& D to a minimum, there is more possibility to reduce SRD angle, thus resulting in higher sensitivity for in-plane translations i.e. x - y plane and lower sensitivity for height variations i.e. movements along z-axis and surface gradients.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/c_sota/charrett_2018_fig2.png}
+        \caption{(a) A schematic showing the ‘balanced angle’ geometry used for the sensor with the beam focus and detector located in the same x–y plane 150 mm from the workpiece surface and (b) a photograph of the 3D printed sensor prototype in mount. \cite{charrett_2018}}
+        \label{fig:charrett_2018_fig2}
+    \end{figure}
+
+
+    \subsubsection*{Cone Angle}
+    As mentioned in the section \ref{Subsubsection:Distance_Beam_Waist_Detector}, when the SRD angle (See Fig. \ref{fig:charrett_2018_fig2}) is small and the distance between beam waist and detector is small, the incidence and observation angles are closer to the normal. This results, that sensor was robust to changes in working height and small misalignments \cite{charrett_2018}. Charrett et. al. also concluded from their experiments that, tilting the surface produced more error as compared to changing the vertical height distance between surface and plane containing S \& D \ref{charrett_2018}. Ideally co-linear arrangement of laser source and detector would be optimum, as small balanced angle geometry had advantages of requiring less optical components, and compact sensor setup.
+    
+    \vspace{5mm}
+
+    \noindent Francis et. al. showed that smaller is the angular separation between the incidence angle of laser and observation angle of detector, better is the sensitivity \cite{francis_autonomous}. Higher sensitivity is beneficial in better speckle movement detection, because a small displacement applied to sensor setup translates to larger displacement in image plane. This is better for image processing algorithms like \gls{ncc} (See Chapter \ref{Chap:Fundamentals} Section \ref{Section:NCC}). Because while performing template matching, it is easier to detect more pixel shifts in a pattern for small actual translation.
+    
+    
+    \subsubsection*{Height from the work surface}
+    Charrett et. al. and Bandari et. al. used a setup where beam waist is \SI{150}{\milli\meter} above the working surface (See Fig. \ref{fig:charrett_2018_fig2}) \cite{charrett_2018} \cite{bandari}. No explanation was given for the specified value. In their paper, they have mentioned that change in working height resulted in positional error, as that meant that the laser spot translated by a certain value. Francis et. al. chose \SI{210}{\milli\meter} \cite{francis_autonomous} to balance signal levels and better scaling factor in comparison to \SI{150}{\milli\meter} used by Charrett et. al. \cite{charrett_2018}. It can be assumed, that this height is more in the former than the latter, as it results in a lower cone angle.
+
+    \vspace{5mm}
+
+    \noindent Nagai et. al. used a setup to emit an almost parallel beam of light from the laser source \cite{nagai}. Thus, by changing heights between \SI{70}{\milli\meter} to \SI{500}{\milli\meter}, the laser spot diameter remained at an approximate value of \SI{3.7}{\milli\meter}. But, error in measurement suddenly increased after a certain value of height, owing to the weak luminance of the reflected laser as seen from Fig. \ref{fig:nagai_fig5}. Apart from this, their findings on changing height during translation of sensor setup in xy-plane, indicate that with movements along z-axis, error does accumulate with either increment or decrement of height but remained within 5\% as seen from Fig. \ref{fig:nagai_fig7}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/c_sota/nagai_fig5.png}
+        \caption{Measurement errors for different distances between sensor and surface. White and black papers were used in the experiment. 2L and 1L indicate the number of laser sources used. \cite{nagai}}
+        \label{fig:nagai_fig5}
+    \end{figure}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/c_sota/nagai_fig7.png}
+        \caption{Measurement error for different heights during 200-mm translation in Y-direction. \cite{nagai}}
+        \label{fig:nagai_fig7}
+    \end{figure}
+
+    \clearpage
+
+    \subsubsection*{Tilt/Yaw of the work surface}\label{subsubsection:tilt_yaw}
+    If the surface is not parallel to the xy plane (xyz axis as shown in Fig. \ref{fig:charrett_2018_fig4}), any kind of tilt or yaw will result in an additional translation depending on rotation angle and offset from center of rotation. It was suggested that, in order to avoid such spurious recordings of additional velocities, robot \gls{tcp} and laser spot center should ideally be co-located.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/c_sota/charrett_2018_fig4.png}
+        \caption{Experimental setup for laboratory measurements. \cite{charrett_2018}}
+        \label{fig:charrett_2018_fig4}
+    \end{figure}
+
+    \noindent Any kind of tilt/yaw can also affect the efficacy of the \gls{ncc} algorithm negatively (See Section \ref{Section:Algorithms}), and it changes the imaging magnification. This is because, \gls{ncc} fails to take into account image rotation. This was further confirmed by Charrett et. al. \cite{charrett_extended_theory}. They tested surfaces with different gradients (See Fig. \ref{fig:charrett_extended_fig2}) and found out that, it leads to significant errors in correlation. Sjoedahl found that, with a tilt angle of less than 1/\emph{f}, with \emph{f} being the \emph{f}-number of the camera, resulted in an undetectable pattern \cite{sjoedahl}.
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/c_sota/charrett_extended_fig2.png}
+        \caption{The 3D printed test objects used by Charrett et. al. in their experiment. From left to right, slope = 1.0, 0.8, 0.6, 0.4, 0.2 and 0.0 and the stage mounting plate. \cite{charrett_extended_theory}}
+        \label{fig:charrett_extended_fig2}
+    \end{figure}
+
+
+    \subsubsection*{Monochromatic and Polychromatic Light}
+    Dainty mentions that surface roughness does not affect the speckles statistics when monochromatic light was incident on the surface \cite{dainty}. But the \gls{rms} height variation $\sigma$ did affect the statistics of scattered light when polychromatic light source was used. Apart from the chromatic nature of light source, the coherence of the light also had an effect on the statistical properties of speckle pattern.
+
+    
+    \subsubsection*{Velocity}
+    Nagai et. al. concluded that measurement error increased with increasing speed and acceleration values. But the maximum error was less than 3\% for a velocity of 400 mm/s (See Fig. \ref{fig:nagai_fig8}) \cite{nagai}. Whether such high speeds are possible for the purpose of this thesis, is to be tested. Charrett et. al. found out that blurring of speckles at high velocities produced positional errors \cite{charrett_2018}. Therefore, higher frame rate cameras with higher exposure time are needed so that adequate signal levels can be maintained. On the other hand, Smid et. al. were unable to record the difference between speckle displacement of 1-3 pixels using template matching algorithms between frames due to the low velocity values \cite{smid_2007}. Minimal speckle displacement recommended by them was 4 pixels. In conclusion, the capability to measure velocities or displacements depends on either the difference in pixels being detected by the correlation algorithm for low velocities or on the other hand the motion blur being countered at high velocities. Hence, a higher sensitivity setup which has high frame rate is required which can measure low velocities as well as high velocities.
+
+    \vspace{5mm}
+    \noindent Therefore, each \gls{lsi} setup will have a band of low and high velocity where it can perform template matching to an acceptable degree, which is highly dependent on external factors such as camera type, exposure time, image sensor type etc.
+
+    
+    \subsubsection*{Decorrelation}\label{subsubsection:decorrelation}
+    Briers et. al. mentioned, that when there are small movements to the surface being imaged, the speckles remain correlated. But for larger translations, the speckle patterns \emph{decorrelate} and change completely \cite{briers}. Therefore, \gls{lsp} are sensitive to change in position, yaw, tilt, height. Hu et. al. also stated large displacements or tilts should be avoided, as decorrelation would affect the correlation calculation negatively \cite{hu}. Charrett et. al. have also mentioned that translation and decorrelation of speckle patterns dependent on object's rotation, translation, strain and surface roughness \cite{charrett_2018}. Sjoedahl et. al. made it sure that orientation of surface does not change, as it would result in complete decorrelation, and metal components could not be verified with their \emph{laser speckle fingerprints} \cite{sjoedahl}. \Gls{lsp} can deviate also, because of fluctuations in sampling of \Gls{lsp}, random camera noise and power fluctuations in laser source \cite{charrett_2019}. These are also the reasons, why a database approach would be discouraged going forward with the thesis.
+
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.5\textwidth]{images/c_sota/nagai_fig10.png}
+    %     \caption{Result of sensor output for surface moving at very high speed with sensor placed on plastic plate rotated by turntable. (\cite{nagai})}
+    %     \label{fig:nagai_fig10}
+    % \end{figure}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/c_sota/nagai_fig8.png}
+        \caption{Absolute error at different velocities. \cite{nagai}}
+        \label{fig:nagai_fig8}
+    \end{figure}
+    
+
+    \subsubsection*{Laser Power}
+    Song et. al. collected \glspl{lsp} for different laser powers, namely \SI{10}{\milli\watt}, \SI{100}{\milli\watt}, \SI{200}{\milli\watt}, \SI{300}{\milli\watt}, \SI{400}{\milli\watt}, \SI{500}{\milli\watt} and named the corresponding \glspl{lsp} D1-D5 respectively \cite{song}. The laser power affects brightness and contrast of \gls{lsp}, but does not affect the size of the speckle. This can seen in Fig. \ref{fig:song_fig9}.
+
+
+    \subsubsection*{Temperature}
+    Song et. al. also showed that background radiation in high temperature affects brightness and contrast of speckle pattern, but it does not affect size and shape of speckle particles \cite{song}. \glspl{lsp} were sampled for temperatures namely \SI{1200}{\degree\celcius}, \SI{1300}{\degree\celcius}, \SI{1400}{\degree\celcius}, \SI{1500}{\degree\celcius}, \SI{1600}{\degree\celcius} and named E1-E5 respectively (See Fig. \ref{fig:song_fig9}).
+
+
+\vspace{5mm}
+\subsection{Material Parameters}
+
+    \subsubsection*{Surface Roughness}
+    Dainty in his article has mentioned that, if a surface has a roughness greater than wavelength of incident light, a speckle pattern will be produced, when a monochromatic laser is incident on it \cite{dainty}. But this does not prove any dependence of degree of surface roughness on the speckle pattern. The relationship between scattered intensity and scattering surface was also shown to be very complicated to compute. As mentioned by Briers et. al., size of individual speckles is entirely dependent on the wavelength of the incident light and size of the aperture hole used to image the pattern \cite{briers}. This is understandable, as speckle pattern formation is only an interaction between light waves. An experimental verification by Hu et. al. confirmed the fact that surface roughness had little impact on quality of speckle images \cite{hu}. Song et. al. stated that the smaller the value of roughness is, better is the contrast. But it does not affect the size of speckle particles \cite{song}.
+    
+
+    \subsubsection*{Surface Material}
+    Song et. al. collected \glspl{lsp} for different materials at different \emph{f-number}, namely 8, 11, 16, 22, 32 \cite{song}. The sampled \glspl{lsp} corresponded to G1-G5 respectively (See Fig. \ref{fig:song_fig15}). As different materials have different light reflectance properties, ceramic having a higher reflectance, has highest brightness and best contrast in it's \gls{lsp}. Carbon-Carbon composite material has weakest brightness and poorest contrast. But, with higher reflectance property of ceramic, quality of \Gls{lsp} can be poor, because of overexposure. Nagai et. al. tested their setup to understand how different materials, for e.g. artificial lawn, stone, carpet, sand etc. as shown Fig. \ref{fig:nagai_fig12}, affected the tracking performance of \gls{lsp} using optical sensor for a computer mouse. Materials such as paper, stone, plastic and aluminum plates were used, and absolute error recorded was less than 4\%. The only materials the optical sensor struggled with was an artificial lawn with recorded absolute error greater than 5\% (See Fig. \ref{fig:nagai_fig11}) \cite{nagai}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.45\textwidth]{images/c_sota/nagai_fig12.png}
+        \caption{Some examples of various surface materials used in experiment. \cite{nagai}}
+        \label{fig:nagai_fig12}
+    \end{figure}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/c_sota/nagai_fig11.png}
+        \caption{Measurement error of proposed device for \SI{200}{\milli\meter} displacement on different surface materials. 2L and 1L indicate the number of laser sources used. \cite{nagai}}
+        \label{fig:nagai_fig11}
+    \end{figure}
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.65\textwidth]{images/c_sota/song_fig15.png}
+        \caption{Specimens and Speckle patterns: (a) The specimens of different materials (The size of the experimental area is \SI{18}{\milli\meter} × \SI{6}{\milli\meter}) (b) Speckle patterns of different material specimens: Speckle patterns G1, G2, G3, G4, G5 correspond to apertures 8, 11, 16, 22, 32. \cite{song}}
+        \label{fig:song_fig15}
+    \end{figure}
+
+    \clearpage
+
+\section{Improving quality of images}
+
+Hu et. al. in their findings conclude that resolution and accuracy of correlation methods used with \gls{lsp} are dependent on defocussing degree, which affects the speckle particle size and depends on the focal length and speckle pattern quality \cite{hu}. According to Charrett et. al., using image filters such as binary threshold and Prewitt kernels (See Fig. \ref{fig:charrett_mars_fig12}) lead to reliable velocity measurements \cite{charrett_mars}. In their experiment \emph{Q-value} of 1.1, means the velocity measurement using \gls{ncc} could be trusted. The calculated velocities plotted against stage velocities were plotted for each of the filters as shown in Fig. \ref{fig:charrett_mars_fig13} (a). As the \emph{Q-value} drops below the threshold of 1.1, the image filter used in velocity measurement becomes unreliable. For e.g. Canny filter can measure velocities to a good approximation when velocities are around \SI{0.7}{\milli\meter/\second}. Fig. \ref{fig:charrett_mars_fig13} (b) plot shows \emph{Q-values} against stage velocities. \emph{Q-values} for Prewitt filter are also greater than \gls{lsp} with no filter. 
+
+
+\begin{figure}[h] 
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/c_sota/charrett_mars_fig12.png}
+    \caption{Typical speckle images: (a) no pre-filter, (b) Canny edge detection, (c) binary threshold, (d) Prewitt gradient filters. \cite{charrett_mars}}
+    \label{fig:charrett_mars_fig12}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/c_sota/charrett_mars_fig13.png}
+    \caption{(a) The mean calculated v component of velocity and (b) the minimum correlation Q-value that occurred plotted against stage velocity using the \gls{ncc} method and different pre-filters. \cite{charrett_mars}}
+    \label{fig:charrett_mars_fig13}
+\end{figure}
+
+\clearpage
+
+\section{Algorithms to detect shift}\label{Section:Algorithms}
+
+As per the literature survey, two image processing techniques have been widely used, namely \Gls{ncc} and using feature tracking using OpenCV \cite{opencv}. Song et. al. noted that accuracy of \gls{dic} depends on a lot of factors, for e.g. quality of speckle pattern, shape function, correlation function, sub-pixel algorithm \cite{song}. Lewis outlined the techniques of \gls{ncc} for purpose of feature tracking \cite{lewis}. The author also concluded that relative performance of \gls{ncc} depends on search window size or to ratio of feature size to search window size. Charrett et. al. used 2D-\gls{ncc} + 3 - Point Gaussian Fit for their experiment \cite{charrett_2018}. Here, the difference of position between center of the reference image and the location of peak of \gls{ncc} denotes the relative movement of robot \gls{tcp} with respect to surface (See Fig. \ref{fig:charrett_2018_fig1}).  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/c_sota/charrett_2018_fig1.png}
+    \caption{In (a) the sensor is attached to the robot end-effector to measure relative in-plane translation between the robot and workpiece. In (b) the signal processing principle is shown with the 2D cross-correlation between a reference and new speckle pattern computed with the peak giving the translation of the pattern (Ax, Ay). \cite{charrett_2018}}
+    \label{fig:charrett_2018_fig1}
+\end{figure} 
+
+\noindent Charrett et. al. found out that accuracy of feature tracking approach using OpenCV is similar to the NCC + Gaussian Peak interpolation approach \cite{charrett_2019}. Still all methods exhibit pixel locking effects \cite{raffel}. Advantage of feature tracking in OpenCV is that, it can measure rotation upto a certain range depending on the type of method used, which \gls{ncc} cannot. Not only that, as per their results, accuracy of translation measurements from these OpenCV features is similar to \gls{ncc} or in some cases even better (See Fig. \ref{fig:charrett_2019_fig2}). Another advantage of this approach is, if the feature tracking methods are optimized enough, they can perform faster and more robust detections \cite{charrett_2019}.
+
+\vspace{5mm}
+\noindent So far, no algorithms has been found that measures pure rotation. But, that is out of the scope of this thesis and hence will not be tested. \cite{charrett_mars} also compared \gls{ncc} with Radon Transformation and Optical Flow algorithms and concluded them unsuitable for the application of velocity measurement. Radon transformation was deemed unsuitable because it is computationally expensive and Optical Flow approach required calibration for each type of surface to be able to perform velocity measurement. They found that \gls{ncc} was best suited approach with odometry error \~{}0.2\% at speeds of \SI{0.1}{\milli\meter/\second} and 0.75\% at \SI{50}{\milli\meter/\second}. In the methodology used for velocity measurements by Charrett et. al. \cite{charrett_wpos}, because of peak locking \cite{raffel}, Gaussian 3-point interpolation is required to have sub-pixel accuracy to measure translation. Still with each re-referencing procedure used in their methodology, a positional error will accumulate. This can make a difference in the end, if the application is for long-range translation measurement or short range, vibration measurement.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/c_sota/charrett_2019_fig2.png}
+    \caption{Comparison between experimental speckle velocimetry data processed using the normalized cross-correlation (\gls{ncc}) and feature tracking methods. The speckle shift found using the \gls{ncc} method is shown by the solid and dashed lines for the x and y components, respectively. The feature tracking results are shown as the data points, crosses, and dots for the x and y components, respectively. \cite{charrett_2019}}
+    \label{fig:charrett_2019_fig2}
+\end{figure} 
+
+% \section{Summary}\label{section:summary}
+% There are a total of 17 factors that can influence the \gls{lsp} and the \gls{dic} techniques as per the literature review. They are as follows:
+
+% \begin{itemize}
+%     \item Exposure Time
+%     \item Aperture Size
+%     \item Frame Rate of Camera
+%     \item Laser wavelength
+%     \item Correlation Window Size
+%     \item Image Resolution of Camera
+%     \item Speckle Size
+%     \item Objective vs. Subjective Speckle Setup
+%     \item Height of Surface from Sensor Setup
+%     \item Tilt or yaw for the surface material
+%     \item Distance between laser source and detector
+%     \item Velocity of surface movement
+%     \item Laser Power
+%     \item Temperature
+%     \item Roughness
+%     \item Material Parameters
+%     \item Image Filters in \cite{opencv}
+% \end{itemize}
+
+% Methodology:
+
+% \begin{itemize}
+%     \item How do different materials affects speckle size and speckle pattern in general?
+%     \item charrett2018 500fps, 200us exposure time, 512x512 pixels
+%     \item Exposure time? Affected by aperture size and shutter speed. How do these factors affect speckle pattern?
+%     \item charrett2018 detector and focus point in same plane and 150mm above the surface
+%     \item charrett2018 balanced angle geometry: distance between detector and focus point is 50mm, zero sensitivity to out of plane motion
+%     \item charrett2018 effect of the SDR angle on sensitivity
+%     \item charrett2018 Objective setup. No lens in front of imaging camera. Therefore small aperture not needed to increase speckle size. So in such a case how does one increase speckle size?
+%     \item balance high frame rate with short exposure time. But then increase the camera aperture hole at risk of decreasing pixel size. The short exposure time can be countered with increasing the laser power, working with higher reflectivity material, decreasing the distance between detector and surface, and improving sensitivity of detector \cite{charret_autonomous}
+%     \item Therefore the setup needs to be recreatable. Because sensitive to yaw, tilt etc.
+% \end{itemize}
