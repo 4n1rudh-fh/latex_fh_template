@@ -112,20 +112,18 @@ In this chapter information collected from literature survey will cover the foll
     \begin{table}[h]
         \centering
         \footnotesize
-        \begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
-            \hline
-            Parameter & Objective Speckle & Subjective Speckle \\
-            \hline
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{3cm}p{5.5cm}p{5.5cm}}
+            \toprule
+            \textbf{Parameter} & \textbf{Objective Speckle} & \textbf{Subjective Speckle} \\
+            \midrule
             Signal    & Dependent on configuration. & Dependent of \emph{F}-number of imaging lens. \\
-            \hline
-            Scaling Factor  & Dependent on configuration. & Can be determined from measurement of field of view. \\
-            \hline
-            Illumination beam divergence & Relatively small to control speckle size. & Relatively large to overfill field of view. \\
-            \hline
+            Scaling Factor  & Dependent on configuration. & Can be determined from measurement of  \gls{fov}. \\
+            Illumination beam divergence & Relatively small to control speckle size. & Relatively large to overfill \gls{fov}. \\
+            \bottomrule
         \end{tabular}
         \caption{Summary of Parameters Pertinent to Choice of Speckle Type for Velocimetry Applications \cite{francis_autonomous}}
         \label{table:francis_table1}
-        
     \end{table}
     
     \begin{figure}[h]
@@ -181,7 +179,7 @@ In this chapter information collected from literature survey will cover the foll
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{images/c_sota/nagai_fig7.png}
-        \caption{Measurement error for different heights during 200-mm translation in Y-direction. \cite{nagai}}
+        \caption{Measurement error for different heights during \SI{200}{\milli\meter} translation along Y-axis. \cite{nagai}}
         \label{fig:nagai_fig7}
     \end{figure}
 
@@ -241,7 +239,7 @@ In this chapter information collected from literature survey will cover the foll
 
 
     \subsubsection*{Temperature}
-    Song et. al. also showed that background radiation in high temperature affects brightness and contrast of speckle pattern, but it does not affect size and shape of speckle particles \cite{song}. \glspl{lsp} were sampled for temperatures namely \SI{1200}{\degree\celcius}, \SI{1300}{\degree\celcius}, \SI{1400}{\degree\celcius}, \SI{1500}{\degree\celcius}, \SI{1600}{\degree\celcius} and named E1-E5 respectively (See Fig. \ref{fig:song_fig9}).
+    Song et. al. also showed that background radiation in high temperature affects brightness and contrast of speckle pattern, but it does not affect size and shape of speckle particles \cite{song}. \glspl{lsp} were sampled for temperatures namely 1200\textdegree{}C, 1300\textdegree{}C, 1400\textdegree{}C, 1500\textdegree{}C, 1600\textdegree{}C and named E1-E5 respectively (See Fig. \ref{fig:song_fig9}).
 
 
 \vspace{5mm}

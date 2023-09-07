@@ -1,3 +1,118 @@
 \chapter{Experimental Setup}
 
-This is where you explain your experimental setup.
+The experiments were conducted using the following components:
+
+\section*{Camera}
+    The camera used for the experiments is manufactured by Allied Vision and the model's name is Mako G-040B. It is a \gls{poe} enabled, Gig-E compliant monochrome camera. It can run at frame rate of 286 \gls{fps} at full resolution of 0.4 megapixel. It has a progressive scan \gls{cmos} Sony IMX287 image sensor with a pixel size of \SI{6.9}{\micro\meter} x \SI{6.9}{\micro\meter}. The rest of the technical details can be found in the Table \ref{table:camera_specs}.
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{6cm}p{7cm}}
+            \toprule
+            \textbf{Parameter} & \textbf{Description} \\
+            \midrule
+            Interface & IEEE 802.3 1000BASE-T, IEEE 802.3af (\gls{poe})\\
+            Resolution & 728 (H) x 544 (V)\\
+            Sensor & Sony IMX287\\
+            Sensor Type & \gls{cmos}\\
+            Shutter Mode & \gls{gs}\\
+            Sensor Size & Type 1/2.9\\
+            Pixel Size & \SI{6.9}{\micro\meter} x \SI{6.9}{\micro\meter}\\
+            Lens Mounts & C-Mount, CS-Mount\\
+            Max. Frame Rate at Full Resolution & 286 \gls{fps}\\
+            ADC & 12 Bit\\
+            Image Buffer & 64 MByte\\
+            \bottomrule
+        \end{tabular}
+        \caption{Specifications for Mako G-040B Camera. \cite{mako_camera}}
+        \label{table:camera_specs}
+    \end{table}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/d_exp_setup/mako_camera.png}
+        \caption{Mako G-040 \cite{mako_camera}}
+        \label{fig:mako_camera.png}
+    \end{figure}
+
+\clearpage
+
+\section*{Laser Diode Module}
+    The laser module CPS635F from ThorLabs (See Fig. \ref{fig:laser_module.jpg}) has typical wavelength of \SI{635}{\nano\meter}. It has adjustable focal length and produces laser beam of elliptical shape. The variations in output wavelength with changing temperature can be seen from the Fig. \ref{fig:spectrum_laser_module.png}. Other specifications can be found in the Table \ref{table:laser_module_specs}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.26\textwidth]{images/d_exp_setup/laser_module.jpg}
+        \caption{CPS635F Laser Module from ThorLabs. \cite{thorlabs_laser}}
+        \label{fig:laser_module.jpg}
+    \end{figure}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/d_exp_setup/spectrum_laser_module.png}
+        \caption{Spectrum of CPS635F module taken at 20\textdegree{}C, 25\textdegree{}C, 30\textdegree{}C. This data is typical and will vary for each module. \cite{thorlabs_laser}}
+        \label{fig:spectrum_laser_module.png}
+    \end{figure}
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{6cm}p{2cm}p{2cm}p{2cm}}
+            \toprule
+            \textbf{Parameter} & \textbf{Minimum} & \textbf{Typical} & \textbf{Maximum} \\
+            \midrule
+            Wavelength & \SI{630}{\nano\meter} & \SI{635}{\nano\meter} & \SI{645}{\nano\meter} \\
+            Power & \SI{4.0}{\milli\watt} & \SI{4.5}{\milli\watt} & \SI{5.0}{\milli\watt} \\
+            Power Stability (8 hours) & - & - & 2\% \\
+            Power Stability (1 minute) & - & - & 1\% \\
+            Axis Deviation & - & - & \SI{5}{\milli\radian} \\
+            Beam Divergence (Collimated) & - & - & \SI{1.6}{\milli\radian} \\
+            Focal Range (From Exit Window) & \SI{80}{\milli\meter} & - & Collimated \\
+            Focussed Spot Diameter (\SI{100}{\milli\meter}, 1/e²) & - & \SI{30}{\micro\meter} & - \\ 
+            Operating Current & - & \SI{50}{\milli\ampere} & \SI{70}{\milli\ampere} \\
+            \bottomrule
+        \end{tabular}
+        \caption{Optical and Electrical Specifications of CPS635F Laser Module. \cite{thorlabs_laser}}
+        \label{table:laser_module_specs}
+    \end{table}
+
+\clearpage
+
+\section*{Lens Body}
+    The lens body holds camera lens as well as the bandpass filter. 
+    \subsection*{Camera Lens}
+    The camera lens, manufactured by Edmund Optics, has a fixed focal length of \SI{25}{\milli\meter}. The aperture is adjustable from \emph{f}/1.85 to \emph{f}/16. This allows the working distance to be in range \SI{200}{\milli\meter} - $\infty$.
+
+    \subsection*{Bandpass Filter}
+    The bandpass filter FLH635-10 from ThorLabs allows 85\% transmission of laser with wavelength of \SI{635}{\nano\meter}. The pass region for this filter is \SI{10}{\nano\meter} at \gls{fwhm}. The bandpass filter is needed to avoid influence of light other than the laser source on the conducted experiments.
+
+    \begin{figure}[h]
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.5\textwidth]{images/d_exp_setup/lens.jpg}
+            \caption{Camera Lens. \cite{edmund_optics_lens}}
+            \label{fig:lens.jpg}
+        \end{subfigure}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.4\textwidth]{images/d_exp_setup/bandpass_filter.jpg}
+            \caption{Bandpass Filter. \cite{thorlabs_bandpass_filter}}
+            \label{fig:bandpass_filter.jpg}
+        \end{subfigure}
+        \caption{Lens Body Components.}
+        \label{fig:lens_body.jpg}
+    \end{figure}
+
+\section*{Hexapod}
+
+
+\section*{To-Do}
+\begin{itemize}
+
+    \item Circuit Design Photo
+    \item 
+
+\end{itemize}
