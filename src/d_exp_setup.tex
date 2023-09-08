@@ -107,7 +107,52 @@ The experiments were conducted using the following components:
     \end{figure}
 
 \section*{Hexapod}
+The M-824 hexapod from \gls{pi} contains six linear actuators between base plate and platform. Some of the advantages of this hexapod include it's high stiffness, six-dimensional motion, and high resolution. All motion commands for the movement of the platform are defined by three linear and three rotational coordinate values. The rotational axes defined by (U, V, W) are initially coincident with translational axes (X, Y, Z) of the hexapod coordinate system, as shown in Fig. \ref{fig:hexapod_coordinate.png}. This hexapod is capable of moving \SI{\pm22.5}{\milli\meter} along X and Y axes with a resolution of \SI{0.3}{\micro\meter}. For larger movements in range of few millimeters, the final position values can differ by \SI{\pm0.5}{\micro\meter}. Rest of the technical details can be found in the Table \ref{table:technical_specifications_hexapod}.
 
+\begin{figure}[h]
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/d_exp_setup/hexapod.jpg}
+        \caption{Image of actual hexapod. Citation??}
+        \label{fig:hexapod.jpg}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/d_exp_setup/hexapod_coordinate.png}
+        \caption{Hexapod coordinate system indicating it's translation axes (X, Y, Z) and rotational axes (U, V, W). Citation??}
+        \label{fig:hexapod_coordinate.png}
+    \end{subfigure}
+    \caption{M-824 Hexapod}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{7cm}p{3cm}}
+        \toprule
+        \textbf{Parameter} & \textbf{Description} \\
+        \midrule
+        Travel X, Y & \SI{\pm22.5}{\milli\meter} \\        
+        Travel Z & \SI{\pm12.5}{\milli\meter} \\        
+        Travel $\theta_x$, $\theta_y$ & \SI{\pm7.5}{\degree} \\        
+        Travel $\theta_z$ & \SI{\pm12.5}{\degree} \\        
+        Min. incremental motion X, Y, Z & \SI{0.3}{\micro\meter} \\
+        Min. incremental motion $\theta_x$, $\theta_y$, $\theta_z$ & \SI{3.5}{\micro\radian} \\
+        Repeatability X, Y & \SI{\pm0.5}{\micro\meter} \\
+        Repeatability $\theta_x$, $\theta_y$, $\theta_z$ & \SI{\pm6}{\micro\radian} \\
+        Velocity X, Y, Z (typical) & \SI{0.5}{\milli\meter/\second} \\
+        Velocity X, Y, Z (maximum) & \SI{1}{\milli\meter/\second} \\
+        Velocity $\theta_x$, $\theta_y$, $\theta_z$ (typical) & \SI{5.5}{\milli\radian/\second} \\
+        Velocity $\theta_x$, $\theta_y$, $\theta_z$ (maximum) & \SI{11}{\milli\radian/\second} \\
+        Load capacity (Baseplate horizontal) & \SI{10}{\kilo\gram} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technical specifications of M-824 Hexapod. Citation??}
+    \label{table:technical_specifications_hexapod}
+\end{table}
+
+\clearpage
 
 \section*{To-Do}
 \begin{itemize}
