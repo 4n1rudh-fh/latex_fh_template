@@ -1,6 +1,35 @@
 \chapter{Experimental Design}
 
-Going forward the idea was to find an answer to the following research questions. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. 
+As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod is able to move to a certain user-given coordinate with a precision of \SI{\pm0.5}{\micro\meter} accuracy. Thus, the goals of testing were:
+\begin{itemize}
+    \item to verify whether the camera, laser module along with \gls{ncc} is able to determine this position,
+    \item and to what accuracy in comparison to hexapod position.     
+\end{itemize}
+
+\vspace{5mm}
+
+\noindent In order to achieve the testing goal, the procedure can be divided into three parts.
+
+\begin{itemize}
+    \item \textbf{Setting up code logic} performing \gls{ncc}.
+    \item \textbf{Calibration matrix} to convert \gls{ncc} algorithm results to actual distance.
+    \item \textbf{Dataset collection} for the two setups outlined in Fig. \ref{fig:actual_old_setup.png} and Fig. \ref{fig:actual_corrected_setup.png}.
+\end{itemize}
+
+
+\section{Setting up Code Logic}
+    \subsection*{Centre Frame}
+        The camera image sensor has rectangular dimensions of 728 x 544 as given in Table \ref{table:camera_specs}. For the way, the camera is mounted for the experiments, it meant that the width of image was more than it's height. The example image is given in Fig. \ref{fig:insert_figure.png}. It became necessary going forward keeping \emph{template re-referencing} (See Appendix.) in mind for future scope, that a square \gls{roi} at the center of this image frame with dimensions of 128 pixels x 128 pixels would be used as a template for \gls{ncc} going forward. This size for \gls{roi} was chosen as:
+        \begin{itemize}
+            \item it is not too small to lose unique information inside it and the template is still tracked to reasonable accuracy,
+            \item but also not too large to slow the process of template matching.
+        \end{itemize}            
+    \subsection*{Realtive Position Measurement}
+        \gls{ncc} with OpenCV, when tracks the template inside an image, it provides the location of template's top-left corner. The coordinate system for images in OpenCV by default is shown in the Fig. \ref{fig:insert_fig.png}. \textbf{Caution:} Research on how OpenCV converts the top-left location to center in cmap. In order to measure relative movement, the relative pixel shift of template was based on the center of this image.
+
+\vspace{5mm}
+
+\noindent Going forward with this idea, it was important to decide on experimental factors that were going to remain constant during the testing process. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. 
 
 \vspace{5mm}
 

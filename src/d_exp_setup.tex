@@ -110,19 +110,10 @@ The experiments were conducted using the following components:
 The M-824 hexapod from \gls{pi} contains six linear actuators between base plate and platform. Some of the advantages of this hexapod include it's high stiffness, six-dimensional motion, and high resolution. All motion commands for the movement of the platform are defined by three linear and three rotational coordinate values. The rotational axes defined by (U, V, W) are initially coincident with translational axes (X, Y, Z) of the hexapod coordinate system, as shown in Fig. \ref{fig:hexapod_coordinate.png}. This hexapod is capable of moving \SI{\pm22.5}{\milli\meter} along X and Y axes with a resolution of \SI{0.3}{\micro\meter}. For larger movements in range of few millimeters, the final position values can differ by \SI{\pm0.5}{\micro\meter}. Rest of the technical details can be found in the Table \ref{table:technical_specifications_hexapod}.
 
 \begin{figure}[h]
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{images/d_exp_setup/hexapod.jpg}
-        \caption{Image of actual hexapod. Citation??}
-        \label{fig:hexapod.jpg}
-    \end{subfigure}
-    \begin{subfigure}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/d_exp_setup/hexapod_coordinate.png}
-        \caption{Hexapod coordinate system indicating it's translation axes (X, Y, Z) and rotational axes (U, V, W). Citation??}
-        \label{fig:hexapod_coordinate.png}
-    \end{subfigure}
-    \caption{M-824 Hexapod}
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/d_exp_setup/hexapod_coordinate.png}
+    \caption{Hexapod coordinate system indicating it's translation axes (X, Y, Z) and rotational axes (U, V, W). \cite{hexapod_manual}}
+    \label{fig:hexapod_coordinate.png}
 \end{figure}
 
 \begin{table}[h]
@@ -148,13 +139,13 @@ The M-824 hexapod from \gls{pi} contains six linear actuators between base plate
         Load capacity (Baseplate horizontal) & \SI{10}{\kilo\gram} \\
         \bottomrule
     \end{tabular}
-    \caption{Technical specifications of M-824 Hexapod. Citation??}
+    \caption{Technical specifications of M-824 Hexapod. \cite{hexapod_manual}}
     \label{table:technical_specifications_hexapod}
 \end{table}
 
 \clearpage
 
-\noindent Using these components two setups were created as shown in Fig. \ref{fig:actual_old_setup.png} and Fig. \ref{fig:actual_corrected_setup.png}. The initial idea for the setup as shown in Fig. \ref{fig:actual_old_setup.png} and it's schematic Fig. \ref{fig:old_setup.png} shows that camera has it's surface normal that is close to parallel to the laser incident on the image sensor. An updated version of the setup was tested as shown in Fig. \ref{fig:actual_corrected_setup.png} and it's schematic Fig. \ref{fig:corrected_setup.png}, where the image sensor plane is parallel to the (X, Y) plane of the hexapod. The components were mounted on a 
+\noindent Using these components two setups were created as shown in Fig. \ref{fig:actual_old_setup.png} and Fig. \ref{fig:actual_corrected_setup.png}. The initial idea for the setup as shown in Fig. \ref{fig:actual_old_setup.png} and it's schematic Fig. \ref{fig:old_setup.png} shows that camera has it's surface normal that is close to parallel to the laser incident on the image sensor. An updated version of the setup was tested as shown in Fig. \ref{fig:actual_corrected_setup.png} and it's schematic Fig. \ref{fig:corrected_setup.png}, where the image sensor plane is parallel to the (X, Y) plane of the hexapod. The components were mounted on a ThorLabs MB1530F/M optical breadboard, hence the distance between the camera and laser pointer was fixed at approximately \SI{13}{\milli\meter}. \textbf{Caution:} I don't believe the distance between camera and laser pointer is at \SI{26}{\milli\meter} for the new setup.  
 
 \begin{figure}[h]
     \centering
@@ -183,6 +174,8 @@ The M-824 hexapod from \gls{pi} contains six linear actuators between base plate
     \caption{Actual photo depicting corrected setup.}
     \label{fig:actual_corrected_setup.png}
 \end{figure}
+
+\clearpage
 
 \section{To-Do}
 \begin{itemize}
