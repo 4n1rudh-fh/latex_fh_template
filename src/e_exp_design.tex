@@ -1,23 +1,37 @@
 \chapter{Experimental Design}
 
-Explain how you came to design the setup for your experiments.
+Going forward the idea was to find an answer to the following research questions. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/d_exp_setup/corrected_setup.png}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/d_exp_setup/old_setup.png}
-\end{figure}
+\vspace{5mm}
+
+\noindent The \emph{f}/1.85 aperture was used for the camera. As shown in Fig. \ref{fig:corrected_setup.png} the working surface was approximately \SI{150}{\milli\meter} below the image sensor location inside the camera. The laser beam diameter for this height was approximately \SI{7}{\milli\meter} at the working surface. The experimental design was divided into the following:
+\begin{itemize}
+    \item Setup 1
+    \item Calibration
+    \item Testing
+    \item Setup 2
+    \item Calibration
+    \item Testing
+\end{itemize}
+
+\section{Calibration}
+In the \gls{ncc} algorithm employed using OpenCV, one gets location of the template's top-left corner, that is being detected in the given frame. The code employed for the project converts this absolute location of the top-left corner into relative movement as seen from the center of the frame. Explain \texbf{relative pixel movement} and why we chose the \textbf{center of the frame}.
+
+
+\section{Testing}
+
 \section*{To-Do}
 \begin{itemize}
-    \item Say here that the aperture size was this and this.
-    \item Do I say something about the corrected as well as old setup here?
-    \item What reason should I provide for the old setup?
+    \item \sout{Say here that the aperture size was this and this.}
+    \item \sout{Do I say something about the corrected as well as old setup here?}
+    \item \sout{What reason should I provide for the old setup?}
     \item Why did I only do x, y movement for the hexapod? Why was z movement not performed?
     \item Why did we only move 0.3 mm?
     \item Because we are moving 0.3 mm, the repeatability error of hexapod with value \SI{\pm0.5}{\micro\meter} can be ignored? How much is the percentage of error? 0.1667\%
     \item Put the quadrant diagram for performed movements here.
     \item Why rotations were not done? My answer because of NCC.
+    \item Put research questions for the next chapter.
+    \item \sout{Talk about laser diameter used for our experiments.}
+    \item Have you taken into account every parameter you wanna talk about?
+    \item Explain transformation matrix. 
 \end{itemize}
