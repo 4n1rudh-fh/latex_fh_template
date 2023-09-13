@@ -1,6 +1,6 @@
 \chapter{Experimental Design}
 
-As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod is able to move to a certain user-given coordinate with a precision of \SI{\pm0.5}{\micro\meter} accuracy. Thus, the goals of testing were:
+As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod is able to move to a certain user-given coordinate with a precision of \SI{\pm0.5}{\micro\meter} accuracy. Thus, the goals of testing are:
 \begin{itemize}
     \item to verify whether the camera, laser module along with \gls{ncc} is able to determine this position,
     \item and to what accuracy in comparison to hexapod position.     
@@ -14,20 +14,45 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
     \item \textbf{Setting up code logic} performing \gls{ncc}.
     \item \textbf{Calibration matrix} to convert \gls{ncc} algorithm results to actual distance.
     \item \textbf{Dataset collection} for the two setups outlined in Fig. \ref{fig:actual_old_setup.png} and Fig. \ref{fig:actual_corrected_setup.png}.
+    \item \textbf{Constant parameters} during testing
 \end{itemize}
 
 
-\section{Setting up Code Logic}
+\section{Setting up Code Logic}\label{section:code_logic}
     \subsection*{Centre Frame}
-        The camera image sensor has rectangular dimensions of 728 x 544 as given in Table \ref{table:camera_specs}. For the way, the camera is mounted for the experiments, it meant that the width of image was more than it's height. The example image is given in Fig. \ref{fig:insert_figure.png}. It became necessary going forward keeping \emph{template re-referencing} (See Appendix.) in mind for future scope, that a square \gls{roi} at the center of this image frame with dimensions of 128 pixels x 128 pixels would be used as a template for \gls{ncc} going forward. This size for \gls{roi} was chosen as:
+        The camera image sensor has rectangular dimensions of 728 x 544 as given in Table \ref{table:camera_specs}. The way the camera is mounted for the experiments, it meant that the width of image was more than it's height. It also became necessary going forward, that a square \gls{roi} at the center of this image frame with dimensions of 128 pixels x 128 pixels would be used as a template for \gls{ncc} going forward. The reason is, for position verification of the hexapod, the data collection procedure made it necessary to use the \gls{roi} at the center of the image frame (See Section \ref{section:data_collection}). This is denoted by the square box outlined in black in Fig. \ref{fig:frame_0_rect.png}. The size for \gls{roi} was chosen for the following reasons:
         \begin{itemize}
             \item it is not too small to lose unique information inside it and the template is still tracked to reasonable accuracy,
             \item but also not too large to slow the process of template matching.
-        \end{itemize}            
-    \subsection*{Realtive Position Measurement}
-        \gls{ncc} with OpenCV, when tracks the template inside an image, it provides the location of template's top-left corner. The coordinate system for images in OpenCV by default is shown in the Fig. \ref{fig:insert_fig.png}. \textbf{Caution:} Research on how OpenCV converts the top-left location to center in cmap. In order to measure relative movement, the relative pixel shift of template was based on the center of this image.
+        \end{itemize}
+        
+    \subsection*{Relative Position Measurement}
+        In OpenCV, as shown in Fig. \ref{fig:frame_0_rect.png}, for a coordinate (X, Y), X increases as we are going towards the right and Y increases as we traverse through the pixels downwards. For the project, while using \gls{ncc} with OpenCV two functions were employed namely, \texttt{matchTemplate()} and \texttt{minMaxLoc()}. The former function matches the template with the underlying image and saves it's results in another matrix. The latter function allows us to use the result from first function in order to find the location of correlation peak. In doing so, it gives the absolute location of top-left corner of the tracked template according to the OpenCV coordinate axes. Therefore, in order to measure relative movement from the center of the image, changes were made to reflect pixel shift with respect to the center of the \gls{roi}. For e.g., if the hexapod moves from (\SI{0}{\milli\meter}, \SI{0}{\milli\meter}) to (\SI{3}{\milli\meter}, \SI{3}{\milli\meter}) in the first quadrant, the template is tracked in the the fourth quadrant. This is shown by the arrow in Fig. \ref{fig:frame_60_rect.png}. 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.68\textwidth]{images/e_exp_design/frame_0_rect.png}
+            \caption{\gls{lsp} showing OpenCV coordinate axes.}
+            \label{fig:frame_0_rect.png}
+        \end{figure}
+        
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{images/e_exp_design/frame_60_rect.png}
+            \caption{\gls{lsp} showing relative movement with respect to center of frame.}
+            \label{fig:frame_60_rect.png}
+        \end{figure}
 
 \vspace{5mm}
+
+\section{Calibration}\label{section:calibration}
+Discuss calibration procedure here from the Prof. Charrett paper. 
+
+
+\section{Data Collection}\label{section:data_collection}
+Put the quadrant design here. Denoting the movement name with respect to quadrants. The calibration direction. How each setup has different calibration and experiment numbers. Explain also why did we only move 0.3 mm.
+
+\section{Constant Parameters}\label{section:constant_parameters}
 
 \noindent Going forward with this idea, it was important to decide on experimental factors that were going to remain constant during the testing process. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. 
 
@@ -42,12 +67,6 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
     \item Calibration
     \item Testing
 \end{itemize}
-
-\section{Calibration}
-In the \gls{ncc} algorithm employed using OpenCV, one gets location of the template's top-left corner, that is being detected in the given frame. The code employed for the project converts this absolute location of the top-left corner into relative movement as seen from the center of the frame. Explain \texbf{relative pixel movement} and why we chose the \textbf{center of the frame}.
-
-
-\section{Testing}
 
 \section*{To-Do}
 \begin{itemize}
