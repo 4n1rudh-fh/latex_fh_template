@@ -8,26 +8,27 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
 
 \vspace{5mm}
 
-\noindent In order to achieve the testing goal, the procedure can be divided into three parts.
+\noindent In order to achieve the testing goal, the procedure can be divided into the following parts:
 
 \begin{itemize}
-    \item \textbf{Setting up code logic} performing \gls{ncc}.
-    \item \textbf{Calibration matrix} to convert \gls{ncc} algorithm results to actual distance.
-    \item \textbf{Dataset collection} for the two setups outlined in Fig. \ref{fig:actual_old_setup.png} and Fig. \ref{fig:actual_corrected_setup.png}.
-    \item \textbf{Constant parameters} during testing
+    \item \textbf{Implementation of \gls{ncc} algorithm}: Frame Selection and Position Measurement.
+    \item \textbf{Calibration Matrix}: Convert pixel shift to actual distance.
+    \item \textbf{Dataset Collection}: for the two setups illustrated in Fig. \ref{fig:actual_old_setup.png} and Fig. \ref{fig:actual_corrected_setup.png}.
+    \item \textbf{Constant Parameters}: during testing
+    \item \textbf{Testing Analysis}
 \end{itemize}
 
 
-\section{Setting up Code Logic}\label{section:code_logic}
-    \subsection*{Centre Frame}
+\section{Implementation of \gls{ncc} algorithm}\label{section:code_logic}
+    \subsection*{Frame Selection}
         The camera image sensor has rectangular dimensions of 728 x 544 as given in Table \ref{table:camera_specs}. The way the camera is mounted for the experiments, it meant that the width of image was more than it's height. It also became necessary going forward, that a square \gls{roi} at the center of this image frame with dimensions of 128 pixels x 128 pixels would be used as a template for \gls{ncc} going forward. The reason is, for position verification of the hexapod, the data collection procedure made it necessary to use the \gls{roi} at the center of the image frame (See Section \ref{section:data_collection}). This is denoted by the square box outlined in black in Fig. \ref{fig:frame_0_rect.png}. The size for \gls{roi} was chosen for the following reasons:
         \begin{itemize}
             \item it is not too small to lose unique information inside it and the template is still tracked to reasonable accuracy,
             \item but also not too large to slow the process of template matching.
         \end{itemize}
         
-    \subsection*{Relative Position Measurement}
-        In OpenCV, as shown in Fig. \ref{fig:frame_0_rect.png}, for a coordinate (X, Y), X increases as we are going towards the right and Y increases as we traverse through the pixels downwards. For the project, while using \gls{ncc} with OpenCV two functions were employed namely, \texttt{matchTemplate()} and \texttt{minMaxLoc()}. The former function matches the template with the underlying image and saves it's results in another matrix. The latter function allows us to use the result from first function in order to find the location of correlation peak. In doing so, it gives the absolute location of top-left corner of the tracked template according to the OpenCV coordinate axes. Therefore, in order to measure relative movement from the center of the image, changes were made to reflect pixel shift with respect to the center of the \gls{roi}. For e.g., if the hexapod moves from (\SI{0}{\milli\meter}, \SI{0}{\milli\meter}) to (\SI{3}{\milli\meter}, \SI{3}{\milli\meter}) in the first quadrant, the template is tracked in the the fourth quadrant. This is shown by the arrow in Fig. \ref{fig:frame_60_rect.png}. 
+    \subsection*{Position Measurement}
+        In OpenCV, as shown in Fig. \ref{fig:frame_0_rect.png}, for a pixel coordinate (X, Y), X increases as we are going towards the right and Y increases as we traverse through the pixels downwards. For the project, while using \gls{ncc} with OpenCV two functions were employed namely, \texttt{matchTemplate()} and \texttt{minMaxLoc()}. The former function matches the template with the underlying image and saves it's results in another matrix. The latter function allows us to use the result from first function in order to find the location of correlation peak. In doing so, it gives the absolute location of top-left corner of the tracked template according to the OpenCV coordinate axes. Therefore, in order to measure relative movement from the center of the image, changes were made to reflect pixel shift with respect to the center of the \gls{roi}. For e.g., if the hexapod moves from (\SI{0}{\milli\meter}, \SI{0}{\milli\meter}) to (\SI{3}{\milli\meter}, \SI{3}{\milli\meter}) in the first quadrant, the template is tracked in the the fourth quadrant. This is shown by the arrow in Fig. \ref{fig:frame_60_rect.png}. 
 
         \begin{figure}[h]
             \centering
@@ -45,16 +46,76 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
 
 \vspace{5mm}
 
-\section{Calibration}\label{section:calibration}
-Discuss calibration procedure here from the Prof. Charrett paper. 
+\section{Calibration Matrix}\label{section:calibration}
+As discussed in previous section (Section \ref{section:code_logic}), \gls{ncc} gives out detected template's position in terms of pixel coordinates. Therefore, in order to convert pixel shift into displacement, the following approach was adopted for our experiments as described by Charrett et. al. in their paper, with differences in actual values used for calibration \cite{charrett_2018}.
 
+\vspace{5mm}
+
+\noindent For calibration, hexapod is moved \SI{0.1}{\milli\meter} along hexapod's x and y axis at separate times. These distances can be named as, $a_x$ and $a_y$ respectively for both axes. The images are recorded at the same time for these movements. Considering that hexapod moves a certain distance $a_x$, it would be detected as pixel shift ($A_{xx}$, $A_{yx}$) by the \gls{ncc} algorithm. Here, the first subscript denotes the direction of pixel shift and second subscript denotes direction of movement of hexapod. Similarly, for hexapod's movement along y-axis by distance $a_y$, it would be detected as ($A_{xy}$, $A_{yy}$) in pixel shift. Now, the values for calibration matrix can be calculated as per the formulae given in Eqn. \ref{eqn:calib_matrix_param}. The reason for double script notation is that, for any misalignment between the hexapod's XY axes with respect to image sensor plane, for movement of hexapod along one axis, the speckle shift for other axis is accounted for. For e.g., if hexapod moves along x-axis, the speckle shift is accounted for it's x and y axis. This is also illustrated in the following Fig. \ref{fig:misalignment.png}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/e_exp_design/misalignment.png}
+    \caption{Schematic showing misalignment between hexapod axes (in black) and image sensor axes (in green).}
+    \label{fig:misalignment.png}
+\end{figure}
+    
+\vspace{5mm}
+\noindent The pixel shift is related to the actual translation by the following formulae \cite{charrett_2018}:
+
+\begin{equation}\label{eqn:calib}
+    A = Ta
+\end{equation}
+
+\begin{equation}\label{eqn:calib_matrix}
+    \begin{bmatrix}
+        A_x \\
+        A_y
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+        T_{xx} & T_{xy} \\
+        T_{yx} & T_{yy}
+    \end{bmatrix}
+    \begin{bmatrix}
+        a_x \\
+        a_y
+    \end{bmatrix}
+\end{equation}
+
+\noindent with elements of $T$ given by:
+
+\begin{equation}\label{eqn:calib_matrix_param}
+    \begin{aligned}
+        T_{xx} = A_{xx} / a_x \\ 
+        T_{yx} = A_{yx} / a_x \\
+        T_{xy} = A_{xx} / a_y \\
+        T_{yy} = A_{yy} / a_y 
+    \end{aligned}
+\end{equation}
+
+\vspace{5mm}
+\noindent Now, if one wants to verify the hexapod distance, we can use the following procedure. The hexapod is moved to a random coordinate ($a_{x\ actual}$, $a_{y\ actual}$). The images are recorded for such movement at the same time. After these images are analyzed using \gls{ncc}, one knows the pixel shifts ($A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$),  as well as the calibration matrix parameters ($T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$) from calibration procedure performed before. This in the end results, that Eqn. \ref{eqn:dist_calc} can be used to calculate ($a_x$, $a_y$), which can be compared with ($a_{x\ actual}$, $a_{y\ actual}$). 
+
+\begin{equation}\label{eqn:dist_calc}
+    \begin{aligned}
+        a_x = \frac{A_xT_{yy} - A_yT_{xy}}{T_{xx}T_{yy} - T_{xy}T_{yx}} \\
+        a_y = \frac{A_yT_{xx} - A_xT_{yx}}{T_{xx}T_{yy} - T_{xy}T_{yx}}
+    \end{aligned}
+\end{equation}
 
 \section{Data Collection}\label{section:data_collection}
-Put the quadrant design here. Denoting the movement name with respect to quadrants. The calibration direction. How each setup has different calibration and experiment numbers. Explain also why did we only move 0.3 mm.
+For setup illustrated in Fig. \ref{fig:old_setup.png}, the testing procedure included that calibration images were taken for x-axis and y-axis once. This meant, hexapod was moved to the coordinated (indicated in purple) once and simultaneously images were captured. These images were analyzed and pixel shifts were found using \gls{ncc} to get calibration matrix mentioned in previous section. The testing data, to verify actual hexapod movement with distance calculated from \gls{ncc} was performed as follows. The hexapod was moved to each of the coordinates 40 times, simultaneously images were captured for these 40 experiments. How all this connects to \gls{mig}, how you decided on highest \gls{mig}. Add How it connects to gain and exposure time? Why did we go with zero gain for calibration? Why calibration was only done once? Have you written you research questions? Make different sections outlining why we need higher MIG? How did it help us decide on best exposure time? Why did we choose zero gain? Now, based on that exposure time and gain, calibration is performed once (means it's data is taken once or forty times for another setup) and testing data is collected 40 times for each direction and and for each different gain and exposure time. Now these data is fed into ncc algo. Error is calculated based on an equation given below. Concern with position alone therefore taking last row alone. Which is then plotted after summary. Calibration is performed once, because it needs to be tested if it is possible that distance is calculated properly even for exposure times and gains it's not calibrated for. Maybe convert this to bite-size steps. Explain why you only used 0.3 mm, because of sensor size and also because of the four-quad movement it became necessary to have center frame. Connect this reason to the other section mentioned above. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/e_exp_design/testing.png}
+    \caption{Testing procedure.}
+    \label{fig:testing.png}
+\end{figure}
 
 \section{Constant Parameters}\label{section:constant_parameters}
 
-\noindent Going forward with this idea, it was important to decide on experimental factors that were going to remain constant during the testing process. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. 
+\noindent Going forward with this idea, it was important to decide on experimental factors that were going to remain constant during the testing process. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. Do I explain lack of independent parameters here or in results?
 
 \vspace{5mm}
 
@@ -67,6 +128,9 @@ Put the quadrant design here. Denoting the movement name with respect to quadran
     \item Calibration
     \item Testing
 \end{itemize}
+
+\section{Testing Analysis}
+How you took last row of each data. etc. etc....
 
 \section*{To-Do}
 \begin{itemize}
