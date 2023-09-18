@@ -32,7 +32,7 @@ In this chapter, the principles of important concepts will be explained. This he
     
     \clearpage
 
-    \noindent Now, these reflected rays can be captured using a camera. The intensity at any point inside the image depends on the interference of the reflected light waves. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the speckle pattern as shown in Fig. \ref{fig:img_leon}. If the image is captured using a monochrome camera, it will look similar to as shown in Fig. \ref{fig:laser_speckle.jpg}.
+    \noindent Now, these reflected rays can be captured using a camera. The intensity at any point inside the image depends on the interference of the reflected light waves. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the speckle pattern as shown in Fig. \ref{fig:img_leon}. If the image is captured using a monochrome camera, it will look similar to as shown in Fig. \ref{fig:laser_speckle.png}.
 
     \begin{figure}[h]
         \begin{subfigure}{0.5\textwidth}
@@ -55,7 +55,7 @@ In this chapter, the principles of important concepts will be explained. This he
         \centering
         \includegraphics[width=0.5\textwidth]{images/b_fundamentals/laser_speckle.png}
         \caption{A typical laser speckle pattern.}
-        \label{fig:laser_speckle.jpg}
+        \label{fig:laser_speckle.png}
     \end{figure}
 
     \section*{Diffraction and Airy Disk}\label{Section:Diffraction}
@@ -140,11 +140,47 @@ In this chapter, the principles of important concepts will be explained. This he
         \label{fig:corr_cmap.png}
     \end{figure}
 
-    \section{To-Do}
-    \begin{itemize}
-        \item Include explaining MIG.
-        \item Add images explaining difference in MIG for different exposure times.
-        \item Explain how exposure time and gain affects MIG.
-    \end{itemize}
+    \section*{\glsfirst{mig}}
+    \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for x and y directions respectively.
+    
+    \vspace{5mm}
+    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel sobel operator was used for the Fig. \ref{fig:laser_speckle.png}. Then, magnitude for each pixel was calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for x and y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the gradient operation and magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel_gradient.png}. Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:avg_mig}, where $m$ and $n$ denote the number of rows and columns inside the frame respectively.
+    
+    \begin{equation}
+        G_x = 
+        \begin{bmatrix}
+            -1 & 0 & 1 \\
+            -2 & 0 & 2 \\
+            -1 & 0 & 1 
+        \end{bmatrix}
+        \label{eqn:g_x}
+    \end{equation}
+
+    \begin{equation}
+        G_y = 
+        \begin{bmatrix}
+            -1 & -2 & -1 \\
+            0 & 0 & 0 \\
+            1 & 2 & 1 
+        \end{bmatrix}
+        \label{eqn:g_y}
+    \end{equation}
+
+    \begin{equation}
+        G = \sqrt{G_x^2 + G_y^2}
+        \label{eqn:mag_eqn}
+    \end{equation}
+
+    \begin{equation}
+        \text{Avg. \gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
+        \label{eqn:avg_mig}
+    \end{equation}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
+        \caption{\gls{lsp} after sobel operations along x and y directions and resulting magnitude.}
+        \label{fig:sobel_gradient.png}
+    \end{figure}
 
     \clearpage
