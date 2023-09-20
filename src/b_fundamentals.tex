@@ -106,13 +106,13 @@ In this chapter, the principles of important concepts will be explained. This he
     \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. The mathematical expression to perform template matching using \gls{ncc} can be found in greater detail in the paper by Lewis \cite{lewis}. In \gls{ncc}, the match between template and image is shown by a peak in cross-correlation value, as shown in Fig. \ref{fig:corr_plot.png}.
 
     \begin{figure}[h]
-        \begin{subfigure}{0.5\textwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
             \centering
             \includegraphics[width=0.7\textwidth]{images/b_fundamentals/card.jpeg}
             \caption{Image.}
             \label{subfig:card.jpg}
         \end{subfigure}
-        \begin{subfigure}{0.5\textwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
             \centering
             \includegraphics[width=0.3\textwidth]{images/b_fundamentals/template.jpg}
             \caption{Template.}
@@ -140,11 +140,13 @@ In this chapter, the principles of important concepts will be explained. This he
         \label{fig:corr_cmap.png}
     \end{figure}
 
-    \section*{\glsfirst{mig}}
+    
+
+    \section*{\glsfirst{mig}}\label{section:mig}
     \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for x and y directions respectively.
     
     \vspace{5mm}
-    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel sobel operator was used for the Fig. \ref{fig:laser_speckle.png}. Then, magnitude for each pixel was calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for x and y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the gradient operation and magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel_gradient.png}. Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:avg_mig}, where $m$ and $n$ denote the number of rows and columns inside the frame respectively.
+    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel sobel operator was used for the Fig. \ref{fig:laser_speckle.png}. Then, magnitude for each pixel was calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for x and y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the gradient operation and magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel_gradient.png}. Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
     
     \begin{equation}
         G_x = 
@@ -172,7 +174,12 @@ In this chapter, the principles of important concepts will be explained. This he
     \end{equation}
 
     \begin{equation}
-        \text{Avg. \gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
+        \text{\gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
+        \label{eqn:mig}
+    \end{equation}
+
+    \begin{equation}
+        \text{Avg. \gls{mig}} = \frac{\sum_{i=0}^{n} \gls{mig}_i}{\text{Total number of frames}}
         \label{eqn:avg_mig}
     \end{equation}
 
