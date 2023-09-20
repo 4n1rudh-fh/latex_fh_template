@@ -2,7 +2,7 @@
 
 The experiments were conducted using the following components:
 
-\section*{Camera}
+\section{Camera}
     The camera used for the experiments is manufactured by Allied Vision and the model's name is Mako G-040B. It is a \gls{poe} enabled, Gig-E compliant monochrome camera. It can run at frame rate of 286 \gls{fps} at full resolution of 0.4 megapixel. It has a progressive scan \gls{cmos} Sony IMX287 image sensor with a pixel size of \SI{6.9}{\micro\meter} x \SI{6.9}{\micro\meter}. The rest of the technical details can be found in the Table \ref{table:camera_specs}.
 
     \begin{table}[h]
@@ -39,7 +39,7 @@ The experiments were conducted using the following components:
 
 \clearpage
 
-\section*{Laser Diode Module}
+\section{Laser Diode Module}
     The laser module CPS635F from ThorLabs (See Fig. \ref{fig:laser_module.jpg}) has typical wavelength of \SI{635}{\nano\meter}. It has adjustable focal length and produces laser beam of elliptical shape. The variations in output wavelength with changing temperature can be seen from the Fig. \ref{fig:spectrum_laser_module.png}. Other specifications can be found in the Table \ref{table:laser_module_specs}.
 
     \begin{figure}[h]
@@ -81,7 +81,7 @@ The experiments were conducted using the following components:
 
 \clearpage
 
-\section*{Lens Body}
+\section{Lens Body}
     The lens body holds camera lens as well as the bandpass filter. 
     \subsection*{Camera Lens}
     The camera lens, manufactured by Edmund Optics, has a fixed focal length of \SI{25}{\milli\meter}. The aperture is adjustable from \emph{f}/1.85 to \emph{f}/16. This allows the working distance to be in range \SI{200}{\milli\meter} - $\infty$.
@@ -106,7 +106,7 @@ The experiments were conducted using the following components:
         \label{fig:lens_body.jpg}
     \end{figure}
 
-\section*{Hexapod}
+\section{Hexapod}
 The M-824 hexapod from \gls{pi} contains six linear actuators between base plate and platform. Some of the advantages of this hexapod include it's high stiffness, six-dimensional motion, and high resolution. All motion commands for the movement of the platform are defined by three linear and three rotational coordinate values. The rotational axes defined by (U, V, W) are initially coincident with translational axes (X, Y, Z) of the hexapod coordinate system, as shown in Fig. \ref{fig:hexapod_coordinate.png}. This hexapod is capable of moving \SI{\pm22.5}{\milli\meter} along X and Y axes with a resolution of \SI{0.3}{\micro\meter}. For larger movements in range of few millimeters, the final position values can differ by \SI{\pm0.5}{\micro\meter}. Rest of the technical details can be found in the Table \ref{table:technical_specifications_hexapod}.
 
 \begin{figure}[h]

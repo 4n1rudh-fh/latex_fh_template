@@ -2,8 +2,10 @@
 
 As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod is able to move to a certain user-given coordinate with a precision of \SI{\pm0.5}{\micro\meter} accuracy. Thus, the goals of testing are:
 \begin{itemize}
-    \item to verify whether the camera, laser module setup along with \gls{ncc} is able to determine this position,
-    \item and to what accuracy in comparison to hexapod position.     
+    \item To verify whether the camera, laser module setup along with \gls{ncc} is able to determine this position,
+    \item To what accuracy in comparison to hexapod position.
+    \item What is the effect of exposure time of the camera on position measurement?
+    \item What is the effect of gain of the camera on position measurement?
 \end{itemize}
 
 \vspace{5mm}
@@ -12,10 +14,10 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
 
 \begin{itemize}
     \item \textbf{Implementation of \gls{ncc} algorithm}
-    \item \textbf{Calibration}: Camera Parameters and Calibration Matrix
-    \item \textbf{Dataset Collection}: For the two setups illustrated in Fig. \ref{fig:old_setup_potrait.JPG} and Fig. \ref{fig:new_setup_potrait.JPG}.
-    \item \textbf{Constant Parameters}: During data collection
-    \item \textbf{Testing Analysis}
+    \item \textbf{Calibration}
+    \item \textbf{Constant Parameters}: During testing data collection 
+    \item \textbf{Dataset Collection}
+    % \item \textbf{Testing Analysis}
 \end{itemize}
 
 
@@ -49,131 +51,121 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
 \vspace{5mm}
 
 \section{Calibration}\label{section:calibration}
-\subsection*{Camera Parameters}
-    As camera parameters, such as gain and exposure time, have an effect on images being acquired, it is important to decide the values of these parameters for best possible calibration. As discussed in Section \ref{Subsubsection:Exposure_Time}, by increasing/decreasing exposure time one can over-/underexpose an image. This over-/under exposure results in decreasing the average \gls{mig} parameter (discussed in Chapter \ref{section:mig}), because there are less speckles to differentiate between, and hence less change in gradient. By increasing gain, noise is introduced in the frame, and it too overexposes an image, as intensity values for each of the pixels are increased. In the end, it was decided that exposure time will be decided on basis of highest average \gls{mig} value and gain of the camera will be set to zero, while capturing images for the purpose of calibration.
+    \subsection*{Camera Parameters}\label{subsection:camera_parameters}
+        As camera parameters, such as gain and exposure time, have an effect on images being acquired, it is important to decide the values of these parameters for best possible calibration. As discussed in Section \ref{Subsubsection:Exposure_Time}, by increasing/decreasing exposure time one can over-/underexpose an image. This over-/underexposure results in decreasing the average \gls{mig} parameter (discussed in Chapter \ref{section:mig}), because there are less speckles to differentiate between, and hence less change in gradient. On the other hand, more is the variation between speckles inside a template, there is a higher chance of having more uniqueness inside the chosen template, making it easier for \gls{ncc} algorithm to detect pixel shifts. Pixel shifts need to be as accurate as possible, because these values will determine the calibration parameters, as will be discussed in upcoming Section \ref{subsection:calib_matrix}. 
+        
+        \vspace{5mm}
+        \noindent By increasing gain, noise is introduced in the frame, and it too overexposes an image, as intensity values for each of the pixels are increased. In the end, it was decided that exposure time will be decided on basis of highest average \gls{mig} value and gain of the camera will be set to zero, while capturing images for the purpose of calibration.
 
-    \begin{figure}[h]
-        \centering
-        \begin{subfigure}[b]{0.4\textwidth}
+        \begin{figure}[h]
             \centering
-            \includegraphics[width=\textwidth]{images/e_exp_design/underexposed.png}
-            \caption{Gain: 0, Exposure Time: \SI{20}{\micro\second},\\\gls{mig}: 66.5}
-            \label{subfig:underexposed.png}
-        \end{subfigure}
-        \hspace{1cm}
-        \begin{subfigure}[b]{0.4\textwidth}
+            \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/e_exp_design/underexposed.png}
+                \caption{Gain: 0, Exposure Time: \SI{20}{\micro\second},\\\gls{mig}: 66.5}
+                \label{subfig:underexposed.png}
+            \end{subfigure}
+            \hspace{1cm}
+            \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/e_exp_design/overexposed.png}
+                \caption{Gain: 0, Exposure Time: \SI{1000}{\micro\second},\\\gls{mig}: 110.0}
+                \label{subfig:underexposed.png}
+            \end{subfigure}
+
+            \vspace{5mm}
+            
+            \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/e_exp_design/gain_0.png}
+                \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second},\\\gls{mig}: 388.85}
+                \label{subfig:underexposed.png}
+            \end{subfigure}
+            \hspace{1cm}
+            \begin{subfigure}[b]{0.4\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/e_exp_design/gain_20.png}
+                \caption{Gain: 20, Exposure Time: \SI{150}{\micro\second},\\\gls{mig}: 36.48}
+                \label{subfig:underexposed.png}
+            \end{subfigure}
+            \caption{\glsplural{lsp} for different pairs of gain and exposure time with corresponding \gls{mig} values.}
+        \end{figure}
+
+    \subsection*{Image Acquisition Procedure}\label{subsection:image_acq_calib}
+        For the two setups outlined in Fig. \ref{fig:old_setup_potrait.JPG} and Fig. \ref{fig:new_setup_potrait.JPG}, image acquisition process involved, that the hexapod was moved \SI{0.1}{\milli\meter} along X- and Y-axis. For the older setup (See Fig. \ref{fig:old_setup_potrait.JPG}), the image acquisition was done only once for both axes. For the corrected setup (See Fig. \ref{fig:new_setup_potrait.JPG}), hexapod was moved 40 times along both axes. The reason being, it allows better estimation of calibration parameters by averaging the influence of pixel-locking effects and vibrations during calibration. As this was a later discovery, because of time concerns the same could not be done for older setup. Fig. \ref{fig:testing.png} shows the direction of movement of hexapod for calibration indicated in purple. The XY axes here correspond to the axes mentioned in Fig. \ref{fig:frame_60_rect.png}.
+
+        \begin{figure}[h]
             \centering
-            \includegraphics[width=\textwidth]{images/e_exp_design/overexposed.png}
-            \caption{Gain: 0, Exposure Time: \SI{1000}{\micro\second},\\\gls{mig}: 110.0}
-            \label{subfig:underexposed.png}
-        \end{subfigure}
+            \includegraphics[width=0.7\textwidth]{images/e_exp_design/testing.png}
+            \caption{Image acquisition procedure for testing and calibration. (All coordinates have units in mm. Not to scale.)}
+            \label{fig:testing.png}
+        \end{figure}
+
+
+    \subsection*{Calibration Matrix}\label{subsection:calib_matrix}
+        As discussed in Section \ref{section:code_logic}, \gls{ncc} gives out detected template's position in terms of pixel coordinates. Therefore, in order to convert pixel shift into displacement, the following method of calibration was adopted for our experiments, as described by Charrett et. al. in their paper \cite{charrett_2018}.
 
         \vspace{5mm}
-        
-        \begin{subfigure}[b]{0.4\textwidth}
+
+        \noindent For calibration, hexapod is moved \SI{0.1}{\milli\meter} along hexapod's x and y axis at separate times. These distances can be named as, $a_x$ and $a_y$ respectively for both axes. The images are acquired at the same time for these movements. Considering that hexapod moves a certain distance $a_x$ and that there is misalignment between hexapod's and image sensor's XY plane, it would be detected as pixel shift ($A_{xx}$, $A_{yx}$) by the \gls{ncc} algorithm. Here, the first subscript denotes the direction of pixel shift and second subscript denotes direction of movement of hexapod. Similarly, for hexapod's movement along y-axis by distance $a_y$, it would be detected as ($A_{xy}$, $A_{yy}$) in pixel shift. Now, the values for calibration matrix can be calculated as per the formulae given in Eqn. \ref{eqn:calib_matrix_param}. The double script notation allows that, in case of misalignment between the hexapod's XY axes with respect to image sensor plane, for movement of hexapod along one axis, the speckle shift for other axis is accounted for. For e.g., if hexapod moves along x-axis, the speckle shift is accounted for it's x and y axis. This is also illustrated in the following Fig. \ref{fig:misalignment.png}.
+
+        \begin{figure}[h]
             \centering
-            \includegraphics[width=\textwidth]{images/e_exp_design/gain_0.png}
-            \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second},\\\gls{mig}: 388.85}
-            \label{subfig:underexposed.png}
-        \end{subfigure}
-        \hspace{1cm}
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/e_exp_design/gain_20.png}
-            \caption{Gain: 20, Exposure Time: \SI{150}{\micro\second},\\\gls{mig}: 36.48}
-            \label{subfig:underexposed.png}
-        \end{subfigure}
-        \caption{Images for different pairs of gain and exposure time with corresponding \gls{mig} values.}
-    \end{figure}
+            \includegraphics[width=0.4\textwidth]{images/e_exp_design/misalignment.png}
+            \caption{Schematic showing misalignment between hexapod axes (in black) and image sensor axes (in green).}
+            \label{fig:misalignment.png}
+        \end{figure}
+            
+        \vspace{5mm}
+        \noindent The pixel shift is related to the actual translation by the following formulae \cite{charrett_2018}:
 
-\subsection*{Calibration Matrix}
-    As discussed in previous section (Section \ref{section:code_logic}), \gls{ncc} gives out detected template's position in terms of pixel coordinates. Therefore, in order to convert pixel shift into displacement, the following method of calibration was adopted for our experiments, as described by Charrett et. al. in their paper \cite{charrett_2018}.
+        \begin{equation}\label{eqn:calib}
+            A = T \cdot a
+        \end{equation}
 
-    \vspace{5mm}
+        \begin{equation}\label{eqn:calib_matrix}
+            \begin{bmatrix}
+                A_x \\
+                A_y
+            \end{bmatrix}
+            &=
+            \begin{bmatrix}
+                T_{xx} & T_{xy} \\
+                T_{yx} & T_{yy}
+            \end{bmatrix}
+            \cdot
+            \begin{bmatrix}
+                a_x \\
+                a_y
+            \end{bmatrix}
+        \end{equation}
 
-    \noindent For calibration, hexapod is moved \SI{0.1}{\milli\meter} along hexapod's x and y axis at separate times. These distances can be named as, $a_x$ and $a_y$ respectively for both axes. The images are acquired at the same time for these movements. Considering that hexapod moves a certain distance $a_x$ and that there is misalignment between hexapod's and image sensor's XY plane, it would be detected as pixel shift ($A_{xx}$, $A_{yx}$) by the \gls{ncc} algorithm. Here, the first subscript denotes the direction of pixel shift and second subscript denotes direction of movement of hexapod. Similarly, for hexapod's movement along y-axis by distance $a_y$, it would be detected as ($A_{xy}$, $A_{yy}$) in pixel shift. Now, the values for calibration matrix can be calculated as per the formulae given in Eqn. \ref{eqn:calib_matrix_param}. The double script notation allows that, for any misalignment between the hexapod's XY axes with respect to image sensor plane, for movement of hexapod along one axis, the speckle shift for other axis is accounted for. For e.g., if hexapod moves along x-axis, the speckle shift is accounted for it's x and y axis. This is also illustrated in the following Fig. \ref{fig:misalignment.png}.
+        \noindent with elements of $T$ given by:
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/e_exp_design/misalignment.png}
-        \caption{Schematic showing misalignment between hexapod axes (in black) and image sensor axes (in green).}
-        \label{fig:misalignment.png}
-    \end{figure}
-        
-    \vspace{5mm}
-    \noindent The pixel shift is related to the actual translation by the following formulae \cite{charrett_2018}:
+        \begin{equation}\label{eqn:calib_matrix_param}
+            \begin{aligned}
+                T_{xx} = A_{xx} / a_x \\ 
+                T_{yx} = A_{yx} / a_x \\
+                T_{xy} = A_{xx} / a_y \\
+                T_{yy} = A_{yy} / a_y 
+            \end{aligned}
+        \end{equation}
 
-    \begin{equation}\label{eqn:calib}
-        A = Ta
-    \end{equation}
+        \vspace{5mm}
+        \noindent Now, if one wants to verify the hexapod distance, we can use the following procedure. Assuming the hexapod is moved to a random coordinate ($a_{x\ actual}$, $a_{y\ actual}$). The images are recorded for such movement at the same time. After these images are analyzed using \gls{ncc} algorithm, one knows the pixel shifts ($A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$),  as well as the calibration matrix parameters ($T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$) from calibration procedure performed before. This in the end results, that Eqn. \ref{eqn:dist_calc} can be used to calculate ($a_x$, $a_y$), which can be compared with actual hexapod coordinates ($a_{x\ actual}$, $a_{y\ actual}$). 
 
-    \begin{equation}\label{eqn:calib_matrix}
-        \begin{bmatrix}
-            A_x \\
-            A_y
-        \end{bmatrix}
-        &=
-        \begin{bmatrix}
-            T_{xx} & T_{xy} \\
-            T_{yx} & T_{yy}
-        \end{bmatrix}
-        \begin{bmatrix}
-            a_x \\
-            a_y
-        \end{bmatrix}
-    \end{equation}
-
-    \noindent with elements of $T$ given by:
-
-    \begin{equation}\label{eqn:calib_matrix_param}
-        \begin{aligned}
-            T_{xx} = A_{xx} / a_x \\ 
-            T_{yx} = A_{yx} / a_x \\
-            T_{xy} = A_{xx} / a_y \\
-            T_{yy} = A_{yy} / a_y 
-        \end{aligned}
-    \end{equation}
-
-    \vspace{5mm}
-    \noindent Now, if one wants to verify the hexapod distance, we can use the following procedure. The hexapod is moved to a random coordinate ($a_{x\ actual}$, $a_{y\ actual}$). The images are recorded for such movement at the same time. After these images are analyzed using \gls{ncc}, one knows the pixel shifts ($A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$),  as well as the calibration matrix parameters ($T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$) from calibration procedure performed before. This in the end results, that Eqn. \ref{eqn:dist_calc} can be used to calculate ($a_x$, $a_y$), which can be compared with actual hexapod coordinates ($a_{x\ actual}$, $a_{y\ actual}$). 
-
-    \begin{equation}\label{eqn:dist_calc}
-        \begin{aligned}
-            a_x = \frac{A_x \cdot T_{yy} - A_y \cdot T_{xy}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}} \\
-            a_y = \frac{A_y \cdot T_{xx} - A_x \cdot T_{yx}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}}
-        \end{aligned}
-    \end{equation}
-
-\section{Data Collection}\label{section:data_collection}
-The effect of camera parameters, such as exposure time and gain, on position verification is discussed in Chapter \ref{Chap:Results}. 
-
-\subsection*{Dataset Collection for Old Setup}
-For setup illustrated in Fig. \ref{fig:old_setup.png}, the testing procedure was as follows, included that calibration images were taken for x-axis and y-axis once. This meant, hexapod was moved to the coordinates (indicated in purple) once and simultaneously images were captured. These images were analyzed and pixel shifts were found using \gls{ncc} to get calibration matrix mentioned in previous section. The testing data, to verify actual hexapod movement with distance calculated from \gls{ncc} was performed as follows. The hexapod was moved to each of the coordinates 40 times, simultaneously images were captured for these 40 experiments. How all this connects to \gls{mig}, how you decided on highest \gls{mig}. Add How it connects to gain and exposure time? Why did we go with zero gain for calibration? Why calibration was only done once? Have you written you research questions? Make different sections outlining why we need higher MIG? How did it help us decide on best exposure time? Why did we choose zero gain? Now, based on that exposure time and gain, calibration is performed once (means it's data is taken once or forty times for another setup) and testing data is collected 40 times for each direction and and for each different gain and exposure time. Now these data is fed into ncc algo. Error is calculated based on an equation given below. Concern with position alone therefore taking last row alone. Which is then plotted after summary. Calibration is performed once, because it needs to be tested if it is possible that distance is calculated properly even for exposure times and gains it's not calibrated for. Maybe convert this to bite-size steps. Explain why you only used 0.3 mm, because of sensor size and also because of the four-quad movement it became necessary to have center frame. Connect this reason to the other section mentioned above. 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{images/e_exp_design/testing.png}
-    \caption{Testing procedure.}
-    \label{fig:testing.png}
-\end{figure}
+        \begin{equation}\label{eqn:dist_calc}
+            \begin{aligned}
+                a_x = \frac{A_x \cdot T_{yy} - A_y \cdot T_{xy}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}} \\
+                a_y = \frac{A_y \cdot T_{xx} - A_x \cdot T_{yx}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}}
+            \end{aligned}
+        \end{equation}
 
 \section{Constant Parameters}\label{section:constant_parameters}
-
-\noindent Going forward with this idea, it was important to decide on experimental factors that were going to remain constant during the testing process. How do parameters such as laser diameter, camera parameters such as gain and exposure time and image quality parameters such as \gls{mig} have on the positional measurement using a camera, \gls{ncc} and laser. Do I explain lack of independent parameters here or in results?
-
-\vspace{5mm}
-
-\noindent The \emph{f}/1.85 aperture was used for the camera. As shown in Fig. \ref{fig:corrected_setup.png} the working surface was approximately \SI{150}{\milli\meter} below the image sensor location inside the camera. The laser beam diameter for this height was approximately \SI{7}{\milli\meter} at the working surface. The experimental design was divided into the following:
-\begin{itemize}
-    \item Setup 1
-    \item Calibration
-    \item Testing
-    \item Setup 2
-    \item Calibration
-    \item Testing
-\end{itemize}
-
-\section{Testing Analysis}
-How you took last row of each data. etc. etc....
+    \noindent While collecting the data for testing as well as calibration, the following experimental factors are made sure to be constant. The \emph{f}/1.85 aperture was used for the camera while capturing the images. As shown in Fig. \ref{fig:corrected_setup.png} and Fig. \ref{fig:old_setup.png}, the working surface is approximately \SI{150}{\milli\meter} below the image sensor location. The distance between laser collimation point and center of image sensor is approximately \SI{26}{\milli\meter}. The laser beam was collimated approximately at the location of image sensor, resulting in semi-major axis of elliptical laser beam to be approximately \SI{7}{\milli\meter} at the working surface.
+    
+\section{Data Collection}\label{section:data_collection}
+    Keeping the testing goals in mind, for each pair of exposure time and gain values of the camera, the hexapod was moved to each of the quadrants 40 times to the specified coordinate, and simultaneously images were captured for each movement of the hexapod (See Fig. \ref{fig:testing.png}). The reasoning behind moving an absolute distance of \SI{0.3}{\milli\meter} along XY axes is that, the image sensor having rectangular dimensions, does not allow the greater displacement along Y-axis. In case of greater displacements, template reset is necessary, otherwise the chosen template will move out of the image window, and will not be trackable. As template reset was not implemented for this project, it was decided to move diagonally to each of the coordinates in the four quadrants. The design choice, to have template at the center of the frame, also allowed hexapod to be moved equal distances from the origin (See Fig. \ref{fig:frame_0_rect.png} and Fig. \ref{fig:testing.png}).
 
 \section*{To-Do}
 \begin{itemize}
@@ -181,16 +173,15 @@ How you took last row of each data. etc. etc....
     \item \sout{Do I say something about the corrected as well as old setup here?}
     \item \sout{What reason should I provide for the old setup?}
     \item Why did I only do x, y movement for the hexapod? Why was z movement not performed?
-    \item Why did we only move 0.3 mm?
+    \item \sout{Why did we only move 0.3 mm?}
     \item Because we are moving 0.3 mm, the repeatability error of hexapod with value \SI{\pm0.5}{\micro\meter} can be ignored? How much is the percentage of error? 0.1667\%
-    \item Put the quadrant diagram for performed movements here.
+    \item \sout{Put the quadrant diagram for performed movements here.}
     \item Why rotations were not done? My answer because of NCC.
     \item Put research questions for the next chapter.
     \item \sout{Talk about laser diameter used for our experiments.}
-    \item Have you taken into account every parameter you wanna talk about?
-    \item Explain transformation matrix. 
-    \item Add images explaining difference in MIG for different exposure times.
-    \item Explain how exposure time and gain affects MIG.
-    \item Sobel operations on very dark and bright images
-    \item Add photos to experimental setup.
+    \item \sout{Explain transformation matrix.}
+    \item \sout{Add images explaining difference in MIG for different exposure times.}
+    \item \sout{Explain how exposure time and gain affects MIG.}
+    \item \sout{Sobel operations on very dark and bright images}
+    \item \sout{Add photos to experimental setup.}
 \end{itemize}

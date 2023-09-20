@@ -146,7 +146,7 @@ In this chapter, the principles of important concepts will be explained. This he
     \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for x and y directions respectively.
     
     \vspace{5mm}
-    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel sobel operator was used for the Fig. \ref{fig:laser_speckle.png}. Then, magnitude for each pixel was calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for x and y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the gradient operation and magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel_gradient.png}. Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
+    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel Sobel operator is used for \gls{lsp} captured for 3 different exposure times. Then, magnitude of intensity gradient for each pixel is calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for X and Y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the Sobel operation and resulting gradient magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel.png}. This figure shows how over-/underexposed images have lower \gls{mig} values, because of lesser number of pixels having a higher gradient values (indicated by white pixels). Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
     
     \begin{equation}
         G_x = 
@@ -185,9 +185,26 @@ In this chapter, the principles of important concepts will be explained. This he
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
-        \caption{\gls{lsp} after sobel operations along x and y directions and resulting magnitude.}
-        \label{fig:sobel_gradient.png}
+        \begin{subfigure}[b]{0.95\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
+            \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second}}
+            \label{fig:sobel_gradient.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.95\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_underexposed.png}
+            \caption{Underexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{20}{\micro\second}}
+            \label{fig:sobel_underexposed.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.95\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_overexposed.png}
+            \caption{Overexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{1000}{\micro\second}}
+            \label{fig:sobel_overexposed.png}
+        \end{subfigure}
+        \caption{Grayscale colormaps for three different \glsplural{lsp} after Sobel operations along x and y directions and resulting magnitude.}
+        \label{fig:sobel.png}
     \end{figure}
 
     \clearpage
