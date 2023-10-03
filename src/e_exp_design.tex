@@ -178,5 +178,14 @@ As testing the camera's entire exposure range would be impractical, it became ne
 \subsection*{Choosing gain values for the camera}
 To observe effects of gain alone on position measurement, necessity arose to decide on a single exposure time. Here, $T3$ was chosen, based on it's higher \gls{mig} value. Choosing images with higher contrast i.e. higher \gls{mig} value became apparent, as it felt unnecessary to test effects of gain on position measurement for images captured with extremely low or higher exposure times. The gain for the camera can be changed in whole number increments from $0$ to $40$. But for our experiments, only the following gain values were tested: $0$, $2$, $4$, $6$, $8$, $10$, $20$, and $30$. 
 
-\subsection*{Data Collection Procedure}
-Keeping the testing goals in mind, for each pair of exposure time and gain values of the camera, the hexapod was moved to each of the quadrants 40 times to the specified coordinate, and simultaneously images were captured for each movement of the hexapod (See Fig. \ref{fig:testing.png}). The reasoning behind moving an absolute distance of \SI{0.3}{\milli\meter} along XY axes is that, the image sensor having rectangular dimensions, does not allow the greater displacement along Y-axis. In case of greater displacements, template reset is necessary, otherwise the chosen template will move out of the image window, and will not be trackable. As template reset was not implemented for this project, it was decided to move diagonally to each of the coordinates in the four quadrants. The design choice, to have template at the center of the frame, also allowed hexapod to be moved equal distances from the origin (See Fig. \ref{fig:frame_60_rect.png} and Fig. \ref{fig:testing.png}).
+\subsection*{Data Collection Procedure}\label{subsection:data_collection_procedure}
+Keeping the testing goals in mind, for each pair of exposure time and gain values of the camera, the hexapod was moved to each of the quadrants 40 times to the specified coordinate, and simultaneously images were captured for each movement of the hexapod (See Fig. \ref{fig:testing.png}). The movement of hexapod to the specified coordinate is named according to the following:
+
+\begin{itemize}
+    \item $(0.3, 0.3)$ is \textsf{TopRight}.
+    \item $(-0.3, 0.3)$ is \textsf{TopLeft}.
+    \item $(-0.3, -0.3)$ is \textsf{BottomLeft}.
+    \item $(0.3, -0.3)$ is \textsf{BottomRight}.
+\end{itemize}
+
+\noindent The reasoning behind moving an absolute distance of \SI{0.3}{\milli\meter} along XY axes is that, the image sensor having rectangular dimensions, does not allow the greater displacement along Y-axis. In case of greater displacements, template reset is necessary, otherwise the chosen template will move out of the image window, and will not be trackable. As template reset was not implemented for this project, it was decided to move diagonally to each of the coordinates in the four quadrants. The design choice, to have template at the center of the frame, also allowed hexapod to be moved equal distances from the origin (See Fig. \ref{fig:frame_60_rect.png} and Fig. \ref{fig:testing.png}).

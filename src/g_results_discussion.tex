@@ -1,0 +1,118 @@
+\chapter{Results and Discussion} \label{chap:results_and_discussion}
+
+The factors affecting position measurement using \gls{ncc} are discussed in the following sections:
+
+\section{Effect of Calibration Matrix}
+As explained in Section \ref{subsection:calib_matrix}, the calibration matrix relies on four essential parameters: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 25 to 27, respectively.  
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/e_exp_design/vibration_calib_x.png}
+        \caption{Calibration: X-Axis.}
+        \label{fig:vibration_calib_x.png}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/e_exp_design/vibration_calib_y.png}
+        \caption{Calibration: Y-Axis.}
+        \label{fig:vibration_calib_y.png}
+    \end{subfigure}
+    \caption{Pixel shifts during calibration demonstrating vibrations.}
+    \label{fig:vibration}
+\end{figure}
+
+\noindent Because of the fluctuation of pixel shifts, the each of the parameters of calibration matrix $T$ can have 2 choices. Thus, resulting 16 different permutations of $T$. Instead of testing each of those, 4 were chosen on random basis. Apart from this, another $T$ was calculated based on average of fluctuations across 40 calibrations for each axis.
+
+\begin{table}[h]
+	\centering
+    \footnotesize
+    \begin{tabular}{l@{\hspace{2.5cm}}r@{\hspace{2.5cm}}r}
+        \toprule
+            & $A_{xx}$ & $A_{yx}$  \\
+        \midrule
+        Valid & $40$ & $40$  \\
+        Missing & $0$ & $0$  \\
+        Mean & $-25.675$ & $0.350$  \\
+        Std. Deviation & $0.474$ & $0.483$  \\
+        Minimum & $-26.000$ & $0.000$  \\
+        Maximum & $-25.000$ & $1.000$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Descriptive Statistics of 40 calibrations along X-Axis.}
+    \label{table:stats_x}
+\end{table}
+
+\begin{table}[h]
+	\centering
+    \footnotesize
+    \begin{tabular}{l@{\hspace{2.5cm}}r@{\hspace{2.5cm}}r}
+        \toprule
+            & $A_{xy}$ & $A_{yy}$  \\
+        \midrule
+        Valid & $40$ & $40$  \\
+        Missing & $0$ & $0$  \\
+        Mean & $0.250$ & $26.050$  \\
+        Std. Deviation & $0.439$ & $0.316$  \\
+        Minimum & $0.000$ & $25.000$  \\
+        Maximum & $1.000$ & $27.000$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Descriptive Statistics of 40 calibrations along Y-Axis.}
+	\label{table:stats_y}
+\end{table}
+
+\noindent Add the 5 matrices by hand. Discuss the graphs. 
+
+\clearpage
+
+
+\section{Effect of Exposure Time}
+As explained in Section \ref{subsection:calib_matrix}, the distances $a_x$ and $a_y$ can be calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ actual}, a_{y\ actual})$. The error in position for respective axes is calculated using the following formulae:
+
+\begin{equation}
+    \text{Error X (mm)} = a_x - a_{x\ actual}
+\end{equation}
+\begin{equation}
+    \text{Error Y (mm)} = a_y - a_{y\ actual}
+\end{equation}
+\begin{equation}
+    \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ actual}} \times 100\% \\
+\end{equation}
+\begin{equation}
+    \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ actual}} \times 100\%
+\end{equation}
+
+\begin{itemize}
+    \item Start error calculation here.
+    \item Add effect of MIG.
+\end{itemize}
+
+
+\section{Effect of Gain}
+Add effect of MIG.
+Conclusion on MIG range.
+Maybe join both Gain and Exposure time and discuss its effects together under MIG range.
+
+
+\section{Calibrated Setup vs. Old Setup}
+\begin{itemize}
+    \item How exposure time can change based on laser spot incident on lens body?
+    \item Add the laser spot photo.
+\end{itemize}
+
+\section{Effect of Laser Diameter}
+\begin{itemize}
+    \item Explain decorrelation
+    \item How it drops with movement?
+    \item Put graphs mentioning where movement is actually happening.
+\end{itemize}
+
+\begin{itemize}
+    \item Lack of independent parameters.
+    \item Why did I only do x, y movement for the hexapod? Why was z movement not performed?
+    \item Because we are moving 0.3 mm, the repeatability error of hexapod with value \SI{\pm0.5}{\micro\meter} can be ignored? How much is the percentage of error? 0.1667\%
+    \item Why rotations were not done? My answer because of NCC.
+    \item Put research questions for the next chapter.
+\end{itemize}
