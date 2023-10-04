@@ -1,9 +1,25 @@
 \chapter{Results and Discussion} \label{chap:results_and_discussion}
 
-The factors affecting position measurement using \gls{ncc} are discussed in the following sections:
+The following equations are used in explanation of results. The distances $a_x$ and $a_y$ are calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ actual}, a_{y\ actual})$. The error in position for respective axes is calculated using the following formulae:
+
+\begin{equation}
+    \text{Error X (mm)} = a_x - a_{x\ actual}
+\end{equation}
+\begin{equation}
+    \text{Error Y (mm)} = a_y - a_{y\ actual}
+\end{equation}
+\begin{equation}
+    \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ actual}} \times 100\% \\
+\end{equation}
+\begin{equation}
+    \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ actual}} \times 100\%
+\end{equation}
+
+\vspace{10mm}
+\noindent The factors affecting position measurement using \gls{ncc} are discussed in the following sections:
 
 \section{Effect of Calibration Matrix}
-As explained in Section \ref{subsection:calib_matrix}, the calibration matrix relies on four essential parameters: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 25 to 27, respectively.  
+As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
 
 \begin{figure}[h]
     \centering
@@ -23,7 +39,43 @@ As explained in Section \ref{subsection:calib_matrix}, the calibration matrix re
     \label{fig:vibration}
 \end{figure}
 
-\noindent Because of the fluctuation of pixel shifts, the each of the parameters of calibration matrix $T$ can have 2 choices. Thus, resulting 16 different permutations of $T$. Instead of testing each of those, 4 were chosen on random basis. Apart from this, another $T$ was calculated based on average of fluctuations across 40 calibrations for each axis.
+\vspace{5mm}
+\noindent Because of the fluctuation of pixel shifts, the each of the parameters of calibration matrix $T$ can have 2 choices. Thus, resulting 16 different permutations of $T$. Instead of testing each of those, 4 were chosen on random basis. Apart from this, another $T$ was calculated based on average of fluctuations across 40 calibrations for each axis (See Table \ref{table:stats_x} and \ref{table:stats_y}). These 5 calibration matrices are given in Eqn. \ref{eqn:calib_matrices_permutations}. From Eqn. \ref{eqn:dist_calc}, the position $(a_x, a_y)$ is decided by the elements inside $T$. Because the matrices differ from each other, so will the final distances that are calculated. For the exposure time of \SI{150}{\micro\second} and gain equal to $0$, it can be seen by comparing Tables from \ref{table:stats_matrix_topright} to \ref{table:stats_matrix_bottomright} that across all movements of hexapod, $T_{Avg}$ fares better in comparison to other matrices. The maximum magnitude of error in position observed for $T_{Avg}$ is \SI{9}{\micro\meter} along X-Axis and \SI{7}{\micro\meter} along Y-Axis (See Table \ref{subtable:t_avg}).
+
+\begin{equation}
+    \begin{aligned}
+        T_1 &= 
+        \begin{bmatrix}
+            -260 & 10 \\
+            0 & 260
+        \end{bmatrix}
+        \\
+        T_2 &= 
+        \begin{bmatrix}
+            -260 & 0 \\
+            10 & 260
+        \end{bmatrix}
+        \\
+        T_3 &= 
+        \begin{bmatrix}
+            -250 & 10 \\
+            0 & 260
+        \end{bmatrix}
+        \\
+        T_4 &= 
+        \begin{bmatrix}
+            -250 & 0 \\
+            10 & 260
+        \end{bmatrix}
+        \\
+        T_{Avg} &= 
+        \begin{bmatrix}
+            -256.75 & 2.5 \\
+            3.5 & 260.5
+        \end{bmatrix}
+    \end{aligned}
+    \label{eqn:calib_matrices_permutations}
+\end{equation}
 
 \begin{table}[h]
 	\centering
@@ -63,26 +115,430 @@ As explained in Section \ref{subsection:calib_matrix}, the calibration matrix re
 	\label{table:stats_y}
 \end{table}
 
-\noindent Add the 5 matrices by hand. Discuss the graphs. 
+% TopRight Calib Matrix
+\begin{table}[h]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.308$ & $0.305$ & $0.008$ & $0.005$ & $384.922$  \\
+			Std. Deviation & $6.693\times10^{-5}$ & $0.002$ & $6.693\times10^{-5}$ & $0.002$ & $1.558$  \\
+			Minimum & $0.308$ & $0.304$ & $0.008$ & $0.004$ & $381.311$  \\
+			Maximum & $0.308$ & $0.308$ & $0.008$ & $0.008$ & $386.608$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_1$}
+    \end{subtable}
+    
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.296$ & $0.294$ & $-0.004$ & $-0.006$ & $384.922$  \\
+			Std. Deviation & $0.000$ & $0.002$ & $0.000$ & $0.002$ & $1.558$  \\
+			Minimum & $0.296$ & $0.292$ & $-0.004$ & $-0.008$ & $381.311$  \\
+			Maximum & $0.296$ & $0.296$ & $-0.004$ & $-0.004$ & $386.608$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_2$}
+    \end{subtable}
+
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.320$ & $0.305$ & $0.020$ & $0.005$ & $384.922$  \\
+			Std. Deviation & $6.964\times10^{-5}$ & $0.002$ & $6.964\times10^{-5}$ & $0.002$ & $1.558$  \\
+			Minimum & $0.320$ & $0.304$ & $0.020$ & $0.004$ & $381.311$  \\
+			Maximum & $0.320$ & $0.308$ & $0.020$ & $0.008$ & $386.608$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_3$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+    \centering
+    \footnotesize
+    \begin{tabular}{lrrrrr}
+        \toprule
+            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+        \midrule
+        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+        Mean & $0.308$ & $0.293$ & $0.008$ & $-0.007$ & $384.922$  \\
+        Std. Deviation & $0.000$ & $0.002$ & $0.000$ & $0.002$ & $1.558$  \\
+        Minimum & $0.308$ & $0.292$ & $0.008$ & $-0.008$ & $381.311$  \\
+        Maximum & $0.308$ & $0.296$ & $0.008$ & $-0.004$ & $386.608$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{$T_4$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.303$ & $0.300$ & $0.003$ & $2.497\times10^{-4}$ & $384.922$  \\
+			Std. Deviation & $1.673\times10^{-5}$ & $0.002$ & $1.673\times10^{-5}$ & $0.002$ & $1.558$  \\
+			Minimum & $0.303$ & $0.299$ & $0.003$ & $-8.060\times10^{-4}$ & $381.311$  \\
+			Maximum & $0.303$ & $0.303$ & $0.003$ & $0.003$ & $386.608$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_{Avg}$}
+        \end{subtable}
+
+    \caption{Descriptive Statistics for 5 calibration matrices for \textsf{TopRight:} (\SI{0.3}{\milli\meter}, \SI{0.3}{\milli\meter})}
+    \label{table:stats_matrix_topright}
+\end{table}
+
+% TopLeft Calib Matrix
+\begin{table}[h]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $-0.292$ & $0.300$ & $0.008$ & $3.846\times10^{-4}$ & $386.977$  \\
+			Std. Deviation & $8.535\times10^{-4}$ & $0.001$ & $8.535\times10^{-4}$ & $0.001$ & $0.240$  \\
+			Minimum & $-0.296$ & $0.300$ & $0.004$ & $0.000$ & $386.333$  \\
+			Maximum & $-0.292$ & $0.304$ & $0.008$ & $0.004$ & $387.365$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_1$}
+    \end{subtable}
+    
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $-0.304$ & $0.312$ & $-0.004$ & $0.012$ & $386.977$  \\
+			Std. Deviation & $8.489\times10^{-4}$ & $0.001$ & $8.489\times10^{-4}$ & $0.001$ & $0.240$  \\
+			Minimum & $-0.308$ & $0.312$ & $-0.008$ & $0.012$ & $386.333$  \\
+			Maximum & $-0.304$ & $0.316$ & $-0.004$ & $0.016$ & $387.365$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_2$}
+    \end{subtable}
+
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $-0.304$ & $0.300$ & $-0.004$ & $3.846\times10^{-4}$ & $386.977$  \\
+			Std. Deviation & $8.877\times10^{-4}$ & $0.001$ & $8.877\times10^{-4}$ & $0.001$ & $0.240$  \\
+			Minimum & $-0.308$ & $0.300$ & $-0.008$ & $0.000$ & $386.333$  \\
+			Maximum & $-0.304$ & $0.304$ & $-0.004$ & $0.004$ & $387.365$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_3$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+    \centering
+    \footnotesize
+    \begin{tabular}{lrrrrr}
+        \toprule
+            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+        \midrule
+        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+        Mean & $-0.316$ & $0.313$ & $-0.016$ & $0.013$ & $386.977$  \\
+        Std. Deviation & $8.829\times10^{-4}$ & $0.001$ & $8.829\times10^{-4}$ & $0.001$ & $0.240$  \\
+        Minimum & $-0.320$ & $0.312$ & $-0.020$ & $0.012$ & $386.333$  \\
+        Maximum & $-0.316$ & $0.316$ & $-0.016$ & $0.016$ & $387.365$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{$T_4$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $-0.305$ & $0.304$ & $-0.005$ & $0.004$ & $386.977$  \\
+			Std. Deviation & $8.604\times10^{-4}$ & $0.001$ & $8.604\times10^{-4}$ & $0.001$ & $0.240$  \\
+			Minimum & $-0.309$ & $0.304$ & $-0.009$ & $0.004$ & $386.333$  \\
+			Maximum & $-0.305$ & $0.307$ & $-0.005$ & $0.007$ & $387.365$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_{Avg}$}
+        \label{subtable:t_avg}
+        \end{subtable}
+
+    \caption{Descriptive Statistics for 5 calibration matrices for \textsf{TopLeft:} (\SI{-0.3}{\milli\meter}, \SI{0.3}{\milli\meter})}
+    \label{table:stats_matrix_topleft}
+\end{table}
+
+% Bottom Left Calib Matrix
+\begin{table}[h]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+            Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+            Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+            Mean & $-0.308$ & $-0.304$ & $-0.008$ & $-0.004$ & $389.465$  \\
+            Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+            Minimum & $-0.312$ & $-0.308$ & $-0.012$ & $-0.008$ & $389.242$  \\
+            Maximum & $-0.308$ & $-0.300$ & $-0.008$ & $0.000$ & $389.665$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_1$}
+    \end{subtable}
+    
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $-0.297$ & $-0.292$ & $0.003$ & $0.008$ & $389.465$  \\
+			Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+			Minimum & $-0.300$ & $-0.296$ & $0.000$ & $0.004$ & $389.242$  \\
+			Maximum & $-0.296$ & $-0.289$ & $0.004$ & $0.011$ & $389.665$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_2$}
+    \end{subtable}
+
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+            Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $-0.321$ & $-0.304$ & $-0.021$ & $-0.004$ & $389.465$  \\
+			Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+			Minimum & $-0.324$ & $-0.308$ & $-0.024$ & $-0.008$ & $389.242$  \\
+			Maximum & $-0.320$ & $-0.300$ & $-0.020$ & $0.000$ & $389.665$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_3$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+    \centering
+    \footnotesize
+    \begin{tabular}{lrrrrr}
+        \toprule
+            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+        \midrule
+        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+        Mean & $-0.309$ & $-0.292$ & $-0.009$ & $0.008$ & $389.465$  \\
+        Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+        Minimum & $-0.312$ & $-0.296$ & $-0.012$ & $0.004$ & $389.242$  \\
+        Maximum & $-0.308$ & $-0.288$ & $-0.008$ & $0.012$ & $389.665$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{$T_4$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+            Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+            Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+            Mean & $-0.303$ & $-0.299$ & $-0.003$ & $9.097\times10^{-4}$ & $389.465$  \\
+            Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+            Minimum & $-0.307$ & $-0.303$ & $-0.007$ & $-0.003$ & $389.242$  \\
+            Maximum & $-0.303$ & $-0.295$ & $-0.003$ & $0.005$ & $389.665$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_{Avg}$}
+        \end{subtable}
+
+    \caption{Descriptive Statistics for 5 calibration matrices for \textsf{BottomLeft:} (\SI{-0.3}{\milli\meter}, \SI{-0.3}{\milli\meter})}
+    \label{table:stats_matrix_bottomleft}
+\end{table}
+
+% Bottom Right Calib Matrix
+\begin{table}[h]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.292$ & $-0.297$ & $-0.008$ & $0.003$ & $388.784$  \\
+			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+			Minimum & $0.288$ & $-0.300$ & $-0.012$ & $0.000$ & $388.619$  \\
+			Maximum & $0.292$ & $-0.296$ & $-0.008$ & $0.004$ & $388.996$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_1$}
+    \end{subtable}
+    
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.303$ & $-0.309$ & $0.003$ & $-0.009$ & $388.784$  \\
+			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+			Minimum & $0.300$ & $-0.312$ & $0.000$ & $-0.012$ & $388.619$  \\
+			Maximum & $0.304$ & $-0.308$ & $0.004$ & $-0.008$ & $388.996$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_2$}
+    \end{subtable}
+
+    \vspace{10pt} % Add some vertical space between tables
+    
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.303$ & $-0.297$ & $0.003$ & $0.003$ & $388.784$  \\
+			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+			Minimum & $0.300$ & $-0.300$ & $0.000$ & $0.000$ & $388.619$  \\
+			Maximum & $0.304$ & $-0.296$ & $0.004$ & $0.004$ & $388.996$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_3$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+    \centering
+    \footnotesize
+    \begin{tabular}{lrrrrr}
+        \toprule
+            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+        \midrule
+        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+        Mean & $0.315$ & $-0.309$ & $0.015$ & $-0.009$ & $388.784$  \\
+        Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+        Minimum & $0.312$ & $-0.312$ & $0.012$ & $-0.012$ & $388.619$  \\
+        Maximum & $0.316$ & $-0.308$ & $0.016$ & $-0.008$ & $388.996$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{$T_4$}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lrrrrr}
+            \toprule
+                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \midrule
+			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+			Mean & $0.304$ & $-0.301$ & $0.004$ & $-6.292\times10^{-4}$ & $388.784$  \\
+			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+			Minimum & $0.301$ & $-0.304$ & $8.430\times10^{-4}$ & $-0.004$ & $388.619$  \\
+			Maximum & $0.305$ & $-0.300$ & $0.005$ & $3.720\times10^{-4}$ & $388.996$  \\
+            \bottomrule
+        \end{tabular}
+        \caption{$T_{Avg}$}
+        \end{subtable}
+
+    \caption{Descriptive Statistics for 5 calibration matrices for \textsf{BottomRight:} (\SI{0.3}{\milli\meter}, \SI{-0.3}{\milli\meter})}
+    \label{table:stats_matrix_bottomright}
+\end{table}
 
 \clearpage
 
-
 \section{Effect of Exposure Time}
-As explained in Section \ref{subsection:calib_matrix}, the distances $a_x$ and $a_y$ can be calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ actual}, a_{y\ actual})$. The error in position for respective axes is calculated using the following formulae:
-
-\begin{equation}
-    \text{Error X (mm)} = a_x - a_{x\ actual}
-\end{equation}
-\begin{equation}
-    \text{Error Y (mm)} = a_y - a_{y\ actual}
-\end{equation}
-\begin{equation}
-    \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ actual}} \times 100\% \\
-\end{equation}
-\begin{equation}
-    \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ actual}} \times 100\%
-\end{equation}
 
 \begin{itemize}
     \item Start error calculation here.
