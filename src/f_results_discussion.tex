@@ -537,9 +537,62 @@ As explained in Section \ref{subsection:calib_matrix}, the calibration matrix ha
 \end{table}
 
 \clearpage
+\section{Effect of Exposure Time and Gain}
+\subsection*{Exposure Time}
+Depending on value of exposure time, an image could be under- or overexposed or correctly exposed. In case of under- or overexposed images, they have lower \gls{mig} values. The reason is attributed to lower gradient of intensity values between neighboring pixels. This can be seen in Fig. \ref{fig:exposure_time_mig.png}, where lower exposure times have lower \gls{mig} values. As exposure time increases, \gls{mig} increases, until it falls low for higher exposure times.
 
-\section{Effect of Exposure Time}
-As increasing exposure time has an effect of increasing intensity of pixels, it has an effect of decreasing \gls{mig}. 
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_20.png}
+        \caption{Exposure Time: \SI{20}{\micro\second}, \gls{mig}: 65.86}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_80.png}
+        \caption{Exposure Time: \SI{80}{\micro\second}, \gls{mig}: 276.23}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_150.png}
+        \caption{Exposure Time: \SI{150}{\micro\second}, \gls{mig}: 381.89}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_320.png}
+        \caption{Exposure Time: \SI{320}{\micro\second}, \gls{mig}: 360.06}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_1000.png}
+        \caption{Exposure Time: \SI{1000}{\micro\second}, \gls{mig}: 86.21}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_3000.png}
+        \caption{Exposure Time: \SI{3000}{\micro\second}, \gls{mig}: 5.35}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \caption{\glsplural{lsp} for different exposure times and gain of 0.}
+\end{figure}
+
+\vspace{5mm}
+\noindent As seen in Table \ref{table:stats_matrix_exposuretime}, for all exposure times except \SI{3000}{\micro\second}, the maximum mean absolute error in position along the X-axis is \SI{8}{\micro\meter}, and along the Y-axis is \SI{5}{\micro\meter}. This demonstrates that position measurement remains reliable even in what are typically regarded as over- or underexposed images, as long as the \gls{mig} is not exceptionally low.
 
 \begin{table}[h]
     \centering
@@ -665,21 +718,276 @@ As increasing exposure time has an effect of increasing intensity of pixels, it 
     \label{table:stats_matrix_exposuretime}
 \end{table}
 
+\clearpage
+
+\subsection*{Gain}
+Similar to the effects of increasing exposure time, increasing gain can also decrease \gls{mig}. This is illustrated in Fig. \ref{fig:gain_mig.png}. The intensity of pixels increases by increasing gain, and can be seen by comparing images from Fig. \ref{fig:gain_mig_0_to_30}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/f_results_discussion/gain_mig.png}
+    \caption{\gls{mig} relationship with gain for exposure time of \SI{150}{\micro\second}.}
+    \label{fig:gain_mig.png}
+\end{figure}
+
+\vspace{10mm}
+\noindent From comparing Table \ref{table:stats_matrix_gain} and Table \ref{table:stats_matrix_gain_20}, it can be inferred that as \gls{mig} becomes extremely low, errors in position along X-Axis and Y-Axis becomes more apparent. The maximum absolute mean error along X-Axis and along Y-Axis is \SI{5}{\micro\meter} for gain of 0, 2, 4, 6, 8, 10. The positional errors become evident for gain value of 20 and 30, where they are greater than actual displacement of the hexapod.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_0.png}
+        \caption{Gain: 0, \gls{mig}: 389.465}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_2.png}
+        \caption{Gain: 2, \gls{mig}: 400.064}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_4.png}
+        \caption{Gain: 4, \gls{mig}: 407.020}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_6.png}
+        \caption{Gain: 6, \gls{mig}: 367.907}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_8.png}
+        \caption{Gain: 8, \gls{mig}: 328.666}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_10.png}
+        \caption{Gain: 10, \gls{mig}: 269.310}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_20.png}
+        \caption{Gain: 20, \gls{mig}: 37.248}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_30.png}
+        \caption{Gain: 30, \gls{mig}: 0.744}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \caption{\glsplural{lsp} for exposure time of \SI{150}{\micro\second} and different gain values.}
+    \label{fig:gain_mig_0_to_30}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $0.001$ & $9.097\times10^{-4}$ & $0.001$ & $389.465$ & $0.112$ \\
+            \textsf{BottomRight} & $0.004$ & $0.002$ & $-6.292\times10^{-4}$ & $0.002$ & $388.784$ & $0.075$ \\
+            \textsf{TopLeft} & $-0.005$ & $8.064\times10^{-4}$ & $0.004$ & $0.001$ & $386.977$ & $0.240$ \\
+            \textsf{TopRight} & $0.003$ & $1.673\times10^{-5}$ & $2.497\times10^{-4}$ & $0.002$ & $384.922$ & $1.558$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 0}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $1.715\times10^{-5}$ & $3.261\times10^{-4}$ & $0.002$ & $400.064$ & $0.106$ \\
+            \textsf{BottomRight} & $0.005$ & $-1.951\times10^{-5}$ & $-9.277\times10^{-4}$ & $0.002$ & $399.994$ & $0.128$ \\
+            \textsf{TopLeft} & $-0.005$ & $0.001$ & $0.003$ & $0.001$ & $399.510$ & $0.116$ \\
+            \textsf{TopRight} & $-0.001$ & $6.184\times10^{-4}$ & $0.005$ & $0.002$ & $401.572$ & $0.099$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 2}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $1.124\times10^{-5}$ & $4.221\times10^{-4}$ & $0.001$ & $407.020$ & $0.090$ \\
+            \textsf{BottomRight} & $0.005$ & $1.871\times10^{-5}$ & $-0.002$ & $0.002$ & $408.481$ & $0.104$ \\
+            \textsf{TopLeft} & $-0.005$ & $0.001$ & $0.003$ & $0.001$ & $408.912$ & $0.122$ \\
+            \textsf{TopRight} & $0.002$ & $0.001$ & $0.001$ & $0.002$ & $408.985$ & $0.288$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 4}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $9.870\times10^{-6}$ & $5.181\times10^{-4}$ & $0.001$ & $367.907$ & $0.370$ \\
+            \textsf{BottomRight} & $0.004$ & $0.002$ & $-7.226\times10^{-4}$ & $0.002$ & $367.443$ & $0.294$ \\
+            \textsf{TopLeft} & $-0.005$ & $1.673\times10^{-5}$ & $0.002$ & $0.002$ & $368.475$ & $0.163$ \\
+            \textsf{TopRight} & $0.002$ & $0.002$ & $-2.982\times10^{-5}$ & $0.002$ & $367.360$ & $0.819$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 6}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $6.151\times10^{-4}$ & $3.274\times10^{-4}$ & $0.001$ & $328.666$ & $0.256$ \\
+            \textsf{BottomRight} & $0.004$ & $0.001$ & $3.6\times10^{-5}$ & $0.001$ & $327.298$ & $0.342$ \\
+            \textsf{TopLeft} & $-0.005$ & $1.755\times10^{-5}$ & $0.002$ & $0.002$ & $327.991$ & $0.308$ \\
+            \textsf{TopRight} & $0.002$ & $0.002$ & $7.468\times10^{-4}$ & $0.002$ & $325.817$ & $0.314$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 8}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $0$ & $8.060\times10^{-4}$ & $0.000$ & $269.310$ & $2.027$ \\
+            \textsf{BottomRight} & $0.004$ & $0.001$ & $2.305\times10^{-4}$ & $5.997\times10^{-4}$ & $262.760$ & $0.9$ \\
+            \textsf{TopLeft} & $-0.005$ & $1.632\times10^{-5}$ & $0.003$ & $0.002$ & $276.684$ & $1.098$ \\
+            \textsf{TopRight} & $0.002$ & $0.001$ & $5.443\times10^{-4}$ & $0.002$ & $274.124$ & $0.216$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 10}
+    \end{subtable}
+
+    \caption{Descriptive Statistics for different gains and exposure time of \SI{150}{\micro\second}.}
+    \label{table:stats_matrix_gain}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $-0.003$ & $8.167\times10^{-6}$ & $9.979\times10^{-4}$ & $8.471\times10^{-4}$ & $37.248$ & $0.737$ \\
+            \textsf{BottomRight} & $0.004$ & $0.002$ & $1.385\times10^{-4}$ & $0.001$ & $36.556$ & $0.395$ \\
+            \textsf{TopLeft} & $0.038$ & $0.076$ & $-0.397$ & $0.355$ & $36.984$ & $0.912$ \\
+            \textsf{TopRight} & $0.002$ & $0.002$ & $7.389\times10^{-4}$ & $0.002$ & $36.584$ & $0.294$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 20}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{lcccccc}
+            \toprule
+            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
+            \midrule
+            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
+            \midrule
+            \textsf{BottomLeft} & $1.034$ & $0.414$ & $-0.215$ & $0.471$ & $0.744$ & $0.026$ \\
+            \textsf{BottomRight} & $0.187$ & $0.638$ & $-0.158$ & $0.466$ & $0.692$ & $0.058$ \\
+            \textsf{TopLeft} & $1.102$ & $0.575$ & $-0.824$ & $0.550$ & $0.467$ & $0.084$ \\
+            \textsf{TopRight} & $0.044$ & $0.482$ & $-0.676$ & $0.521$ & $0.473$ & $0.067$ \\
+            \bottomrule
+        \end{tabular}
+        \caption{Gain: 30}
+    \end{subtable}
+
+    \caption{Descriptive Statistics for different gains and exposure time of \SI{150}{\micro\second}.}
+    \label{table:stats_matrix_gain_20}
+\end{table}
+
 \begin{itemize}
-    \item Start error calculation here.
-    \item Add effect of MIG.
+    \item Add the photo of laser blocking.
+    \item Maybe join both Gain and Exposure time and discuss its effects together under MIG range.
 \end{itemize}
 
 \clearpage
 
-\section{Effect of Gain}
-\begin{itemize}
-\item Add effect of MIG.
-\item Conclusion on MIG range.
-\item Do I need a Avg. MIG vs. Gain graph? Yes.
-\item How do I add 8 subtables of different gains here? 4 and 4 imo.
-\item Maybe join both Gain and Exposure time and discuss its effects together under MIG range.
-\end{itemize}
+\subsection*{Conclusion on Gain and Exposure Time}
+The camera parameters (here, gain and exposure time) are dependent on the experimental setup. For instance, in Fig. \ref{fig:laser_spot_block.JPG}, part of the laser is incident on the lens body. This causes lower laser power to be incident on the surface of the hexapod. Furthermore, this decrease in laser power means, more exposure or higher gain in camera would be required to have a higher \gls{mig} value. Similarly, if experimental setup is changed, for example, laser module or the camera is switched, or if the distance between the hexapod surface and camera or the laser module changes, the camera parameters will change as well. Thus, \gls{mig} can act as an independent parameter to check the contrast in a \gls{lsp}. From the experiments, it can be concluded, if \gls{mig} is within a range of $\sim$66 to $\sim$409, the position values are reliable with a maximum absolute error of <\SI{10}{\micro\meter}.
+
+\vspace{5mm}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[angle=90, width=0.35\textwidth]{images/f_results_discussion/laser_spot_block.JPG}
+    \caption{Laser partly incident on lens body.}
+    \label{fig:laser_spot_block.JPG}
+\end{figure}
+
+\clearpage
 
 \section{Calibrated Setup vs. Old Setup}
 \begin{itemize}
