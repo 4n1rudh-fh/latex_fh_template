@@ -537,7 +537,7 @@ As explained in Section \ref{subsection:calib_matrix}, the calibration matrix ha
 \end{table}
 
 \clearpage
-\section{Effect of Exposure Time and Gain}
+\section{Effect of Exposure Time and Gain} \label{section:effect_of_exp_time_gain}
 \subsection*{Exposure Time}
 Depending on value of exposure time, an image could be under- or overexposed or correctly exposed. In case of under- or overexposed images, they have lower \gls{mig} values. The reason is attributed to lower gradient of intensity values between neighboring pixels. This can be seen in Fig. \ref{fig:exposure_time_mig.png}, where lower exposure times have lower \gls{mig} values. As exposure time increases, \gls{mig} increases, until it falls low for higher exposure times.
 
@@ -968,15 +968,13 @@ Similar to the effects of increasing exposure time, increasing gain can also dec
     \label{table:stats_matrix_gain_20}
 \end{table}
 
-\begin{itemize}
-    \item Add the photo of laser blocking.
-    \item Maybe join both Gain and Exposure time and discuss its effects together under MIG range.
-\end{itemize}
-
 \clearpage
 
-\subsection*{Conclusion on Gain and Exposure Time}
-The camera parameters (here, gain and exposure time) are dependent on the experimental setup. For instance, in Fig. \ref{fig:laser_spot_block.JPG}, part of the laser is incident on the lens body. This causes lower laser power to be incident on the surface of the hexapod. Furthermore, this decrease in laser power means, more exposure or higher gain in camera would be required to have a higher \gls{mig} value. Similarly, if experimental setup is changed, for example, laser module or the camera is switched, or if the distance between the hexapod surface and camera or the laser module changes, the camera parameters will change as well. Thus, \gls{mig} can act as an independent parameter to check the contrast in a \gls{lsp}. From the experiments, it can be concluded, if \gls{mig} is within a range of $\sim$66 to $\sim$409, the position values are reliable with a maximum absolute error of <\SI{10}{\micro\meter}.
+\subsection*{Deduction on effects of Gain and Exposure Time}
+\noindent In conclusion, the camera parameters (here, gain and exposure time) are sensitive to the experimental setup. An independent parameter like \gls{mig} can help counter this issue. For instance, in Fig. \ref{fig:laser_spot_block.JPG}, part of the laser is incident on the lens body which causes, lower laser power to be incident on the surface of the hexapod. Consequently requiring higher exposure or gain to acheive a higher \gls{mig} value. 
+
+\vspace{5mm}
+\noindent Furthermore, when experimental setup is changed, such as laser module or the camera is switched, or distances between components is changed, it has an effect on camera parameters. Thus, \gls{mig} can be monitored as an independent parameter in such situations. The experimental findings suggest that when \gls{mig} is within a range of $\sim$66 to $\sim$409, the position values are reliable with a maximum absolute error of less than \SI{10}{\micro\meter}.
 
 \vspace{5mm}
 
@@ -987,25 +985,79 @@ The camera parameters (here, gain and exposure time) are dependent on the experi
     \label{fig:laser_spot_block.JPG}
 \end{figure}
 
+\section{Calibrated Setup vs. Old Setup}
+Earlier concept of the experimental setup in Fig. \ref{fig:old_setup_potrait.JPG} has a 3D-printed \gls{pla} mount for the laser module, which has an inbuilt tilted cylinder in it's design to fit the laser module. Furthermore, the camera is tilted such that, image sensor plane is not parallel to the hexapod surface. As a result, laser is partly incident on laser body (See Fig. \ref{fig:laser_spot_block.JPG}). As a consequence, higher exposure times are required to have similar values of \gls{mig} when comparing the old setup in Fig. \ref{fig:old_setup_potrait.JPG} with corrected setup in Fig. \ref{fig:new_setup_potrait.JPG}.
+
+\begin{figure}[h]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_mig.png}
+        \caption{Old Setup \\ Gain: 0, Exposure Time: \SI{510}{\micro\second}}
+        \label{fig:old_mount_mig.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_mig.png}
+        \caption{Corrected Setup \\ Gain: 0, Exposure Time: \SI{150}{\micro\second}}
+        \label{fig:new_mount_mig.png}
+    \end{subfigure}
+    \caption{\gls{mig} comparison for different setups.}
+    \label{fig:mig_comparison_setups}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \captionsetup{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_x.png}
+        \caption{Old setup: X-Axis}
+        \label{fig:old_mount_error_x.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_y.png}
+        \caption{Old setup: Y-Axis}
+        \label{fig:old_mount_error_y.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.44\textwidth}
+        \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_x.png}
+        \caption{Corrected setup: X-Axis}
+        \label{fig:new_mount_error_x.png}
+    \end{subfigure}
+    \hspace{5mm}
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_y.png}
+        \caption{Corrected setup: Y-Axis}
+        \label{fig:new_mount_error_y.png}
+    \end{subfigure}
+    \caption{Positional error comparison for XY-Axes for different setups.}
+    \label{fig:error_comparison_setups}
+\end{figure}
+
 \clearpage
 
-\section{Calibrated Setup vs. Old Setup}
-\begin{itemize}
-    \item How exposure time can change based on laser spot incident on lens body?
-    \item Add the laser spot photo.
-\end{itemize}
+\vspace{5mm}
+\noindent As established in Section \ref{section:effect_of_exp_time_gain}, the camera parameters can change based on experimental setup used. Therefore, in order to compare positional errors for these two setups, it was essential to focus on exposure times that yielded similar \gls{mig} values (See Fig. \ref{fig:mig_comparison_setups}). It can be observed from Fig. \ref{fig:error_comparison_setups} that, there is a decrease in error along Y-Axis for all movements of hexapod when the corrected setup is used. The cause of this error in older setup can be, that the tilt of the image sensor with respect to hexapod surface introduced additional translation when moving hexapod along it's Y-Axis. But, more inspection is necessary into this cause.
 
 \section{Effect of Laser Diameter}
-\begin{itemize}
-    \item Explain decorrelation
-    \item How it drops with movement?
-    \item Put graphs mentioning where movement is actually happening.
-\end{itemize}
+Due to limited literature on influence of laser diameter on position measurement accuracy, it is of necessity to revisit concept of decorrelation. Decorrelation occurs, when the \gls{lsp} undergoes significant changes after a certain amount of translation. This decorrelation also happens during the conducted experiments. Due to the nature of formation of \gls{lsp}, surface roughness plays a pivotal role in determining how laser interacts with the surface and is captured by the camera. This is specially the case, when there is a moving surface, as that has an effect on the underlying reflection. Thus, having an impact on appearance of \gls{lsp}. 
 
-\begin{itemize}
-    \item Lack of independent parameters.
-    \item Why did I only do x, y movement for the hexapod? Why was z movement not performed?
-    \item Because we are moving 0.3 mm, the repeatability error of hexapod with value \SI{\pm0.5}{\micro\meter} can be ignored? How much is the percentage of error? 0.1667\%
-    \item Why rotations were not done? My answer because of NCC.
-    \item Put research questions for the next chapter.
-\end{itemize}
+\vspace{5mm}
+\noindent To further investigate this effect, laser diameter is changed in unit increments from \SI{1}{\milli\meter} to \SI{9}{\milli\meter}. The hexapod is moved to the \textsf{TopRight} coordinate (\SI{0.3}{\milli\meter}, \SI{0.3}{\milli\meter}). Images are recorded, and analyzed using the \gls{ncc} algorithm. 
+
+\vspace{5mm}
+\noindent The results from Fig. \ref{fig:laser_decorrelation.png} show that, there is a drop in cross-correlation value observed across all laser diameters. The reason can be attributed to decorrelation happening because of movement of hexapod. Another observation is that, the rate of drop is significant when laser diameter is between \SI{1}{\milli\meter} to \SI{4}{\milli\meter}. In conclusion, the substantial reduction in cross-correlation values signifies that the template is no longer reliably detected within the underlying image. It merely suggests the possibility of its presence.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/f_results_discussion/laser_decorrelation.png}
+    \caption{Decorrelation in a \gls{lsp} vs. Laser Diameter}
+    \label{fig:laser_decorrelation.png}
+\end{figure}
+
+\clearpage
