@@ -18,7 +18,7 @@ The following equations are used in explanation of results. The distances $a_x$ 
 \vspace{10mm}
 \noindent The factors affecting position measurement using \gls{ncc} are discussed in the following sections:
 
-\section{Effect of Calibration Matrix}
+\section{Effect of Calibration Matrix} \label{section:results_discussion_calib}
 As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
 
 \begin{figure}[h]
