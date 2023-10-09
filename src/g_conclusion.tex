@@ -10,10 +10,10 @@ To conclude, \gls{lsp} analysis using \gls{ncc} algorithm seems a promising alte
 \begin{itemize}
     \item $e_{pixel\ locking}$ is the error due to pixel locking and vibrational effects explained in Section \ref{section:results_discussion_calib}. 
     \item $e_{calibration\ matrix}$ is the error introduced in position calculation due to calibration errors because of pixel locking and vibration.
-    \item $e_{hexapod}$ is the repeatability error in position of hexapod. This amounts to 0.1667\%.
+    \item $e_{hexapod}$ is the repeatability error in position of hexapod. This amounts to 0.1667\% \cite{hexapod_manual}.
 \end{itemize}
 \begin{equation}
-    e_{total} = f(e_{pixel\ locking}, e_{calibration\ matrix}, e_{hexapod})
+    e_{total} \approx f(e_{pixel\ locking}, e_{calibration\ matrix}, e_{hexapod})
     \label{eqn:makeup_error}
 \end{equation}
 
