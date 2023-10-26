@@ -1,4 +1,185 @@
-\chapter{Experimental Design}
+\chapter{Experiments}
+
+\section{Experimental Setup}
+
+The experiments were conducted using the following components:
+
+\subsection{Camera}
+    The camera used for the experiments is manufactured by Allied Vision and the model's name is Mako G-040B. It is a \gls{poe} enabled, Gig-E compliant monochrome camera. It can run at frame rate of 286 \gls{fps} at full resolution of 0.4 megapixel. It has a progressive scan \gls{cmos} Sony IMX287 image sensor with a pixel size of \SI{6.9}{\micro\meter} \times \ \SI{6.9}{\micro\meter}. The rest of the technical details can be found in the Table \ref{table:camera_specs}.
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{6cm}p{7cm}}
+            \toprule
+            \textbf{Parameter} & \textbf{Description} \\
+            \midrule
+            Interface & IEEE 802.3 1000BASE-T, IEEE 802.3af (\gls{poe})\\
+            Resolution & 728 (H) x 544 (V)\\
+            Sensor & Sony IMX287\\
+            Sensor Type & \gls{cmos}\\
+            Shutter Mode & \gls{gs}\\
+            Sensor Size & Type 1/2.9\\
+            Pixel Size & \SI{6.9}{\micro\meter} x \SI{6.9}{\micro\meter}\\
+            Lens Mounts & C-Mount, CS-Mount\\
+            Max. Frame Rate at Full Resolution & 286 \gls{fps}\\
+            ADC & 12 Bit\\
+            Image Buffer & 64 MByte\\
+            \bottomrule
+        \end{tabular}
+        \caption{Specifications for Mako G-040B Camera. \cite{mako_camera}}
+        \label{table:camera_specs}
+    \end{table}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/d_exp_setup/mako_camera.png}
+        \caption{Mako G-040 \cite{mako_camera}}
+        \label{fig:mako_camera.png}
+    \end{figure}
+
+\clearpage
+
+\subsection{Laser Diode Module}
+    The laser module CPS635F from ThorLabs (See Fig. \ref{fig:laser_module.jpg}) has typical wavelength of \SI{635}{\nano\meter}. It has adjustable focal length and produces laser beam of elliptical shape. The variations in output wavelength with changing temperature can be seen from the Fig. \ref{fig:spectrum_laser_module.png}. Other specifications can be found in the Table \ref{table:laser_module_specs}.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.26\textwidth]{images/d_exp_setup/laser_module.jpg}
+        \caption{CPS635F Laser Module from ThorLabs. \cite{thorlabs_laser}}
+        \label{fig:laser_module.jpg}
+    \end{figure}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/d_exp_setup/spectrum_laser_module.png}
+        \caption{Spectrum of CPS635F module taken at 20\textdegree{}C, 25\textdegree{}C, 30\textdegree{}C. This data is typical and will vary for each module. \cite{thorlabs_laser}}
+        \label{fig:spectrum_laser_module.png}
+    \end{figure}
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{6cm}p{2cm}p{2cm}p{2cm}}
+            \toprule
+            \textbf{Parameter} & \textbf{Minimum} & \textbf{Typical} & \textbf{Maximum} \\
+            \midrule
+            Wavelength & \SI{630}{\nano\meter} & \SI{635}{\nano\meter} & \SI{645}{\nano\meter} \\
+            Power & \SI{4.0}{\milli\watt} & \SI{4.5}{\milli\watt} & \SI{5.0}{\milli\watt} \\
+            Power Stability (8 hours) & - & - & 2\% \\
+            Power Stability (1 minute) & - & - & 1\% \\
+            Axis Deviation & - & - & \SI{5}{\milli\radian} \\
+            Beam Divergence (Collimated) & - & - & \SI{1.6}{\milli\radian} \\
+            Focal Range (From Exit Window) & \SI{80}{\milli\meter} & - & Collimated \\
+            Focussed Spot Diameter (\SI{100}{\milli\meter}, 1/e²) & - & \SI{30}{\micro\meter} & - \\ 
+            Operating Current & - & \SI{50}{\milli\ampere} & \SI{70}{\milli\ampere} \\
+            \bottomrule
+        \end{tabular}
+        \caption{Optical and Electrical Specifications of CPS635F Laser Module. \cite{thorlabs_laser}}
+        \label{table:laser_module_specs}
+    \end{table}
+
+\clearpage
+
+\subsection{Lens Body}
+    The lens body holds camera lens as well as the bandpass filter. 
+    \subsection*{Camera Lens}
+    The camera lens, manufactured by Edmund Optics, has a fixed focal length of \SI{25}{\milli\meter}. The aperture is adjustable from \emph{f}/1.85 to \emph{f}/16. This allows the working distance to be in range \SI{200}{\milli\meter} - $\infty$.
+
+    \subsection*{Bandpass Filter}
+    The bandpass filter FLH635-10 from ThorLabs allows 85\% transmission of laser with wavelength of \SI{635}{\nano\meter}. The pass region for this filter is \SI{10}{\nano\meter} at \gls{fwhm}. The bandpass filter is needed to avoid influence of light other than the laser source on the conducted experiments.
+
+    \begin{figure}[h]
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.5\textwidth]{images/d_exp_setup/lens.jpg}
+            \caption{Camera Lens. \cite{edmund_optics_lens}}
+            \label{fig:lens.jpg}
+        \end{subfigure}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.4\textwidth]{images/d_exp_setup/bandpass_filter.jpg}
+            \caption{Bandpass Filter. \cite{thorlabs_bandpass_filter}}
+            \label{fig:bandpass_filter.jpg}
+        \end{subfigure}
+        \caption{Lens Body Components.}
+        \label{fig:lens_body.jpg}
+    \end{figure}
+
+\subsection{Hexapod}
+The M-824 hexapod from \gls{pi} contains six linear actuators between base plate and platform. Some of the advantages of this hexapod include it's high stiffness, six-dimensional motion, and high resolution. All motion commands for the movement of the platform are defined by three linear and three rotational coordinate values. The rotational axes defined by (U, V, W) are initially coincident with translational axes (X, Y, Z) of the hexapod coordinate system, as shown in Fig. \ref{fig:hexapod_coordinate.png}. This hexapod is capable of moving \SI{\pm22.5}{\milli\meter} along X and Y axes with a resolution of \SI{0.3}{\micro\meter}. For larger movements in range of few millimeters, the final position values can differ by \SI{\pm0.5}{\micro\meter}. Rest of the technical details can be found in the Table \ref{table:technical_specifications_hexapod}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/d_exp_setup/hexapod_coordinate.png}
+    \caption{Hexapod coordinate system indicating it's translation axes (X, Y, Z) and rotational axes (U, V, W). \cite{hexapod_manual}}
+    \label{fig:hexapod_coordinate.png}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{7cm}p{3cm}}
+        \toprule
+        \textbf{Parameter} & \textbf{Description} \\
+        \midrule
+        Travel X, Y & \SI{\pm22.5}{\milli\meter} \\        
+        Travel Z & \SI{\pm12.5}{\milli\meter} \\        
+        Travel $\theta_x$, $\theta_y$ & \SI{\pm7.5}{\degree} \\        
+        Travel $\theta_z$ & \SI{\pm12.5}{\degree} \\        
+        Min. incremental motion X, Y, Z & \SI{0.3}{\micro\meter} \\
+        Min. incremental motion $\theta_x$, $\theta_y$, $\theta_z$ & \SI{3.5}{\micro\radian} \\
+        Repeatability X, Y & \SI{\pm0.5}{\micro\meter} \\
+        Repeatability $\theta_x$, $\theta_y$, $\theta_z$ & \SI{\pm6}{\micro\radian} \\
+        Velocity X, Y, Z (typical) & \SI{0.5}{\milli\meter/\second} \\
+        Velocity X, Y, Z (maximum) & \SI{1}{\milli\meter/\second} \\
+        Velocity $\theta_x$, $\theta_y$, $\theta_z$ (typical) & \SI{5.5}{\milli\radian/\second} \\
+        Velocity $\theta_x$, $\theta_y$, $\theta_z$ (maximum) & \SI{11}{\milli\radian/\second} \\
+        Load capacity (Baseplate horizontal) & \SI{10}{\kilo\gram} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technical specifications of M-824 Hexapod. \cite{hexapod_manual}}
+    \label{table:technical_specifications_hexapod}
+\end{table}
+
+\vspace{5mm}
+
+\noindent Using these components two setups were created as shown in Fig. \ref{fig:old_setup_potrait.JPG} and Fig. \ref{fig:new_setup_potrait.JPG}. The initial idea for the setup as shown in Fig. \ref{fig:old_setup_potrait.JPG} and it's schematic Fig. \ref{fig:old_setup.png}, shows that image sensor's surface normal that is close to colinear with the laser incident on the image sensor. An updated version of the setup was tested as shown in Fig. \ref{fig:new_setup_potrait.JPG} and it's schematic Fig. \ref{fig:corrected_setup.png}, where the image sensor plane is parallel to the (X, Y) plane of the hexapod. The components were mounted on a ThorLabs MB1530F/M optical breadboard, hence the distance between the camera and laser collimation point was fixed at approximately \SI{26}{\milli\meter}.  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/d_exp_setup/old_setup.png}
+    \caption{Schematic of old setup.}
+    \label{fig:old_setup.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth, angle=90]{images/d_exp_setup/old_setup_potrait.JPG}
+    \caption{Actual photo depicting old setup.}
+    \label{fig:old_setup_potrait.JPG}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/d_exp_setup/corrected_setup.png}
+    \caption{Schematic of corrected setup.}
+    \label{fig:corrected_setup.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth, angle=90]{images/d_exp_setup/new_setup_potrait.JPG}
+    \caption{Actual photo depicting corrected setup.}
+    \label{fig:new_setup_potrait.JPG}
+\end{figure}
+
+\clearpage
+
+\section{Experimental Design}
 
 As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod is able to move to a certain user-given coordinate with a precision of \SI{\pm0.5}{\micro\meter} accuracy. Thus, the goals of testing are:
 \begin{itemize}
@@ -21,15 +202,15 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
 \end{itemize}
 
 
-\section{Implementation of \gls{ncc} algorithm}\label{section:code_logic}
-    \subsection*{Template Location}
+\subsection{Implementation of \gls{ncc} algorithm}\label{section:code_logic}
+    \subsubsection*{Template Location}
         The camera image sensor has rectangular dimensions of 728 pixels \times \ 544 pixels as given in Table \ref{table:camera_specs}. The way the camera is mounted for the experiments, it meant that the width of image was more than it's height. It also became necessary going forward, that a square \gls{roi} at the center of this image frame with dimensions of 128 pixels \times \ 128 pixels would be used as a template for \gls{ncc} going forward. The reason is, for position verification of the hexapod, the data collection procedure made it necessary to use the \gls{roi} at the center of the image frame (See Section \ref{section:data_collection}). This is denoted by the square box outlined in black in Fig. \ref{fig:frame_0_rect.png}. The size for \gls{roi} was chosen for the following reasons:
         \begin{itemize}
             \item it is not too small to lose unique information inside it and the template is still tracked to reasonable accuracy,
             \item but also not too large to slow the process of template matching.
         \end{itemize}
         
-    \subsection*{Coordinate Axes for Relative Position Measurement}
+    \subsubsection*{Coordinate Axes for Relative Position Measurement}
         In OpenCV, as shown in Fig. \ref{fig:frame_0_rect.png}, for a pixel coordinate (X, Y), X increases as we are going towards the right and Y increases as we traverse through the pixels downwards. For the project, while using \gls{ncc} with OpenCV two functions were employed namely, \texttt{matchTemplate()} and \texttt{minMaxLoc()}. The former function matches the template with the underlying image and saves it's results in another matrix. The latter function allows us to use the result from first function in order to find the location of correlation peak. In doing so, it gives the absolute location of top-left corner of the tracked template according to the OpenCV coordinate axes. Therefore, in order to measure relative movement of the hexapod from the center of image frame, changes were made to reflect pixel shift from origin to center of the \gls{roi}. For e.g., if the hexapod moves from (\SI{0}{\milli\meter}, \SI{0}{\milli\meter}) to (\SI{3}{\milli\meter}, \SI{3}{\milli\meter}) in the first quadrant, the template is tracked in the the fourth quadrant. This is shown by the arrow in Fig. \ref{fig:frame_60_rect.png}. 
 
         \begin{figure}[h]
@@ -50,8 +231,8 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
 
 \vspace{5mm}
 
-\section{Calibration}\label{section:calibration}
-    \subsection*{Camera Parameters}\label{subsection:camera_parameters}
+\subsection{Calibration}\label{section:calibration}
+    \subsubsection*{Camera Parameters}\label{subsection:camera_parameters}
         As camera parameters, such as gain and exposure time, have an effect on images being acquired, it is important to decide the values of these parameters for best possible calibration. As discussed in Section \ref{Subsubsection:Exposure_Time}, by increasing/decreasing exposure time one can over-/underexpose an image. This over-/underexposure results in decreasing the average \gls{mig} parameter (discussed in Chapter \ref{section:mig}), because there are less speckles to differentiate between, and hence less change in gradient. On the other hand, more is the variation between speckles inside a template, there is a higher chance of having more uniqueness inside the chosen template, making it easier for \gls{ncc} algorithm to detect pixel shifts. Pixel shifts need to be as accurate as possible, because these values will determine the calibration parameters, as will be discussed in upcoming Section \ref{subsection:calib_matrix}. 
         
         \vspace{5mm}
@@ -91,7 +272,7 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
             \caption{\glsplural{lsp} for different pairs of gain and exposure time with corresponding \gls{mig} values.}
         \end{figure}
 
-    \subsection*{Image Acquisition Procedure}\label{subsection:image_acq_calib}
+    \subsubsection*{Image Acquisition Procedure}\label{subsection:image_acq_calib}
         For the two setups outlined in Fig. \ref{fig:old_setup_potrait.JPG} and Fig. \ref{fig:new_setup_potrait.JPG}, image acquisition process involved, that the hexapod was moved \SI{0.1}{\milli\meter} along X- and Y-axis. For the older setup (See Fig. \ref{fig:old_setup_potrait.JPG}), the image acquisition was done only once for both axes. For the corrected setup (See Fig. \ref{fig:new_setup_potrait.JPG}), hexapod was moved 40 times along both axes. The reason being, it allows better estimation of calibration parameters by averaging the influence of pixel-locking effects and vibrations during calibration. As this was a later discovery, because of time concerns the same could not be done for older setup. Fig. \ref{fig:testing.png} shows the direction of movement of hexapod for calibration indicated in purple. The XY axes here correspond to the axes mentioned in Fig. \ref{fig:frame_60_rect.png}.
 
         \begin{figure}[h]
@@ -102,7 +283,7 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
         \end{figure}
 
 
-    \subsection*{Calibration Matrix}\label{subsection:calib_matrix}
+    \subsubsection*{Calibration Matrix}\label{subsection:calib_matrix}
         As discussed in Section \ref{section:code_logic}, \gls{ncc} gives out detected template's position in terms of pixel coordinates. Therefore, in order to convert pixel shift into displacement, the following method of calibration was adopted for our experiments, as described by Charrett et. al. in their paper \cite{charrett_2018}.
 
         \vspace{5mm}
@@ -161,11 +342,11 @@ As mentioned in Table \ref{table:technical_specifications_hexapod}, the hexapod 
             \end{aligned}
         \end{equation}
 
-\section{Constant Parameters}\label{section:constant_parameters}
+\subsection{Constant Parameters}\label{section:constant_parameters}
     \noindent While collecting the data for testing as well as calibration, the following experimental factors are made sure to be constant. The \emph{f}/1.85 aperture was used for the camera while capturing the images. As shown in Fig. \ref{fig:corrected_setup.png} and Fig. \ref{fig:old_setup.png}, the working surface is approximately \SI{150}{\milli\meter} below the image sensor location. The distance between laser collimation point and center of image sensor is approximately \SI{26}{\milli\meter}. The laser beam was collimated approximately at the location of image sensor, resulting in semi-major axis of elliptical laser beam to be approximately \SI{7}{\milli\meter} at the working surface.
     
-\section{Data Collection}\label{section:data_collection}
-\subsection*{Choosing exposure times for the camera}
+\subsection{Data Collection}\label{section:data_collection}
+\subsubsection*{Choosing exposure times for the camera}
 As testing the camera's entire exposure range would be impractical, it became necessary to choose specific exposure time values. It can be seen in the Fig. \ref{fig:exposure_time_mig.png}, exposure time $E5=\SI{1000}{\micro\second}$ exhibits similar \gls{mig} value to $E1=\SI{20}{\micro\second}$, the latter being the lowest feasible exposure time for the camera used in our setup. This pairing should demonstrate the effects on position measurement when images are captured with extremely low exposure times, and an exposure time with similar \gls{mig} values. Exposure time $E3=\SI{150}{\micro\second}$ was chosen, because it has remarkably high \gls{mig} value. It also helps in answering, whether increasing contrast in an image has any effect on the accuracy of position measurement. $E2$ is positioned midway between exposure times $E1$ and $E3$. Similarly, $E4$ was chosen for it's similar \gls{mig} value to $E3$, providing additional data point for analysis. $E6=\SI{3000}{\micro\second}$ was chosen to test, how images with extremely low-gradient fare in position measurement.
 
 \begin{figure}[h]
@@ -175,7 +356,7 @@ As testing the camera's entire exposure range would be impractical, it became ne
     \label{fig:exposure_time_mig.png}
 \end{figure}
 
-\subsection*{Choosing gain values for the camera}
+\subsubsection*{Choosing gain values for the camera}
 To observe effects of gain alone on position measurement, necessity arose to decide on a single exposure time. Here, $T3$ was chosen, based on it's higher \gls{mig} value. Choosing images with higher contrast i.e. higher \gls{mig} value became apparent, as it felt unnecessary to test effects of gain on position measurement for images captured with extremely low or higher exposure times. The gain for the camera can be changed in whole number increments from $0$ to $40$. But for our experiments, only the following gain values were tested: $0$, $2$, $4$, $6$, $8$, $10$, $20$, and $30$. 
 
 \subsection*{Data Collection Procedure}\label{subsection:data_collection_procedure}
