@@ -1,8 +1,8 @@
-\chapter{Fundamentals}\label{Chap:Fundamentals}
+\chapter{Fundamentals}\label{chap:fundamentals}
 
 In this chapter, the principles of important concepts will be explained. This helps in better understanding of the factors affecting the experimental setup, which will be covered in Chapter \ref{Chap:Sota}.
 
-    \section*{Laser Speckle Formation}
+    \section{Laser Speckle Formation}
 
     When surfaces are rough on a scale of wavelength of light, and coherent light (or laser) is incident on those surfaces, it is scattered in many different directions. This is known as \emph{diffuse reflection} (See Fig. \ref{fig:diffuse_reflection}). For e.g. in Fig. \ref{fig:green_laser}, with paper having a higher roughness than a polished hard drive surface, it undergoes diffuse reflection when laser is incident on it.
 
@@ -58,7 +58,7 @@ In this chapter, the principles of important concepts will be explained. This he
         \label{fig:laser_speckle.png}
     \end{figure}
 
-    \section*{Diffraction and Airy Disk}\label{Section:Diffraction}
+    \section{Diffraction and Airy Disk}\label{Section:Diffraction}
 
     In diffraction, light waves bend around the corners of a slit as shown in Fig. \ref{subfig:diffraction_slit}. In case of circular aperture inside a camera lens, as a result of diffraction, \emph{airy disk} can form on the image sensor (See Fig. \ref{subfig:airy_disk}). The angle $\theta$ at which the first minimum of the light wave, i.e. the first dark ring surrounding the center bright spot, occurs is given by the following formula:
 
@@ -93,7 +93,7 @@ In this chapter, the principles of important concepts will be explained. This he
     \end{figure}
 
 
-    \section*{\glsfirst{ncc} and Template Matching}\label{Section:NCC}
+    \section{\glsfirst{ncc} and Template Matching}\label{Section:NCC}
 
     The overall idea of template matching can be summed with two questions:
     
@@ -142,7 +142,7 @@ In this chapter, the principles of important concepts will be explained. This he
 
     
 
-    \section*{\glsfirst{mig}}\label{section:mig}
+    \section{\glsfirst{mig}}\label{section:mig}
     \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for X and Y directions respectively.
     
     \vspace{5mm}
@@ -206,5 +206,7 @@ In this chapter, the principles of important concepts will be explained. This he
         \caption{Grayscale colormaps for three different \glsplural{lsp} after Sobel operations along X and Y directions and resulting magnitude.}
         \label{fig:sobel.png}
     \end{figure}
+
+    \section{\glsfirst{lsi}}
 
     \clearpage

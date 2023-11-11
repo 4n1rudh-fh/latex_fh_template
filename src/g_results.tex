@@ -985,7 +985,7 @@ Similar to the effects of increasing exposure time, increasing gain can also dec
     \label{fig:laser_spot_block.JPG}
 \end{figure}
 
-\section{Calibrated Setup vs. Old Setup}
+\section{Corrected Setup vs. Old Setup}
 Earlier concept of the experimental setup in Fig. \ref{fig:old_setup_potrait.JPG} has a 3D-printed \gls{pla} mount for the laser module, which has an inbuilt tilted cylinder in it's design to fit the laser module. Furthermore, the camera is tilted such that, image sensor plane is not parallel to the hexapod surface. As a result, laser is partly incident on laser body (See Fig. \ref{fig:laser_spot_block.JPG}). As a consequence, higher exposure times are required to have similar values of \gls{mig} when comparing the old setup in Fig. \ref{fig:old_setup_potrait.JPG} with corrected setup in Fig. \ref{fig:new_setup_potrait.JPG}.
 
 \begin{figure}[h]
@@ -1042,7 +1042,7 @@ Earlier concept of the experimental setup in Fig. \ref{fig:old_setup_potrait.JPG
 \clearpage
 
 \vspace{5mm}
-\noindent As established in Section \ref{section:effect_of_exp_time_gain}, the camera parameters can change based on experimental setup used. Therefore, in order to compare positional errors for these two setups, it was essential to focus on exposure times that yielded similar \gls{mig} values (See Fig. \ref{fig:mig_comparison_setups}). It can be observed from Fig. \ref{fig:error_comparison_setups} that, there is a decrease in error along Y-Axis for all movements of hexapod when the corrected setup is used. The cause of this error in older setup can be, that the tilt of the image sensor with respect to hexapod surface introduced additional translation when moving hexapod along it's Y-Axis. But, more inspection is necessary into this cause.
+\noindent As established in Section \ref{section:effect_of_exp_time_gain}, the camera parameters can change based on experimental setup used. Therefore, in order to compare positional errors for these two setups, it was essential to focus on exposure times that yielded similar \gls{mig} values (See Fig. \ref{fig:mig_comparison_setups}). It can be observed from Fig. \ref{fig:error_comparison_setups} that, there is a decrease in error along Y-Axis for all movements of hexapod when the corrected setup is used. The cause of this error in older setup is the tilt of the image sensor with respect to hexapod surface which introduces an out-of-plane motion. This motion causes an unintended magnification of captured \gls{lsp}, resulting in additional in-plane displacements \cite{pan}. 
 
 \section{Effect of Laser Diameter}
 Due to limited literature on influence of laser diameter on position measurement accuracy, it is of necessity to revisit concept of decorrelation. Decorrelation occurs, when the \gls{lsp} undergoes significant changes after a certain amount of translation. This decorrelation also happens during the conducted experiments. Due to the nature of formation of \gls{lsp}, surface roughness plays a pivotal role in determining how laser interacts with the surface and is captured by the camera. This is specially the case, when there is a moving surface, as that has an effect on the underlying reflection. Thus, having an impact on appearance of \gls{lsp}. 
