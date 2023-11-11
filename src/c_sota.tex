@@ -355,3 +355,72 @@ As per the literature survey, two image processing techniques have been widely u
 %     \item balance high frame rate with short exposure time. But then increase the camera aperture hole at risk of decreasing pixel size. The short exposure time can be countered with increasing the laser power, working with higher reflectivity material, decreasing the distance between detector and surface, and improving sensitivity of detector \cite{charret_autonomous}
 %     \item Therefore the setup needs to be recreatable. Because sensitive to yaw, tilt etc.
 % \end{itemize}
+
+\section{\glsfirst{mig}}\label{section:mig}
+\textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for X and Y directions respectively.
+
+\vspace{5mm}
+\noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel Sobel operator is used for \gls{lsp} captured for 3 different exposure times. Then, magnitude of intensity gradient for each pixel is calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for X and Y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the Sobel operation and resulting gradient magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel.png}. This figure shows how over-/underexposed images have lower \gls{mig} values, because of lesser number of pixels having a higher gradient values (indicated by white pixels). Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
+
+\begin{equation}
+    G_x = 
+    \begin{bmatrix}
+        -1 & 0 & 1 \\
+        -2 & 0 & 2 \\
+        -1 & 0 & 1 
+    \end{bmatrix}
+    \label{eqn:g_x}
+\end{equation}
+
+\begin{equation}
+    G_y = 
+    \begin{bmatrix}
+        -1 & -2 & -1 \\
+        0 & 0 & 0 \\
+        1 & 2 & 1 
+    \end{bmatrix}
+    \label{eqn:g_y}
+\end{equation}
+
+\begin{equation}
+    G = \sqrt{G_x^2 + G_y^2}
+    \label{eqn:mag_eqn}
+\end{equation}
+
+\begin{equation}
+    \text{\gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
+    \label{eqn:mig}
+\end{equation}
+
+\begin{equation}
+    \text{Avg. \gls{mig}} = \frac{\sum_{i=0}^{n} \gls{mig}_i}{\text{Total number of frames}}
+    \label{eqn:avg_mig}
+\end{equation}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
+        \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second}}
+        \label{fig:sobel_gradient.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_underexposed.png}
+        \caption{Underexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{20}{\micro\second}}
+        \label{fig:sobel_underexposed.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_overexposed.png}
+        \caption{Overexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{1000}{\micro\second}}
+        \label{fig:sobel_overexposed.png}
+    \end{subfigure}
+    \caption{Grayscale colormaps for three different \glsplural{lsp} after Sobel operations along X and Y directions and resulting magnitude.}
+    \label{fig:sobel.png}
+\end{figure}
+
+better present equations you introduce directly after mentioning them in the text. that way it is better to understand. It is the same with images
+
+\clearpage

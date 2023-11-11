@@ -1,38 +1,53 @@
 \chapter{Fundamentals}\label{chap:fundamentals}
 
-In this chapter, the principles of important concepts will be explained. This helps in better understanding of the factors affecting the experimental setup, which will be covered in Chapter \ref{Chap:Sota}.
+    \section{Camera Technology}
+
+    The \glsfirst{emva} developed a \gls{emva} 1288 Standard which helps define reliable measurement guidelines, specification parameters and characterization data that allows for easier comparison of cameras and image sensors, when choosing a suitable one for a machine vision task. This standard enables the users to evaluate the key performance parameters of digital cameras. The standard includes two categories of measurements: \emph{mandatory} and \emph{optional}. For a camera to be \gls{emva} 1288 compliant, the \emph{mandatory} measurements must be mentioned in the datasheet. Some of the important performance parameters covered by \gls{emva} 1288 include:
+    \begin{itemize}
+        \item Sensitivity: Ability of camera to produce signal in low-light conditions. This measures the capacity of camera to capture weak signals.
+        \item \gls{dr}: Range between highest and lowest light levels that a camera can capture. Indicates camera's capacity to capture varying light conditions.
+        \item \gls{snr}: Higher \gls{snr} indicates camera's capability to capture better image quality while reducing impact of noise.
+        \item Temporal Dark Noise: Noise produced by the camera when there is no incident light.
+        \item Temporal Readout Noise: Noise produced when reading the signal from sensor.
+        \item Temporal Fixed Pattern Noise: Fixed noise that persists over multiple frames. 
+        \item Pixel Non-Uniformity: This assesses the variation in sensitivity among pixels.
+        \item \gls{dsnu}: This is the difference in dark signal levels among pixels.
+        \item Saturation Capacity: Maximum signal level that can be handled by the pixel or whole image sensor.
+        \item Linearity: This indicates the camera's response to change in incident light.
+    \end{itemize}   
+
+    \vspace{5mm}
+    \nonindent The list of all parameters for the \gls{emva} 1288 parameters can be found in Table \ref{table:emva_table}.
 
     \section{Laser Speckle Formation}
 
-    When surfaces are rough on a scale of wavelength of light, and coherent light (or laser) is incident on those surfaces, it is scattered in many different directions. This is known as \emph{diffuse reflection} (See Fig. \ref{fig:diffuse_reflection}). For e.g. in Fig. \ref{fig:green_laser}, with paper having a higher roughness than a polished hard drive surface, it undergoes diffuse reflection when laser is incident on it.
+    Most surfaces are rough on a scale of wavelength of light (with exception of mirrors), and when laser is incident on those surfaces, it is scattered in many different directions because of those surface irregularities (See Fig. \ref{fig:diffuse_reflection}) \cite{wang_2000}. If the surface with incident laser is being imaged, these waves travel in different directions and different distances to reach the image sensor. Speckles are formed on the image sensor plane, when these waves undergo constructive or destructive interference \cite{dhanasekar, goodman_book, briers}. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the \gls{lsp} as shown in Fig. \ref{subfig:laser_speckle_view_2.jpg}. A typical \gls{lsp} captured using a monochrome camera will look similar to as shown in Fig. \ref{fig:laser_speckle.png}.
+    
+    % For e.g. in Fig. \ref{fig:green_laser}, with paper having a higher roughness than a polished hard drive surface, it undergoes diffuse reflection when laser is incident on it.
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/diffuse_reflection.jpg}
-        \caption{Diffuse Reflection. \cite{img_diffuse}}
+        \includegraphics[width=0.6\textwidth]{images/b_fundamentals/diffuse_reflection.png}
+        \caption{Laser beam scattered from a rough surface. \cite{wang_2000} (Adapted from Wang et. al. 2000)}
         \label{fig:diffuse_reflection}
     \end{figure}
     
-    \begin{figure}[h]
-        \begin{subfigure}{0.5\textwidth}
-            \centering
-            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/white_paper.jpg}
-            \caption{Paper}
-            \label{subfig:white_paper.jpg}
-        \end{subfigure}
-        \begin{subfigure}{0.5\textwidth}
-            \centering
-            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/green_laser.jpg}
-            \caption{Polished hard drive surface}
-            \label{subfig:hard_drive.jpg}
-        \end{subfigure}
-        \caption{Green laser hitting two different surfaces. (\textcopyright \ David Bode) \cite{img_green_laser}}
-        \label{fig:green_laser}
-    \end{figure}
-    
-    \clearpage
-
-    \noindent Now, these reflected rays can be captured using a camera. The intensity at any point inside the image depends on the interference of the reflected light waves. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the speckle pattern as shown in Fig. \ref{fig:img_leon}. If the image is captured using a monochrome camera, it will look similar to as shown in Fig. \ref{fig:laser_speckle.png}.
+    % \begin{figure}[h]
+    %     \begin{subfigure}{0.5\textwidth}
+    %         \centering
+    %         \includegraphics[width=0.8\textwidth]{images/b_fundamentals/white_paper.jpg}
+    %         \caption{Paper}
+    %         \label{subfig:white_paper.jpg}
+    %     \end{subfigure}
+    %     \begin{subfigure}{0.5\textwidth}
+    %         \centering
+    %         \includegraphics[width=0.8\textwidth]{images/b_fundamentals/green_laser.jpg}
+    %         \caption{Polished hard drive surface}
+    %         \label{subfig:hard_drive.jpg}
+    %     \end{subfigure}
+    %     \caption{Green laser hitting two different surfaces. (\textcopyright \ David Bode) \cite{img_green_laser}}
+    %     \label{fig:green_laser}
+    % \end{figure}
 
     \begin{figure}[h]
         \begin{subfigure}{0.5\textwidth}
@@ -58,42 +73,48 @@ In this chapter, the principles of important concepts will be explained. This he
         \label{fig:laser_speckle.png}
     \end{figure}
 
-    \section{Diffraction and Airy Disk}\label{Section:Diffraction}
+    % \section{Diffraction and Airy Disk}\label{Section:Diffraction}
 
-    In diffraction, light waves bend around the corners of a slit as shown in Fig. \ref{subfig:diffraction_slit}. In case of circular aperture inside a camera lens, as a result of diffraction, \emph{airy disk} can form on the image sensor (See Fig. \ref{subfig:airy_disk}). The angle $\theta$ at which the first minimum of the light wave, i.e. the first dark ring surrounding the center bright spot, occurs is given by the following formula:
+    % In diffraction, light waves bend around the corners of a slit as shown in Fig. \ref{subfig:diffraction_slit}. In case of circular aperture inside a camera lens, as a result of diffraction, \emph{airy disk} can form on the image sensor (See Fig. \ref{subfig:airy_disk}). The angle $\theta$ at which the first minimum of the light wave, i.e. the first dark ring surrounding the center bright spot, occurs is given by the following formula:
 
-    \vspace{5mm}
-    \begin{equation}\label{eqn:objective}
-        \sin \theta \approx 1.22 \frac{\lambda}{d}
-    \end{equation}
+    % \vspace{5mm}
+    % \begin{equation}\label{eqn:objective}
+    %     \sin \theta \approx 1.22 \frac{\lambda}{d}
+    % \end{equation}
 
-    \vspace{5mm}
-    \noindent where,
-    \begin{itemize}
-        \item $\theta$ is angle at which first minimum occurs
-        \item $\lambda$ wavelength of incoming light
-        \item \emph{d} is diameter of aperture
-    \end{itemize}
+    % \vspace{5mm}
+    % \noindent where,
+    % \begin{itemize}
+    %     \item $\theta$ is angle at which first minimum occurs
+    %     \item $\lambda$ wavelength of incoming light
+    %     \item \emph{d} is diameter of aperture
+    % \end{itemize}
     
-    \vspace{5mm}
-    \noindent Hence, as \emph{d} decreases $\theta$ increases, which means the first dark ring appears farther from the center of the bright spot. Another way to frame this is, the bright spot increases in size.
+    % \vspace{5mm}
+    % \noindent Hence, as \emph{d} decreases $\theta$ increases, which means the first dark ring appears farther from the center of the bright spot. Another way to frame this is, the bright spot increases in size.
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/diffraction_slit.png}
-        \caption{Numerical approximation of diffraction pattern from a slit of width four wavelengths with an incident plane wave. \cite{img_diffraction_slit}}
-        \label{subfig:diffraction_slit}
-    \end{figure}
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth]{images/b_fundamentals/diffraction_slit.png}
+    %     \caption{Numerical approximation of diffraction pattern from a slit of width four wavelengths with an incident plane wave. \cite{img_diffraction_slit}}
+    %     \label{subfig:diffraction_slit}
+    % \end{figure}
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/airy_disk.jpeg}
-        \caption{A real Airy disk created by passing a red laser beam through a \SI{90}{\micro\meter} pinhole aperture with 27 orders of diffraction. \cite{img_airy_disk}}
-        \label{subfig:airy_disk}
-    \end{figure}
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth]{images/b_fundamentals/airy_disk.jpeg}
+    %     \caption{A real Airy disk created by passing a red laser beam through a \SI{90}{\micro\meter} pinhole aperture with 27 orders of diffraction. \cite{img_airy_disk}}
+    %     \label{subfig:airy_disk}
+    % \end{figure}
 
 
-    \section{\glsfirst{ncc} and Template Matching}\label{Section:NCC}
+    \section{Template Matching}\label{section:template_matching}
+    Template matching a technique employed to track a template or sub-image within a larger image. By sliding the template over the image, a similarity score is calculated at each pixel location of the image. For the purpose of template matching, correlation is often used as a criteria to measure this similarity. The correlation criteria can be categorized into two groups: \gls{cc} and \gls{ssd} correlation criteria \cite{pan_review}.
+    
+    Pan et. al reviewed different correlation techniques used in \gls{dic} for speckle patterns. They are listed below in Table \ref{table:table_1} and \ref{table:table_2}. 
+
+
+    
 
     The overall idea of template matching can be summed with two questions:
     
@@ -102,8 +123,15 @@ In this chapter, the principles of important concepts will be explained. This he
         \item If yes, then where is the pattern's location?
     \end{itemize}
 
+    Before the similarity between template and underlying image is measured
+
+    \subsection*{\glsfirst{ncc}}
+    \subsection*{ZNCC}
+    \subsection*{ZNSSD}
+    
+
     \vspace{5mm}
-    \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. The mathematical expression to perform template matching using \gls{ncc} can be found in greater detail in the paper by Lewis \cite{lewis}. In \gls{ncc}, the match between template and image is shown by a peak in cross-correlation value, as shown in Fig. \ref{fig:corr_plot.png}.
+    \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. The mathematical expression to perform template matching using \gls{ncc} can be found in greater detail in the paper by Lewis \cite{lewis}.
 
     \begin{figure}[h]
         \begin{subfigure}{0.5\textwidth}
@@ -122,91 +150,23 @@ In this chapter, the principles of important concepts will be explained. This he
         \label{fig:ncc_example}
     \end{figure}
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=\textwidth]{images/b_fundamentals/corr_plot.png}
-        \caption{Plot showing peak of correlation values.}
-        \label{fig:corr_plot.png}
-    \end{figure}
-
-    \clearpage
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=\textwidth]{images/b_fundamentals/corr_plot.png}
+    %     \caption{Plot showing peak of correlation values.}
+    %     \label{fig:corr_plot.png}
+    % \end{figure}
     
     \noindent Inside Fig. \ref{fig:corr_cmap.png}, the \gls{ncc} match is shown as the bright spot at the location where center of the template matches with the underlying image. The colorbar maps these correlation values such that darkest points inside this figure corresponds to no match and brightest point to the correlation peak.
     
     \begin{figure}[h]
-        \hspace{40pt}
-        \includegraphics[width=0.7\textwidth]{images/b_fundamentals/corr_cmap.png}
+        \hspace{20pt}
+        \includegraphics[width=0.8\textwidth]{images/b_fundamentals/corr_cmap.png}
         \caption{Peak of correlation shown as bright spot.}
         \label{fig:corr_cmap.png}
     \end{figure}
 
-    
-
-    \section{\glsfirst{mig}}\label{section:mig}
-    \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for X and Y directions respectively.
-    
-    \vspace{5mm}
-    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel Sobel operator is used for \gls{lsp} captured for 3 different exposure times. Then, magnitude of intensity gradient for each pixel is calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for X and Y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the Sobel operation and resulting gradient magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel.png}. This figure shows how over-/underexposed images have lower \gls{mig} values, because of lesser number of pixels having a higher gradient values (indicated by white pixels). Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
-    
-    \begin{equation}
-        G_x = 
-        \begin{bmatrix}
-            -1 & 0 & 1 \\
-            -2 & 0 & 2 \\
-            -1 & 0 & 1 
-        \end{bmatrix}
-        \label{eqn:g_x}
-    \end{equation}
-
-    \begin{equation}
-        G_y = 
-        \begin{bmatrix}
-            -1 & -2 & -1 \\
-            0 & 0 & 0 \\
-            1 & 2 & 1 
-        \end{bmatrix}
-        \label{eqn:g_y}
-    \end{equation}
-
-    \begin{equation}
-        G = \sqrt{G_x^2 + G_y^2}
-        \label{eqn:mag_eqn}
-    \end{equation}
-
-    \begin{equation}
-        \text{\gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
-        \label{eqn:mig}
-    \end{equation}
-
-    \begin{equation}
-        \text{Avg. \gls{mig}} = \frac{\sum_{i=0}^{n} \gls{mig}_i}{\text{Total number of frames}}
-        \label{eqn:avg_mig}
-    \end{equation}
-
-    \begin{figure}[h]
-        \centering
-        \begin{subfigure}[b]{0.95\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
-            \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second}}
-            \label{fig:sobel_gradient.png}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.95\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_underexposed.png}
-            \caption{Underexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{20}{\micro\second}}
-            \label{fig:sobel_underexposed.png}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.95\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_overexposed.png}
-            \caption{Overexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{1000}{\micro\second}}
-            \label{fig:sobel_overexposed.png}
-        \end{subfigure}
-        \caption{Grayscale colormaps for three different \glsplural{lsp} after Sobel operations along X and Y directions and resulting magnitude.}
-        \label{fig:sobel.png}
-    \end{figure}
-
     \section{\glsfirst{lsi}}
-
+    Some small idea on how this works by taking some statements from other papers.
+    
     \clearpage

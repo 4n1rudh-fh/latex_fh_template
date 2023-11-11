@@ -1,3 +1,46 @@
 \chapter*{Appendix}
 
-This is where you give extra information that is helpful to reader to understand a certain concept in greater depth.
+\begin{table}[h]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{6cm}p{7cm}}
+        \toprule
+        \textbf{Type of measurement} & \textbf{Reference} \\
+        \midrule
+        Quantum Efficiency \eta & N/A (cannot be measured) \\
+        \midrule
+        Gain $K$ & N/A (cannot be measured) \\
+        Gain $1/K$ & N/A (cannot be measured) \\
+        \midrule
+        Dark Noise & in units DN \\
+        & in units $p$ \\
+        \gls{snr} & as ratio \\
+        & in units $dB$ \\
+        $\gls{snr}_{\text{p.max}}^{-1}$ & in \% \\
+        \midrule
+        Absolute sensitivity threshold & in number of photons \\
+        & in number of photons per \SI{}{\micro\meter}^2 \\
+        Saturation capacity & in number of photons \\
+        & in number of photons per \SI{}{\micro\meter}^2 \\
+        \glsfirst{dr} & as ratio \\
+        & in units $dB$ \\
+        \midrule
+        $\gls{dsnu}_{\text{1288}}$ & in units $p$ \\
+        $\gls{dsnu}_{\text{1288.row}}$ & in units $p$ \\
+        $\gls{dsnu}_{\text{1288.col}}$ & in units $p$ \\
+        $\gls{dsnu}_{\text{1288.pix}}$ & in units $p$ \\
+        $PRNU_{\text{1288}}$ & in units \% \\
+        $PRNU_{\text{1288.row}}$ & in units \% \\
+        $PRNU_{\text{1288.col}}$ & in units \% \\
+        $PRNU_{\text{1288.pix}}$ & in units \% \\
+        \midrule
+        \gls{le} & if linear in \%, otherwise describe type of non-linearity: multilinear, logarithmic \dots \\
+        \midrule
+        Dark current from mean & in units $p/s$ \\
+        Dark current from variance & in units $p/s$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{List of all \gls{emva} 1288 parameters. \cite{francis_autonomous}  (Adapted from \gls{emva} 1288 Standard - Release 4.0 General)}
+    \label{table:emva_table}
+\end{table}
