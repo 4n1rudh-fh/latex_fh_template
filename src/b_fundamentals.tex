@@ -109,42 +109,108 @@
 
 
     \section{Template Matching}\label{section:template_matching}
-    Template matching a technique employed to track a template or sub-image within a larger image. By sliding the template over the image, a similarity score is calculated at each pixel location of the image. For the purpose of template matching, correlation is often used as a criteria to measure this similarity. The correlation criteria can be categorized into two groups: \gls{cc} and \gls{ssd} correlation criteria \cite{pan_review}.
+    Template matching is a technique employed to track a template or sub-image within a larger image. By sliding the template over the image, a similarity score is calculated at each pixel location of the latter. For the purpose of template matching, correlation is often used as a criteria to measure this similarity. Pan et. al reviewed different correlation techniques used in \gls{dic} for speckle patterns and categorized them into two groups: \gls{cc} and \glsfirst{ssd} correlation criteria \cite{pan_review}. They are listed below in Table \ref{table:pan_table_cc} and \ref{table:pan_table_ssd}. The authors also stated that \glsentryshort{zncc} criterion is related to \glsentryshort{znssd} criterion, and its derivation is outlined in Ref. \cite{pan_derivation}. Similarly, the \glsentryshort{ncc} criterion can be derived from \glsentryshort{nssd} criterion as \( C_{NSSD}(p) = 2[1 - C_{NCC}(p)] \) \cite{pan_review}.
+
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{6.5cm}p{8cm}}
+            \toprule
+            \textbf{\gls{cc} correlation criterion} & \textbf{Definition} \\
+            \midrule
+            
+            \glsfirst{cc}  &  \( C_{CC} = \displaystyle \sum_{i=-M}^{M} \displaystyle \sum_{j=-M}^{M} f(x_i, y_j)g(x_{i}^{'}, y_{j}^{'}) \) \\
+            
+            & \\
+            
+            \glsfirst{ncc} & \( C_{NCC} = \displaystyle \sum_{i=-M}^{M} \displaystyle \sum_{j=-M}^{M} \left[\dfrac{f(x_i, y_j)g(x_{i}^{'}, y_{j}^{'})}{\overline{f}\overline{g}}\right] \) \\
+            
+            & \\
+            
+            \glsfirst{zncc} & \( C_{ZNCC} = \displaystyle \sum_{i=-M}^{M} \displaystyle \sum_{j=-M}^{M} \left\{\dfrac{[f(x_i, y_j) - f_{m}] \times [g(x_{i}^{'}, y_{j}^{'}) - g_{m}]}{\Delta f \Delta g} \right\} \) \\
     
-    Pan et. al reviewed different correlation techniques used in \gls{dic} for speckle patterns. They are listed below in Table \ref{table:table_1} and \ref{table:table_2}. 
-
-
+            \bottomrule
+        \end{tabular}
+        \caption{Commonly used cross-correlation criteria (Adapted from Pan et. al. 2009) \cite{pan_review}.}
+        \label{table:pan_table_cc}
+    \end{table}
     
-
-    The overall idea of template matching can be summed with two questions:
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{p{6.5cm}p{8cm}}
+            \toprule
+            \textbf{\gls{ssd} correlation criterion} & \textbf{Definition} \\
+            \midrule
+            
+            \glsfirst{ssd}  &  \( C_{SSD} = \displaystyle \sum_{i=-M}^{M} \displaystyle \sum_{j=-M}^{M} [f(x_i, y_j) - g(x_{i}^{'}, y_{j}^{'})]^2 \) \\
+            
+            & \\
+            
+            \glsfirst{nssd} & \( C_{NSSD} = \displaystyle \sum_{i=-M}^{M} \displaystyle \sum_{j=-M}^{M} \left[\dfrac{f(x_i, y_j)}{\overline{f}} - \dfrac{g(x_{i}^{'}, y_{j}^{'})}{\overline{g}}\right]^2 \) \\
+            
+            & \\
+            
+            \glsfirst{znssd} & \( C_{ZNSSD} = \displaystyle \sum_{i=-M}^{M} \displaystyle \sum_{j=-M}^{M} \left[\dfrac{f(x_i, y_j) - f_{m}}{\Delta f} - \dfrac{g(x_{i}^{'}, y_{j}^{'}) - g_{m}}{\Delta g}\right]^2 \) \\
     
-    \begin{itemize}
-        \item If the specific template or pattern present in the image?
-        \item If yes, then where is the pattern's location?
-    \end{itemize}
-
-    Before the similarity between template and underlying image is measured
-
-    \subsection*{\glsfirst{ncc}}
-    \subsection*{ZNCC}
-    \subsection*{ZNSSD}
+            \bottomrule
+        \end{tabular}
+        \caption{Commonly used \gls{ssd} correlation criteria (Adapted from Pan et. al. 2009) \cite{pan_review}.}
+        \label{table:pan_table_ssd}
+    \end{table}
     
+    \noindent In Tables \ref{table:pan_table_cc} and \ref{table:pan_table_ssd}:
+    
+    \begin{equation}
+        f_{m} = \dfrac{1}{(2M + 1)^2}\sum_{i=-M}^{M}\sum_{j=-M}^{M} f(x_i, y_j)
+    \end{equation}
+
+    \begin{equation}
+        g_{m} = \dfrac{1}{(2M + 1)^2}\sum_{i=-M}^{M}\sum_{j=-M}^{M} g(x_{i}^{'}, y_{j}^{'})
+    \end{equation}
+
+    \begin{equation}
+        \overline{f} = \sqrt{\sum_{i=-M}^{M} \sum_{j=-M}^{M} [f(x_{i}, y_{j})]^2}
+    \end{equation}
+
+    \begin{equation}
+        \overline{g} = \sqrt{\sum_{i=-M}^{M} \sum_{j=-M}^{M} [g(x_{i}^{'}, y_{j}^{'})]^2}
+    \end{equation}
+
+    \begin{equation}
+        \Delta f = \sqrt{\sum_{i=-M}^{M} \sum_{j=-M}^{M} [f(x_{i}, y_{j}) - f_m]^2}
+    \end{equation}
+
+    \begin{equation}
+        \Delta g = \sqrt{\sum_{i=-M}^{M} \sum_{j=-M}^{M} [g(x_{i}^{'}, y_{j}^{'}) - g_m]^2}
+    \end{equation}
+        
+    \vspace{5mm}
+    \noindent $f_m$ is the mean of $f(x_i, y_j)$ under the region of template and $g_m$ is the mean of the template. The \glsentryshort{znssd} and \glsentryshort{zncc} correlation criteria give the best noise proof performance and are insensitive to offset of lighting and change in illumination. \gls{ncc} and \glsentryshort{nssd} are insensitive to change in illumination conditions but sensitive to offset of lighting. Conversely, both \gls{cc} and \gls{ssd} are sensitive to all lighting variations \cite{lewis, pan_review}. Lewis, in his work \cite{lewis}, derives the \gls{ncc} formula, akin to the one presented by Pan et al. in their review paper \cite{pan_review}, where it is referred to as \glsentryshort{zncc}.
 
     \vspace{5mm}
-    \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. The mathematical expression to perform template matching using \gls{ncc} can be found in greater detail in the paper by Lewis \cite{lewis}.
+    \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. Inside Fig. \ref{fig:corr_cmap.png}, the \gls{ncc} match is shown as the bright spot at the location where center of the template matches with the underlying image. The colorbar maps these correlation values such that darkest points inside this figure corresponds to no match and brightest point to the correlation peak.
 
     \begin{figure}[h]
-        \begin{subfigure}{0.5\textwidth}
+        \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics{images/b_fundamentals/card.jpeg}
-            \caption{Image.}
+            \includegraphics[width=0.8\textwidth]{images/b_fundamentals/card.jpeg}
+            \caption{Image}
             \label{subfig:card.jpg}
         \end{subfigure}
-        \begin{subfigure}{0.5\textwidth}
+        \begin{subfigure}{0.3\textwidth}
             \centering
-            \includegraphics[width=0.3\textwidth]{images/b_fundamentals/template.jpg}
-            \caption{Template.}
+            \includegraphics[width=0.4\textwidth]{images/b_fundamentals/template.jpg}
+            \caption{Template}
             \label{subfig:template.jpg}
+        \end{subfigure}
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=1.1\textwidth]{images/b_fundamentals/corr_cmap.jpeg}
+            \caption{Peak of correlation shown as bright spot.}
+            \label{fig:corr_cmap.png}
         \end{subfigure}
         \caption{Image and template used for performing \gls{ncc}. \cite{img_card}}
         \label{fig:ncc_example}
@@ -156,17 +222,15 @@
     %     \caption{Plot showing peak of correlation values.}
     %     \label{fig:corr_plot.png}
     % \end{figure}
+
+    \section{\glsfirst{lsi}}\label{section:lsi}
+    \gls{lsi} involves using laser source to generate \gls{lsp} and using template matching algorithms (See Section \ref{section:template_matching}) to measure change in relative position. Using \gls{lsi} on a robot involves using this laser and camera setup together as an onboard mounted sensor on robot \gls{tcp}, measuring change in relative position when robot \gls{tcp} moves relative to a surface. This is also outlined clearly in the Fig. \ref{fig:sensor_concept.png}. 
     
-    \noindent Inside Fig. \ref{fig:corr_cmap.png}, the \gls{ncc} match is shown as the bright spot at the location where center of the template matches with the underlying image. The colorbar maps these correlation values such that darkest points inside this figure corresponds to no match and brightest point to the correlation peak.
-    
-    \begin{figure}[h]
-        \hspace{20pt}
-        \includegraphics[width=0.8\textwidth]{images/b_fundamentals/corr_cmap.png}
-        \caption{Peak of correlation shown as bright spot.}
-        \label{fig:corr_cmap.png}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/b_fundamentals/sensor_concept.png}
+        \caption{Sensor concept. In (a) \gls{lsi} setup captures images for relative movement between robot \gls{tcp} and workpiece surface. In (b) 2D-\gls{ncc} between reference and current image gives the correlation peak indicating the occurred translation (Adapted from Charrett et. al. 2018 \cite{charrett_2018}).}
+        \label{fig:sensor_concept.png}
     \end{figure}
 
-    \section{\glsfirst{lsi}}
-    Some small idea on how this works by taking some statements from other papers.
-    
     \clearpage
