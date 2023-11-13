@@ -3,8 +3,10 @@ In this chapter information collected from literature survey will cover the foll
 
 \begin{itemize}
     \item Factors affecting \gls{lsp} formation
-    \item Effects of image filters on \gls{lsp}
-    \item Algorithms to perform template matching with focus on \gls{lsp}
+    \item Review on template matching and feature tracking approaches for artificial speckle patterns and \gls{lsp}
+    \item Image quality criteria concerning artificial speckle patterns and \gls{lsp}
+    \item Real use cases of template matching
+    \item Real use cases of speckle pattern quality criteria
 \end{itemize}
 
 \section{Factors affecting \glsfirst{lsp}}
@@ -29,36 +31,50 @@ In this chapter information collected from literature survey will cover the foll
     \end{figure}
 
     \subsubsection*{Frame Rate}\label{Subsubsection:Frame_Rate}
-    \Gls{lsp} captured with higher frame rate cameras would exhibit less motion blur owing to more frames being captured in a given time. Charret et. al. and Bandari et. al. have used 500 \gls{fps} high speed camera in their setup \cite{charrett_2018} \cite{bandari}. But, higher frame rate comes at a cost of low contrast in images, because of less incident light on the camera sensor. 
-
-    \vspace{5mm}
-    \noindent At a low relative velocity between camera and surface, higher frame rate would result in large quantity of images, that when seen consecutively would be indistinguishable from each other. As the velocities are low, with a large number of frames, pixel shifts between consecutive images would be very minute to be detected by the template matching algorithm. So, it may appear as if no relative displacement occurred between camera and the surface. This problem is exacerbated, when pixel size of the image sensor is large. If the relative movement between camera and surface is smaller than pixel size, no pixel shift can be recorded. Charrett et. al. mentioned that for shorter distances, frames captured would be indistinguishable from each other, which meant that, algorithms would have difficulty in detecting pixel shifts \cite{charrett_mars}.
+    \Gls{lsp} captured with higher frame rate cameras would exhibit less motion blur owing to more frames being captured in a given time. Charret et. al. and Bandari et. al. have used 500 \gls{fps} high speed camera in their setup \cite{charrett_2018} \cite{bandari}. In Ref. \cite{charrett_mars} authors mentioned that if frame rate is high, then low velocities cannot be measured as the detected translation by correlation algorithms would be less than \~0.1 pixels when using sub-pixel interpolation or 1 pixel otherwise. Therefore, appropriate frame rate should be chosen for required velocity range.
 
     
     \subsubsection*{Aperture Size}
-    Aperture is the hole that allows the incoming light to fall on image sensor. It's size controls the exposure of image sensor to light. As a result of higher shutter speeds, larger aperture is required for adequate exposure. Charret et. al. did not use any lens in front of the image sensor. They called it \emph{objective speckle setup} (See Section \ref{Subsubsection:Objective_Subjective}). But, by introducing a lens in front of the image sensor (called \emph{subjective speckle setup}), the aperture hole size has an effect on speckle size because of \emph{diffraction} (See Chapter \ref{Chap:Fundamentals} Section \ref{Section:Diffraction}). As Charrett et. al. did not use a lens in front of the image sensor, the need for aperture - to control speckle size - was not there anymore \cite{charrett_2018}. Briers et. al. mentioned also that speckle size is entirely dependent on wavelength of the incident light and size of aperture hole used to image the pattern \cite{briers}.
-
-    \vspace{5mm}
-    \noindent Sjoedahl et. al. used \emph{f}/16 aperture for their setup, giving a speckle size of 3 pixels at the detector \cite{sjoedahl}. Song et. al. captured \gls{lsp} for different aperture numbers of 8, 11, 16, 22, 32 and named them respectively from C1--C5. As can be seen from Fig. \ref{fig:song_fig9}, as aperture size is decreasing, amount of available light falling on sensor decreases, as shown by \gls{agl} values, but \gls{ass} is increasing. The importance of speckle size is covered in the section \ref{Subsubsection:Speckle_Size}. Song et. al. also collected \Gls{lsp} at different aperture sizes while simultaneously adjusting the exposure times to get appropriate \gls{agl}. They found, as aperture \emph{f}-number is increasing, the speckle size increases. As can be seen from Fig. \ref{fig:song_fig5} with decreasing aperture size \gls{ass} is increasing \cite{song}.
+    Aperture is the hole that allows the incoming light to fall on image sensor. Its size controls the exposure of image sensor to light. As a result of higher shutter speeds, larger aperture is required for adequate exposure. In the literature concerning speckle patterns, aperture size has an effect on speckle size. Song et. al. captured \gls{lsp} for different aperture numbers (See Table \ref{table:song_table_c}) and named them respectively from C1 - C5. As aperture number is increasing, amount of available light falling on sensor decreases, as shown by \gls{agl} values, but \gls{ass} is increasing \cite{song}. Charrett et. al. used a 'lensless' or \emph{objective speckle setup} with no imaging lens in front of image sensor. Thus, removing the need for aperture to control speckle size \cite{charrett_2018, francis_autonomous}.
+    
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{C{3cm}C{3cm}C{3cm}C{3cm}}
+            \toprule
+            \textbf{Speckle Pattern} & \textbf{Aperture} & \textbf{\gls{ass} (Pixels)} & \textbf{\gls{agl}} \\
+            \midrule
+            
+            C1 & 8 & 2.8 & 188.1 \\
+            C2 & 11 & 3.9 & 103.8 \\
+            C3 & 16 & 4.9 & 52.1 \\
+            C4 & 22 & 7.4 & 25.6 \\
+            C5 & 32 & 11.6 & 13.9 \\
+    
+            \bottomrule
+        \end{tabular}
+        \caption{\gls{lsp} collected for different aperture sizes (Adapted from Fig. \ref{fig:song_fig9} in Song et. al. 2020) \cite{song}.}
+        \label{table:song_table_c}
+    \end{table}
 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.7\textwidth]{images/c_sota/song_fig9.png}
-        \caption{Speckle pattern collected under different external factors: Speckle patterns C1, C2, C3, C4, C5 are collected at different apertures and correspond to apertures 8, 11, 16, 22, 32; Speckle patterns collected at different laser power and the corresponding binary patterns: Speckle patterns D1, D2, D3, D4, D5 are collected at different laser power and correspond to laser powers 10 mW, 100 mW, 200 mW, 300 mW, 400 mW; Speckle patterns E1, E2, E3, E4, E5 are collected at different temperatures and correspond to temperatures 1200 °C, 1300 °C, 1400 °C, 1500 °C, 1600 °C. \cite{song}}
+        \includegraphics[width=0.6\textwidth]{images/c_sota/song_fig9.png}
+        \caption{\gls{lsp} collected under different conditions: C1 - C5 for apertures (8, 11, 16, 22, 32). D1 - D5 for different laser powers (10 mW, 100 mW, 200 mW, 300 mW, 400 mW) and E1 - E5 for different temperatures (1200 °C, 1300 °C, 1400 °C, 1500 °C, 1600 °C). (Adapted from Song et. al. 2020) \cite{song}}
         \label{fig:song_fig9}
     \end{figure} 
 
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/c_sota/song_fig5.png}
-        \caption{Speckle patterns collected at different apertures and their binary patterns: Speckle patterns A1, A2, A3, A4, A5 with the same \gls{mig} and correspond to apertures 8, 11, 16, 22, 32; Speckle patterns B1, B2, B3, B4, B5 with the same \gls{miosd} and correspond to apertures 8, 11, 16, 22, 32. \cite{song}}
-        \label{fig:song_fig5}
-    \end{figure}
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.7\textwidth]{images/c_sota/song_fig5.png}
+    %     \caption{Speckle patterns collected at different apertures and their binary patterns: Speckle patterns A1, A2, A3, A4, A5 with the same \gls{mig} and correspond to apertures 8, 11, 16, 22, 32; Speckle patterns B1, B2, B3, B4, B5 with the same \gls{miosd} and correspond to apertures 8, 11, 16, 22, 32. \cite{song}}
+    %     \label{fig:song_fig5}
+    % \end{figure}
 
-    \clearpage
     
-    \subsubsection*{Resolution of Captured Image and Correlation Window Size}
-    Charrett et. al. used an image with resolution of 512 \times \ 512 pixels, with image sensor having a pixel size of \SI{4.8}{\micro\meter} \cite{charrett_2018}. The correlation window used for \gls{ncc} had dimensions of 128 \times \ 128 pixels. If the resolution is high, brute force algorithm used to perform template matching would take longer time. This is because, the template matching algorithm would take longer to perform \gls{ncc} on each pixel location. Therefore, a balance needs to be found. Smaller the correlation window, the easier it is to perform \Gls{ncc}, but too small a window means, higher chance to have outliers, thus decreasing the accuracy. Lewis stated that performance of fast-\Gls{ncc} depends on search window size and the ratio between feature window size and search window size \cite{lewis}.
+    \subsubsection*{Resolution of Captured Image and Template/Subset Size}
+    Charrett et. al. used an image with resolution of 512 \times \ 512 pixels, with image sensor having a pixel size of \SI{4.8}{\micro\meter} \cite{charrett_2018}. The correlation window used for \gls{ncc} had dimensions of 128 \times \ 128 pixels. Smaller the correlation window, the easier it is to perform \gls{ncc}, but too small a window means, higher chance to have outliers, thus decreasing the accuracy. Lewis stated that performance of fast-\Gls{ncc} depends on search window size and the ratio between feature window size and search window size \cite{lewis}.
 
     \subsubsection*{Speckle Size}\label{Subsubsection:Speckle_Size}
     The speckle size is determined by the size of the aperture hole. Particle size increases as aperture value (\emph{f-number}) increases as a result of \emph{diffraction} \cite{song}. Hu et. al. found that optimal speckle size is between 3 - 5 pixels for better quality of \Gls{lsp} \cite{hu}. If the speckle size is too small, it leads to image under-sampling causing large interpolation errors. This can be attributed to pixel size being comparable to translation between camera and surface. On the other hand, if the speckle size is too large, it leads to poor quality of images.
@@ -237,11 +253,52 @@ In this chapter information collected from literature survey will cover the foll
     \subsubsection*{Laser Power}
     Song et. al. collected \glspl{lsp} for different laser powers, namely \SI{10}{\milli\watt}, \SI{100}{\milli\watt}, \SI{200}{\milli\watt}, \SI{300}{\milli\watt}, \SI{400}{\milli\watt}, \SI{500}{\milli\watt} and named the corresponding \glspl{lsp} D1-D5 respectively \cite{song}. The laser power affects brightness and contrast of \gls{lsp}, but does not affect the size of the speckle. This can seen in Fig. \ref{fig:song_fig9}.
 
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{C{3cm}C{3cm}C{3cm}C{3cm}}
+            \toprule
+            \textbf{Speckle Pattern} & \textbf{Laser Power (mW)} & \textbf{\gls{ass} (Pixels)} & \textbf{\gls{agl}} \\
+            \midrule
+            
+            D1 & 10 & 4.0 & 10.4 \\
+            D2 & 100 & 3.8 & 83.7 \\
+            D3 & 200 & 3.7 & 151.4 \\
+            D4 & 300 & 2.9 & 193.4 \\
+            D5 & 400 & 1.4 & 222.4 \\
+    
+            \bottomrule
+        \end{tabular}
+        \caption{\gls{lsp} collected for different laser power (Adapted from \ref{fig:song_fig9} Song et. al. 2020) \cite{song}.}
+        \label{table:song_table_d}
+    \end{table}
+
 
     \subsubsection*{Temperature}
     Song et. al. also showed that background radiation in high temperature affects brightness and contrast of speckle pattern, but it does not affect size and shape of speckle particles \cite{song}. \glspl{lsp} were sampled for temperatures namely 1200\textdegree{}C, 1300\textdegree{}C, 1400\textdegree{}C, 1500\textdegree{}C, 1600\textdegree{}C and named E1-E5 respectively (See Fig. \ref{fig:song_fig9}).
 
-
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{C{3cm}C{3cm}C{3cm}C{3cm}}
+            \toprule
+            \textbf{Speckle Pattern} & \textbf{Temperature (°C)} & \textbf{\gls{ass} (Pixels)} & \textbf{\gls{agl}} \\
+            \midrule
+            
+            E1 & 1200 & 6.8 & 64.3 \\
+            E2 & 1300 & 6.7 & 70.8 \\
+            E3 & 1400 & 7.0 & 89.5 \\
+            E4 & 1500 & 7.3 & 116.7 \\
+            E5 & 1600 & 8.6 & 181.1 \\
+    
+            \bottomrule
+        \end{tabular}
+        \caption{\gls{lsp} collected under different temperatures (Adapted from Fig. \ref{fig:song_fig9} Song et. al. 2020) \cite{song}.}
+        \label{table:song_table_e}
+    \end{table}
+    
 \vspace{5mm}
 \subsection{Material Parameters}
 
