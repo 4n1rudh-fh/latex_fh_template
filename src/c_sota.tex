@@ -548,7 +548,70 @@ Referring to the findings illustrated in Fig. \ref{fig:insert_fig}, the evaluati
     \subsection{Miscellaneous}
 
     \subsubsection{\glsfirst{mffi}}
-        
+
+        As per the authors of Ref. \cite{song} most of the traditional quality criteria consider either contrast of the speckle pattern or speckle morphology and are evaluated for artificial speckle patterns instead of \gls{lsp}. To quantify quality of a \gls{lsp}, Song et al. suggested a new parameter called \gls{mffi}. It takes 3 things into account:
+        \begin{enumerate}
+            
+            \item \gls{igd} ($\delta_{IGD}$): If the pixels inside a \gls{lsp} are distributed across all possible gray levels $L$, $\delta_{IGD}$ will have the smaller value in comparison to an image where all pixels have same gray intensity values. According to authors, gray levels being distributed means, speckle patterns contains a lot of `information' \cite{song}.
+                
+                \begin{equation}
+                    \delta_{IGD} = \sqrt{\sum_{k=0}^{L-1} P_{k}^{2} / (W \times H)}
+                \end{equation}
+                
+                \noindent where, 
+                \begin{itemize}
+                    \item $P_k$ denotes the number of pixels of a particular gray level inside a \gls{lsp},
+                    \item $W$ and $H$ denote the width and height of image in pixels,
+                    \item $L$ denotes gray level number of an image.
+                \end{itemize}
+
+                \noindent If $L = 5$, then $k = {0, 1, 2, 3, 4}$ and number of pixels inside each gray level are given by \(\{P_k, k = 0, 1, ... , L-1\}\).
+
+            \item \gls{msdg} ($\delta_{MSDG}$): This parameter quantifies the contrast inside an image. It is defined by Eqn. \ref{eqn:msdg}. It identifies the concentration of a certain gray level distribution. The more dispersed the distribution, the higher the value of this parameter, and the better the quality of speckle pattern \cite{song}. 
+                
+                \begin{equation}
+                    \delta_{MSDG} = \sqrt{\sum_{k=0}^{L-1} \biggl\{ (k - \overline{P})^2 \times Q_k \biggr\}}
+                    \label{eqn:msdg}
+                \end{equation}
+
+                \noindent where,
+                \begin{itemize}
+                    \item \(Q_k = P_{k}/(W \times H)\)
+                    \item Mean gray value \(\overline{P} = \sum_{k=0}^{L-1} k \times Q_k\)
+                \end{itemize}   
+
+            
+            \item \gls{sdsps} ($\delta_{SDSPS}$): This parameter is calculated by Eqn. \ref{eqn:sdsps}, and considers the speckle morphology inside a \gls{lsp}. This parameter gives a high value when differences between speckle sizes is large. The number of speckles inside a speckle pattern is calculated firstly by Otsu's thresholding \cite{otsu}, and then boundary detection to calculate number of points inside each speckle \cite{song}.  
+
+            \begin{equation}
+                \delta_{SDSPS} = \sqrt{\frac{1}{T} \displaystyle \sum_{n=1}^{T} \  (A_n - \overline{A})^2} (max(A_n) > 1)
+                \label{eqn:sdsps}
+            \end{equation}
+
+            where,
+            \begin{itemize}
+                \item $A_n$ denotes size of every speckle particle,
+                \item mean speckle size \(\overline{A} = \sum_{n=1}^{T} A_n / T\),
+                \item $T$ is number of speckle particles.
+            \end{itemize} 
+        \end{enumerate}
+
+        \noindent Finally, these parameters are combined to give $\delta_{MFFI}$ using Eqn. \ref{eqn:mffi}. The authors mentioned, that by combining multiple methods, the shortcoming of considering only a single factor is overcome.
+
+        \begin{equation}
+            \delta_{MFFI} = \dfrac{a \times \delta_{IGD}}{\delta_{MSDG} \times \delta_{SDSPS}}
+            \label{eqn:mffi}
+        \end{equation}
+
+        \vspace{3mm}
+        \noindent where, $a$ denotes a linear coefficient to adjust value of $\delta_{MFFI}$ for better illustration. According to findings from the authors, the smaller $\delta_{MFFI}$ is better is the \gls{lsp} quality. The values of \gls{mffi} are also in agreement with the mean bias error and standard deviation of error in measured displacements \cite{song}.
+
+
+    \subsubsection{Quality assessment using Deep-Learning based \glsentryshort{cnn}}
+
+        According to the Kwon et al., the current speckle pattern quality measurements are based on preexisting qualitative knowledge of speckle-pattern-features. The authors found from their experiments that using \gls{cnn} for assessing speckle pattern quality provided better performance than existing measures such as \gls{mig}, \gls{msf}, \gls{se}, and \gls{sdgis}. The authors also used different sizes of artificial speckle pattern images, and observed that \gls{cnn} based error prediction demonstrated higher correlation coefficient than the other image quality criteria. The convolutional layer, because of its local fields and shared weights, was able to extract local features. These local features were combined by the layers of \gls{cnn} to calculate global correlations. This permitted local as well as global assessment of quality of speckle patterns \cite{kwon_cnn}.       
+
+
 
 \section{Speckle tracking approaches}\label{Section:Algorithms}
 
