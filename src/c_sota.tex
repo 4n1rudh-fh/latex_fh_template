@@ -2,16 +2,13 @@
 In this chapter information collected from literature survey will cover the following topics:
 
 \begin{itemize}
-    \item Experimental setup factors affecting \gls{lsp} formation
-    \item Quality criteria for \gls{lsp}
-    \item Speckle tracking approaches
-    \item Review on template matching and feature tracking approaches for artificial speckle patterns and \gls{lsp}
-    \item Image quality criteria concerning artificial speckle patterns and \gls{lsp}
-    \item Real use cases of template matching
-    \item Real use cases of speckle pattern quality criteria
+    \item Experimental setup factors affecting \gls{lsp} (Section \ref{section:exp_factors})
+    \item Different quality criteria for speckle patterns (Section \ref{section:quality_lsp})
+    \item Speckle tracking approaches for \gls{lsp} (Section \ref{section:speckle_tracking})
+    \item Real applications of template matching (Section \ref{section:real_template_matching})
 \end{itemize}
 
-\section{Experimental setup factors affecting \glsfirst{lsp}}
+\section{Experimental setup factors affecting \glsfirst{lsp}}\label{section:exp_factors}
 
 \subsection{Camera Parameters}
 
@@ -23,7 +20,7 @@ In this chapter information collected from literature survey will cover the foll
 
     \vspace{5mm}
 
-    \noindent Hu et. al. confirmed that speckle images captured for exposure values between \emph{B6-B10} gave speckle images of higher quality and higher contrast \noindent \cite{hu}. For their experiment defocussing degree is kept unchanged, and exposure time was adjusted from 1000-16000. A group of 16 \gls{lsp} was captured named \emph{Group B: B1-B16} (See Fig. \ref{fig:hu_fig8}). Unfortunately, no units were given for these values. Therefore, it is not possible to determine if these are actual exposure times or shutter speeds of the camera. However, it was concluded that a balance needs to be found between under- or overexposure of image sensor, as any of the extremes would result in decrease of contrast. This decrement in gray contrast of images negatively affects the algorithms used for correlation as covered in section \ref{Section:Algorithms}.
+    \noindent Hu et. al. confirmed that speckle images captured for exposure values between \emph{B6-B10} gave speckle images of higher quality and higher contrast \noindent \cite{hu}. For their experiment defocussing degree is kept unchanged, and exposure time was adjusted from 1000-16000. A group of 16 \gls{lsp} was captured named \emph{Group B: B1-B16} (See Fig. \ref{fig:hu_fig8}). Unfortunately, no units were given for these values. Therefore, it is not possible to determine if these are actual exposure times or shutter speeds of the camera. However, it was concluded that a balance needs to be found between under- or overexposure of image sensor, as any of the extremes would result in decrease of contrast.
 
     \begin{figure}[h]
         \centering
@@ -194,7 +191,7 @@ In this chapter information collected from literature survey will cover the foll
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.4\textwidth]{images/c_sota/charrett_2018_fig4.png}
-        \caption{Experimental setup used by Charrett et al. for their experiments. (Adapted from Charrett et al. 2018 \cite{charrett_2018})}
+        \caption{Setup used by Charrett et al. for their experiments. (Adapted from Charrett et al. 2018 \cite{charrett_2018})}
         \label{fig:charrett_2018_fig4}
     \end{figure}
 
@@ -361,7 +358,7 @@ In this chapter information collected from literature survey will cover the foll
     \end{figure}
 
     
-\section{Quality criteria for speckle patterns}
+\section{Quality criteria for speckle patterns} \label{section:quality_lsp}
 
 Referring to the findings illustrated in Fig. \ref{fig:insert_fig}, the evaluation of speckle pattern quality is determined with an objective to discern the quality criteria applicable to \gls{lsp}. While the emphasis is on identifying criteria specific to \gls{lsp}, the literature survey also incorporates considerations of quality criteria applicable to artificial speckle patterns.
 
@@ -551,7 +548,7 @@ Referring to the findings illustrated in Fig. \ref{fig:insert_fig}, the evaluati
         As per the authors of Ref. \cite{song} most of the traditional quality criteria consider either contrast of the speckle pattern or speckle morphology and are evaluated for artificial speckle patterns instead of \gls{lsp}. To quantify quality of a \gls{lsp}, Song et al. suggested a new parameter called \gls{mffi}. It takes 3 things into account:
         \begin{enumerate}
             
-            \item \gls{igd} ($\delta_{IGD}$): If the pixels inside a \gls{lsp} are distributed across all possible gray levels $L$, $\delta_{IGD}$ will have the smaller value in comparison to an image where all pixels have same gray intensity values. According to authors, gray levels being distributed means, speckle patterns contains a lot of `information' \cite{song}.
+            \item \textbf{\gls{igd} ($\delta_{IGD}$)}: If the pixels inside a \gls{lsp} are distributed across all possible gray levels $L$, $\delta_{IGD}$ will have the smaller value in comparison to an image where all pixels have same gray intensity values. According to authors, gray levels being distributed means, speckle patterns contains a lot of `information' \cite{song}.
                 
                 \begin{equation}
                     \delta_{IGD} = \sqrt{\sum_{k=0}^{L-1} P_{k}^{2} / (W \times H)}
@@ -566,7 +563,7 @@ Referring to the findings illustrated in Fig. \ref{fig:insert_fig}, the evaluati
 
                 \noindent If $L = 5$, then $k = {0, 1, 2, 3, 4}$ and number of pixels inside each gray level are given by \(\{P_k, k = 0, 1, ... , L-1\}\).
 
-            \item \gls{msdg} ($\delta_{MSDG}$): This parameter quantifies the contrast inside an image. It is defined by Eqn. \ref{eqn:msdg}. It identifies the concentration of a certain gray level distribution. The more dispersed the distribution, the higher the value of this parameter, and the better the quality of speckle pattern \cite{song}. 
+            \item \textbf{\gls{msdg} ($\delta_{MSDG}$)}: This parameter quantifies the contrast inside an image. It is defined by Eqn. \ref{eqn:msdg}. It identifies the concentration of a certain gray level distribution. The more dispersed the distribution, the higher the value of this parameter, and the better the quality of speckle pattern \cite{song}. 
                 
                 \begin{equation}
                     \delta_{MSDG} = \sqrt{\sum_{k=0}^{L-1} \biggl\{ (k - \overline{P})^2 \times Q_k \biggr\}}
@@ -580,7 +577,7 @@ Referring to the findings illustrated in Fig. \ref{fig:insert_fig}, the evaluati
                 \end{itemize}   
 
             
-            \item \gls{sdsps} ($\delta_{SDSPS}$): This parameter is calculated by Eqn. \ref{eqn:sdsps}, and considers the speckle morphology inside a \gls{lsp}. This parameter gives a high value when differences between speckle sizes is large. The number of speckles inside a speckle pattern is calculated firstly by Otsu's thresholding \cite{otsu}, and then boundary detection to calculate number of points inside each speckle \cite{song}.  
+            \item \textbf{\gls{sdsps} ($\delta_{SDSPS}$)}: This parameter is calculated by Eqn. \ref{eqn:sdsps}, and considers the speckle morphology inside a \gls{lsp}. This parameter gives a high value when differences between speckle sizes is large. The number of speckles inside a speckle pattern is calculated firstly by Otsu's thresholding \cite{otsu}, and then boundary detection to calculate number of points inside each speckle \cite{song}.  
 
             \begin{equation}
                 \delta_{SDSPS} = \sqrt{\frac{1}{T} \displaystyle \sum_{n=1}^{T} \  (A_n - \overline{A})^2} (max(A_n) > 1)
@@ -830,7 +827,7 @@ Referring to the findings illustrated in Fig. \ref{fig:insert_fig}, the evaluati
 
 
 \clearpage
-\section{Speckle tracking approaches}\label{Section:Algorithms}
+\section{Speckle tracking approaches for \gls{lsp}}\label{section:speckle_tracking}
 
 For the purpose of \gls{lsi} with methods other than template matching (See Chapter \ref{chap:fundamentals} Section \ref{section:template_matching}), Charrett et al. investigated feature tracking methods in Ref. \cite{charrett_2019}. For that, the authors collected different datasets of translation and rotation using an aluminum plate of dimensions \SI{200}{\milli\meter} \times\ \SI{200}{\milli\meter}. Datasets were prepared with translations between \SI{0}{\milli\meter} to \SI{2.8}{\milli\meter} in \SI{50}{\micro\meter} steps, and rotations from 0° to 360° in 5° steps. They found that \gls{ncc} along with sub-pixel interpolation algorithm such as 3-point gaussian fit \cite{raffel} had a translation accuracy similar to feature tracking approaches with error/pixel-locking of \sim0.033 pixels for \gls{ncc}, \sim0.04 pixels for \glsentryshort{brisk}\cite{brisk_feature} and \sim0.025 pixels for \glsentryshort{surf}\cite{surf_feature} and \glsentryshort{usurf}\cite{surf_feature} methods. The \glsentryshort{orb}\cite{orb_feature} method had the lowest performance out of the other feature tracking approaches with peak error of 0.17 pixels, because of integer pixel location of key points in the method instead of sub-pixel locations used in other methods (See Fig. \ref{fig:charrett_2019_fig4}). The authors found that feature tracking approaches have an advantage over correlation approaches in measuring rotation. Out of the other feature tracking methods, \glsentryshort{orb} performed the best with reliable measurements of rotation upto \pm25° (See Fig. \ref{fig:charrett_2019_fig5}(a)) \cite{charrett_2019}.
 
@@ -865,13 +862,7 @@ For the purpose of \gls{lsi} with methods other than template matching (See Chap
 %     \item Speckle Size
 %     \item Objective vs. Subjective Speckle Setup
 %     \item Height of Surface from Sensor Setup
-%     \item Tilt or yaw for the surface material
-%     \item Distance between laser source and detector
-%     \item Velocity of surface movement
-%     \item Laser Power
-%     \item Temperature
-%     \item Roughness
-%     \item Material Parameters
+%     \item Tilt or yaw for the surface materialto \SI{100}{\micro\meter} resolution (\SI{100}{\milli\meter} working range) at kHz data rates.
 %     \item Image Filters in \cite{opencv}
 % \end{itemize}
 
@@ -888,5 +879,87 @@ For the purpose of \gls{lsi} with methods other than template matching (See Chap
 %     \item balance high frame rate with short exposure time. But then increase the camera aperture hole at risk of decreasing pixel size. The short exposure time can be countered with increasing the laser power, working with higher reflectivity material, decreasing the distance between detector and surface, and improving sensitivity of detector \cite{charret_autonomous}
 %     \item Therefore the setup needs to be recreatable. Because sensitive to yaw, tilt etc.
 % \end{itemize}
+
+\section{Real Applications of Template Matching} \label{section:real_template_matching}
+
+    \subsection{Velocity measurement using \gls{lsp} for a Mars exploration rover}
+        In order to improve the odometry information coming from wheel encoders, Charrett et al. explored the possibility of using laser speckle images to perform velocity measurement in this paper \cite{charrett_mars}. The paper aimed at exploring different algorithms aiding velocimetry and the possibility of forming speckle images using Mars soil analogues using a laboratory setup (See Fig. \ref{fig:charrett_mars_fig2.png}). Out of all the tested algorithms, \gls{ncc} performed the best with odometry error of 0.2\% at speeds of upto \SI{1}{\milli\meter/\second} and less than 0.75\% at \SI{50}{\milli\meter/\second}. They also mentioned that this technique should scale well to higher velocities of \sim\SI{85}{\milli\meter/\second} (usual speed of exploration rovers), if higher frame rate camera is used and better image signals can be captured from the surface. But, testing speckle velocimetry at these speeds requires further investigation. Other open issues concerning this study includes finding out influence of vehicle motions and rotations \cite{charrett_mars}.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.3\textwidth]{images/c_sota/charrett_mars_fig2.png}
+            \caption{Schematic of laboratory setup used by Charrett et al.\ for their experiments. (Adapted from Charrett et al. 2010 \cite{charrett_mars})}
+            \label{fig:charrett_mars_fig2.png}
+        \end{figure}
+        
+    \subsection{Robotic tool speed measurement using \gls{lsp}} \label{subsection:robotic_tool_speed}
+        In the Ref. \cite{charrett_2018}, the authors proposed a sensor concept that can be used for measurement of robot \gls{tcp} speed. The sensor concept can be seen in Fig. \ref{fig:sensor_concept.png}. It involved using a camera-laser setup which records \gls{lsp} for in-plane movements, and then uses 2D-\gls{ncc} for measuring velocity. Initial experiments are done on a laboratory setup, where relative movement between sensor setup and surface is done using a 6-axis hexapod (See Fig. \ref{fig:charrett_2018_fig4}). The authors reported a high sensor accuracy with maximum error of \pm\SI{0.01}{\milli\meter/\second} over a velocity range of \pm\SI{70}{\milli\meter/\second}. For lower velocity range of \pm\SI{10}{\milli\meter/\second}, error in velocity measurement reduced to \textless \SI{0.004}{\milli\meter/\second}. The sensor's precision was measured by giving hexapod stage circular path, and varying the X and Y velocity components. Here, peak velocity errors \SI{0.34}{\milli\meter/\second} at \SI{1}{\milli\meter/\second} and \pm\SI{2.28}{\milli\meter/\second} at \pm\SI{70}{\milli\meter/\second} were observed \cite{charrett_2018}.
+        
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.4\textwidth]{images/b_fundamentals/sensor_concept.png}
+            \caption{Sensor concept. In (a) \gls{lsi} setup captures images for relative movement between robot \gls{tcp} and workpiece surface. In (b) 2D-\gls{ncc} between reference and current image gives the correlation peak indicating the occurred translation (Adapted from Charrett et al. 2018 \cite{charrett_2018}).}
+            \label{fig:sensor_concept.png}
+        \end{figure}
+
+    \subsection{Three-\gls{dof} sensor for robot manufacturing}
+        Charrett et al. in Ref. \cite{charrett_wpos} developed another sensor concept (Fig. \ref{fig:charrett_wpos_fig1.png}), for measurement of 3-translation \gls{dof} of robot \gls{tcp} called \gls{wpos}. It involves an optical sensor setup that utilizes the principles of \gls{rri} \cite{kissinger_rri} for out-of-plane positioning, and laser-speckle correlation for in-plane positioning or potential rotation \cite{charrett_2019}. A brief overview of these techniques is provided below:
+
+        \subsubsection{\glsfirst{rri}}
+            \gls{rri} is an interferometry technique based on sinusoidal wavelength modulation of laser diodes. It gives high resolution measurement of interferometric phase thus giving nanometer level precision in displacement measurement at multi-kHz bandwidths \cite{kissinger_rri}. In \gls{wpos}, \gls{rri} is used to measure the distance between workpiece surface and robot \gls{tcp}. As per the authors, \gls{rri} also offers advantages such as large working ranges (\geq\ \SI{10}{\centi\meter}), small sensor heads (\leq\ \SI{10}{\milli\meter}), and that interferometric nature of this process allows it to be immune to background light (for example, from arc-welding) \cite{kissinger_rri}.
+
+        \subsubsection{\glsfirst{lsc}}
+            This is similar to sensor concept used by Charrett et al. in Ref. \cite{charrett_2018} explained in Section \ref{subsection:robotic_tool_speed}. Here, as well to measure 2D in-plane movement, \gls{ncc} was utilized on \gls{lsp} \cite{charrett_wpos}.
+
+        \vspace{5mm}
+        \noindent Finally, the two techniques are compiled here, to form the \glsfirst{wpos}. The authors used this sensor concept for three application areas.
+        
+        \begin{itemize}
+
+            \item \textbf{Tool Speed Measurement:} Here, \gls{lsc} correlation was used. The performance of the camera-laser sensor setup was investigated in their other work \cite{charrett_2018}. The authors found sensor to have a high accuracy with maximum error of \pm\SI{0.01}{\milli\meter/\second} over a velocity range of \pm\SI{70}{\milli\meter/\second} \cite{charrett_wpos}.
+            
+            \item \textbf{In-process layer height measurement:} Here, \gls{rri} was used to measure the distance between workpiece and the surface. According to the authors, this is applicable for measurements of layer height during additive manufacturing methods such as \gls{waam} \cite{hallam_waam}. The authors also said, that the measurements were made in presence of arc-light, thus proving the immunity of \gls{rri} to background light. It was found that, sensor setup had a resolution between \sim \SI{10}{\micro\meter} to \SI{100}{\micro\meter} for a working range of \SI{100}{\milli\meter}. Out-of-plane vibration testing was also performed, where resolution of \SI{1}{\nano\meter} to \SI{10}{\nano\meter} was achieved \cite{charrett_wpos}. 
+
+            \item \textbf{Real-Time Positioning:} For in-plane positioning authors used \gls{ncc}. In order to perform long range relative position measurements, re-referencing operation is necessary \cite{charrett_wpos}. Re-referencing involves resetting the reference image being used for template tracking, once the translation becomes greater than dimensions of the camera chip used. As any tilts/misalignments can decrease the accuracy of position measurement \cite{charrett_2018}, the authors want to use \gls{rri} to update scaling factors that convert speckle shift to actual distance \cite{charrett_wpos}. Experimental findings conducted show, that for short range measurements errors in position amounted to \textless\SI{0.5}{\micro\meter}, and for long range measurements of \sim \SI{0.5}{\meter}, the error was \sim\SI{120}{\micro\meter}.
+
+        \end{itemize}
+            
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{images/c_sota/charrett_wpos_fig1.png}
+            \caption{\gls{wpos} concept (Adapted from Charrett et al. 2019 \cite{charrett_wpos})}
+            \label{fig:charrett_wpos_fig1.png}
+        \end{figure}
+        
+        % \begin{table}[h]
+        %     \centering
+        %     \footnotesize
+        %     \begin{tabular}{c{4cm}c{6cm}}
+        %         \toprule
+        %         \textbf{Measurement Mode} & \textbf{Notes and Performance} \\
+        %         \midrule
+                
+        %         In-plane tool speed & 
+        %         \begin{itemize}[leftmargin=*]
+        %             \item 2D velocity measurement via laser speckle correlation. 
+        %             \item \pm\SI{0.01}{\milli\meter/\second} over a velocity range of \pm\SI{70}{\milli\meter/\second}.
+        %         \end{itemize} \\
+
+        %         In-plane positioning (long range \sim\SI{1}{\meter}) & 
+        %         \begin{itemize}[leftmargin=*]
+        %             \item Laser speckle correlation (+ working distance correction via \gls{rri})
+        %             \item \sim\SI{120}{\micro\meter/\meter} 
+        %         \end{itemize} \\
+                
+        %         In-plane positioning/displacement/vibration (short range \sim mm to cm) & 
+        %         \begin{itemize}[leftmargin=*]
+        %             \item Laser speckle correlation (+ working distance correction via \gls{rri})
+        %             \item Errors \textless \SI{0.5}{\micro\meter} upto \sim10kHz.
+        %         \end{itemize} \\
+                
+        %         \bottomrule
+        %     \end{tabular}
+        %     \caption{Summary of }
+        % \end{table}
 
 \clearpage
