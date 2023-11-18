@@ -1,7 +1,51 @@
-\chapter{Research Question}\label{chap:research_question}
+\chapter{Research Questions}\label{chap:research_question}
 
-Write your research questions here.
+As covered in Chapter \ref{chapter:sota}, image quality of a \gls{lsp} plays an important role in position measurement using correlation algorithms. Other than that, experimental factors of setup have an important effect on \gls{lsp} and its appearance, which in turn affects image quality. Because of this dependency of \gls{lsp} formation on multiple factors, the image quality parameters researched in Chapter \ref{chapter:sota} have their own definition of what quantifies as a `good quality' speckle pattern. Another thing to be concluded from state-of-the-art research is that, most of the image quality parameters have been developed taking artificial speckle patterns into account instead of \gls{lsp}, as shown in Table \ref{table:summary_quality_criteria_1}. 
 
-Different speckle pattern quality algorithms have been assessed in the literature, but there is a lack of definition of a perfect speckle pattern. This is because of the insufficient control on error sources that can influence its appearance. It is also to be noted that majority of the literature talks about quality of artificial speckle pattern (for e.g. speckle pattern created from airbrushing black paint on a surface) instead of \gls{lsp}.
+\vspace{5mm}
+\noindent Nonetheless, this research aims to address the gap of real application of image quality criteria on position measurement using \gls{lsp} images by answering the following questions:
 
-We also mention here the things that we do not plan to do for thesis. For example, I do not plan to compare different template matching methods. 
+\begin{enumerate}
+    \item What is the effect of following factors on positional accuracy?
+        \begin{itemize}
+            \item Exposure time of camera
+            \item Gain of camera
+            \item Calibration matrix
+            \item Laser spot diameter
+        \end{itemize}
+    \item What is the effect of changing following factors on appearance of \gls{lsp}?
+        \begin{itemize}
+            \item Exposure time of camera
+            \item Gain of camera
+            \item Laser spot diameter
+        \end{itemize}
+    \item What is the effect of changing following factors on image quality parameter of choice?
+        \begin{itemize}
+            \item Exposure time of camera
+            \item Gain of camera
+            \item Laser spot diameter
+        \end{itemize}
+    \item What correlation does image quality parameter of choice have with position measurement accuracy when following factors are changed?
+        \begin{itemize}
+            \item Exposure time of camera
+            \item Gain of camera
+            \item Laser spot diameter
+        \end{itemize} 
+\end{enumerate}
+
+% \begin{itemize}
+%     \item This research aims to cover the gap Step 1: Setting up the physical experiment with knowledge from state-of-the-art research. This step is important as it will help overcoming the problem of appearance of \gls{lsp} from experimental factors. Errors that could arise due to the appearance of \gls{lsp} must be avoided at this step, to avoid the influence of these factors on image quality to best possible extent.
+%     \item Deciding on two physical setup parameters that have a direct influence on \gls{lsp} appearance. Here, the goal is to quantify image quality based on effect of these parameters.
+%     \item Camera parameters suich as exposure time and gain are chosen, because of their relative ease of change and direct effect on \gls{lsp} appearance.
+%     \item Then comes the part for data collection.
+%     \item Image quality analysis is done for the collected dataset by choosing an image quality parameter of choice by changing the above mentioned camera parameters.
+%     \item Only one image quality criteria would be chosen.
+% \end{itemize}
+
+% Write your research questions here.
+
+% Different speckle pattern quality algorithms have been assessed in the literature, but there is a lack of definition of a perfect speckle pattern. This is because of the insufficient control on error sources that can influence its appearance. It is also to be noted that majority of the literature talks about quality of artificial speckle pattern (for e.g. speckle pattern created from airbrushing black paint on a surface) instead of \gls{lsp}.
+
+% We also mention here the things that we do not plan to do for thesis. For example, I do not plan to compare different template matching methods. 
+
+
