@@ -44,3 +44,62 @@
     \caption{List of all \gls{emva} 1288 parameters. (Adapted from \gls{emva} 1288 Standard - Release 4.0 General) \cite{emva_1288}}
     \label{table:emva_table}
 \end{table}
+
+
+\begin{table}[h]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{6cm}p{2cm}p{2cm}p{2cm}}
+        \toprule
+        \textbf{Parameter} & \textbf{Minimum} & \textbf{Typical} & \textbf{Maximum} \\
+        \midrule
+        Wavelength & \SI{630}{\nano\meter} & \SI{635}{\nano\meter} & \SI{645}{\nano\meter} \\
+        Power & \SI{4.0}{\milli\watt} & \SI{4.5}{\milli\watt} & \SI{5.0}{\milli\watt} \\
+        Power Stability (8 hours) & - & - & 2\% \\
+        Power Stability (1 minute) & - & - & 1\% \\
+        Axis Deviation & - & - & \SI{5}{\milli\radian} \\
+        Beam Divergence (Collimated) & - & - & \SI{1.6}{\milli\radian} \\
+        Focal Range (From Exit Window) & \SI{80}{\milli\meter} & - & Collimated \\
+        Focussed Spot Diameter (\SI{100}{\milli\meter}, 1/e²) & - & \SI{30}{\micro\meter} & - \\ 
+        Operating Current & - & \SI{50}{\milli\ampere} & \SI{70}{\milli\ampere} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Optical and Electrical Specifications of CPS635F Laser Module. \cite{thorlabs_laser}}
+    \label{table:laser_module_specs}
+\end{table}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/e_experiments/spectrum_laser_module.png}
+    \caption{Spectrum of CPS635F module taken at 20\textdegree{}C, 25\textdegree{}C, 30\textdegree{}C. This data is typical and will vary for each module. \cite{thorlabs_laser}}
+    \label{fig:spectrum_laser_module.png}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{7cm}p{3cm}}
+        \toprule
+        \textbf{Parameter} & \textbf{Description} \\
+        \midrule
+        Travel X, Y & \SI{\pm22.5}{\milli\meter} \\        
+        Travel Z & \SI{\pm12.5}{\milli\meter} \\        
+        Travel $\theta_x$, $\theta_y$ & \SI{\pm7.5}{\degree} \\        
+        Travel $\theta_z$ & \SI{\pm12.5}{\degree} \\        
+        Min. incremental motion X, Y, Z & \SI{0.3}{\micro\meter} \\
+        Min. incremental motion $\theta_x$, $\theta_y$, $\theta_z$ & \SI{3.5}{\micro\radian} \\
+        Repeatability X, Y & \SI{\pm0.5}{\micro\meter} \\
+        Repeatability $\theta_x$, $\theta_y$, $\theta_z$ & \SI{\pm6}{\micro\radian} \\
+        Velocity X, Y, Z (typical) & \SI{0.5}{\milli\meter/\second} \\
+        Velocity X, Y, Z (maximum) & \SI{1}{\milli\meter/\second} \\
+        Velocity $\theta_x$, $\theta_y$, $\theta_z$ (typical) & \SI{5.5}{\milli\radian/\second} \\
+        Velocity $\theta_x$, $\theta_y$, $\theta_z$ (maximum) & \SI{11}{\milli\radian/\second} \\
+        Load capacity (Baseplate horizontal) & \SI{10}{\kilo\gram} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technical specifications of M-824 Hexapod. \cite{hexapod_manual}}
+    \label{table:technical_specifications_hexapod}
+\end{table}

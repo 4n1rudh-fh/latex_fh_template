@@ -1,4 +1,14 @@
-\chapter{Methodology}\label{chap:methodology}    
+\chapter{Methodology}\label{chapter:methodology}    
+    \vspace{5mm}
+    \noindent FOr calibration 150 microsecnds was chosen. To verify the hexapod distance, the following procedure is used. Assuming the hexapod is moved to a random coordinate ($a_{x\ actual}$, $a_{y\ actual}$), images are recorded for this hexapod motion. With displacements in pixel units known from \gls{ncc} algorithm, and the calibration matrix parameters ($T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$), Eqn. \ref{eqn:dist_calc} is used to calculate ($a_x$, $a_y$), which can be compared with actual hexapod coordinates ($a_{x\ actual}$, $a_{y\ actual}$). 
+
+    \begin{equation}\label{eqn:dist_calc}
+        \begin{aligned}
+            a_x = \frac{A_x \cdot T_{yy} - A_y \cdot T_{xy}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}} \\
+            a_y = \frac{A_y \cdot T_{xx} - A_x \cdot T_{yx}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}}
+        \end{aligned}
+    \end{equation}
+
     \vspace{5mm}
     This research does not aim to compare different template matching or sub-pixel interpolation algorithms. As correlation algorithm is not be changed during the course of the conducted experiments, measurement error analysis should be independent of it. Thus, indicating that \gls{lsp} quality is vital to correlation quality.
     
