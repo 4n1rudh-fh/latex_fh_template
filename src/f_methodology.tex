@@ -1,78 +1,123 @@
 \chapter{Methodology}\label{chapter:methodology}    
-    \vspace{5mm}
-    \noindent FOr calibration 150 microsecnds was chosen. To verify the hexapod distance, the following procedure is used. Assuming the hexapod is moved to a random coordinate ($a_{x\ actual}$, $a_{y\ actual}$), images are recorded for this hexapod motion. With displacements in pixel units known from \gls{ncc} algorithm, and the calibration matrix parameters ($T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$), Eqn. \ref{eqn:dist_calc} is used to calculate ($a_x$, $a_y$), which can be compared with actual hexapod coordinates ($a_{x\ actual}$, $a_{y\ actual}$). 
+    \section{Choosing the image quality parameter}
+    Due to the homogeneous distribution of speckles in \gls{lsp} image, characterized by minimal variations in gray values among individual speckles \cite{song}, a preference was established for employing a global quality parameter. At present, most quality parameters concern with artificial speckle patterns. Out of them \gls{mig} emerged as a widely accepted parameter for judging speckle pattern quality \cite{hu_ef}. Considering these reasons and its ease of implementation, the decision was made to adopt \gls{mig} as the primary quality parameter for the evaluation of LSP quality.
+    
+        \subsection*{\glsfirst{mig}}
+            \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. \gls{mig} can be calculated by using an image gradient operator generally used to perform edge detection. For the use case of this project \emph{Sobel Operator} was used for detecting edges. It was selected because it provides a straightforward calculation of approximated gradient by directly convolving with the underlying image. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $S_x$ and $S_y$ for X and Y directions respectively.
 
-    \begin{equation}\label{eqn:dist_calc}
-        \begin{aligned}
-            a_x = \frac{A_x \cdot T_{yy} - A_y \cdot T_{xy}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}} \\
-            a_y = \frac{A_y \cdot T_{xx} - A_x \cdot T_{yx}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}}
-        \end{aligned}
-    \end{equation}
+            \[
+                S_x = 
+                \begin{bmatrix}
+                    -1 & 0 & 1 \\
+                    -2 & 0 & 2 \\
+                    -1 & 0 & 1 \\
+                \end{bmatrix}
+                \quad
+                S_y = 
+                \begin{bmatrix}
+                    -1 & -2 & -1 \\
+                    0 & 0 & 0 \\
+                    1 & 2 & 1 \\
+                \end{bmatrix}
+            \]
 
-    \vspace{5mm}
-    This research does not aim to compare different template matching or sub-pixel interpolation algorithms. As correlation algorithm is not be changed during the course of the conducted experiments, measurement error analysis should be independent of it. Thus, indicating that \gls{lsp} quality is vital to correlation quality.
+            \vspace{5mm}
+            \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A 3 \times 3 Sobel operator was used because it is less noise sensitive and computations are faster as compared to 5 \times 5 counterpart. The gradient calculation in X ($G_x$) and Y ($G_y$) direction is done by convolving $S_x$ and $S_y$ with the original image $A$ (See Eqn. \ref{eqn:g_x} and \ref{eqn:g_y}). Total magnitude of gradient is calculated using the Eqn. \ref{eqn:mag_eqn}. The image quality parameter \gls{mig} is calculated by dividing the magnitude $G$ by size of image (\( m \times n\) pixels) using Eqn. \ref{eqn:mig}. 
+            
+            %  Then, magnitude of intensity gradient $G_x, G_y$ for each pixel is calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for X and Y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the Sobel operation and resulting gradient magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel.png}. This figure shows how over-/underexposed images have lower \gls{mig} values, because of lesser number of pixels having a higher gradient values (indicated by white pixels). Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
+
+            \begin{equation}
+                G_x = S_x * A = 
+                \begin{bmatrix}
+                    -1 & 0 & 1 \\
+                    -2 & 0 & 2 \\
+                    -1 & 0 & 1 \\
+                \end{bmatrix} * A
+                \label{eqn:g_x}
+            \end{equation}
+
+            \begin{equation}
+                G_y = S_y * A = 
+                \begin{bmatrix}
+                    -1 & -2 & -1 \\
+                    0 & 0 & 0 \\
+                    1 & 2 & 1 \\
+                \end{bmatrix} * A
+                \label{eqn:g_y}
+            \end{equation}
+
+            \begin{equation}
+                G = \sqrt{G_x^2 + G_y^2}
+                \label{eqn:mag_eqn}
+            \end{equation}
+
+            \begin{equation}
+                \text{\gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
+                \label{eqn:mig}
+            \end{equation}
+
+            % \begin{equation}
+            %     \text{Avg. \gls{mig}} = \frac{\sum_{i=0}^{n} \gls{mig}_i}{\text{Total number of frames}}
+            %     \label{eqn:avg_mig}
+            % \end{equation}
+
+            % \begin{figure}[h]
+            %     \centering
+            %     \begin{subfigure}[b]{0.95\textwidth}
+            %         \centering
+            %         \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
+            %         \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second}}
+            %         \label{fig:sobel_gradient.png}
+            %     \end{subfigure}
+            %     \begin{subfigure}[b]{0.95\textwidth}
+            %         \centering
+            %         \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_underexposed.png}
+            %         \caption{Underexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{20}{\micro\second}}
+            %         \label{fig:sobel_underexposed.png}
+            %     \end{subfigure}
+            %     \begin{subfigure}[b]{0.95\textwidth}
+            %         \centering
+            %         \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_overexposed.png}
+            %         \caption{Overexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{1000}{\micro\second}}
+            %         \label{fig:sobel_overexposed.png}
+            %     \end{subfigure}
+            %     \caption{Grayscale colormaps for three different \glsplural{lsp} after Sobel operations along X and Y directions and resulting magnitude.}
+            %     \label{fig:sobel.png}
+            % \end{figure}
     
     
-    \textbf{Intensity Gradient} is the directional change in intensity of a pixel in an image. Image gradients can be calculated from an original image by convolving with a \emph{Sobel Operator}. Because gradients can change in horizontal as well as vertical directions, two sobel operators are needed. Namely, $G_x$ and $G_y$ for X and Y directions respectively.
+    \section{Displacement Measurement Verification}
+        \subsection*{Displacement Calculation}
+            \noindent After images are recorded simultaneously for the motion of hexapod to position \(a_{x\ hexapod}, a_{y\ hexapod}\), the displacements are calculated in pixel units by \gls{ncc}. Verification of this displacement with hexapod motion is done using the Eqn. \ref{eqn:dist_calc} \cite{charrett_2018}. 
 
-    \vspace{5mm}
-    \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A $3\times3$ kernel Sobel operator is used for \gls{lsp} captured for 3 different exposure times. Then, magnitude of intensity gradient for each pixel is calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for X and Y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the Sobel operation and resulting gradient magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel.png}. This figure shows how over-/underexposed images have lower \gls{mig} values, because of lesser number of pixels having a higher gradient values (indicated by white pixels). Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
+            \begin{equation}\label{eqn:dist_calc}
+                \begin{aligned}
+                    a_x = \frac{A_x \cdot T_{yy} - A_y \cdot T_{xy}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}} \\
+                    a_y = \frac{A_y \cdot T_{xx} - A_x \cdot T_{yx}}{T_{xx} \cdot T_{yy} - T_{xy} \cdot T_{yx}}
+                \end{aligned}
+            \end{equation}
 
-    \begin{equation}
-        G_x = 
-        \begin{bmatrix}
-            -1 & 0 & 1 \\
-            -2 & 0 & 2 \\
-            -1 & 0 & 1 
-        \end{bmatrix}
-        \label{eqn:g_x}
-    \end{equation}
+        \subsection*{Error Calculation}
+            The error in calculated displacement is measured by following formulae:
+            
+            % The following equations are used in explanation of results. The distances $a_x$ and $a_y$ are calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ hexapod}, a_{y\ hexapod})$. The error in position for respective axes is calculated using the following formulae:
 
-    \begin{equation}
-        G_y = 
-        \begin{bmatrix}
-            -1 & -2 & -1 \\
-            0 & 0 & 0 \\
-            1 & 2 & 1 
-        \end{bmatrix}
-        \label{eqn:g_y}
-    \end{equation}
+            \begin{equation}
+                \text{Error X (mm)} = a_x - a_{x\ hexapod}
+            \end{equation}
+            \begin{equation}
+                \text{Error Y (mm)} = a_y - a_{y\ hexapod}
+            \end{equation}
+            \begin{equation}
+                \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ hexapod}} \times 100\% \\
+            \end{equation}
+            \begin{equation}
+                \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ hexapod}} \times 100\%
+            \end{equation}
 
-    \begin{equation}
-        G = \sqrt{G_x^2 + G_y^2}
-        \label{eqn:mag_eqn}
-    \end{equation}
 
-    \begin{equation}
-        \text{\gls{mig}} = \frac{1}{m \cdot n} \sum_{i=0}^{m} \sum_{j=0}^{n} G_{ij}
-        \label{eqn:mig}
-    \end{equation}
-
-    \begin{equation}
-        \text{Avg. \gls{mig}} = \frac{\sum_{i=0}^{n} \gls{mig}_i}{\text{Total number of frames}}
-        \label{eqn:avg_mig}
-    \end{equation}
-
-    \begin{figure}[h]
-        \centering
-        \begin{subfigure}[b]{0.95\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_gradient.png}
-            \caption{Gain: 0, Exposure Time: \SI{150}{\micro\second}}
-            \label{fig:sobel_gradient.png}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.95\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_underexposed.png}
-            \caption{Underexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{20}{\micro\second}}
-            \label{fig:sobel_underexposed.png}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.95\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/b_fundamentals/sobel_overexposed.png}
-            \caption{Overexposed \gls{lsp} with Gain: 0, Exposure Time: \SI{1000}{\micro\second}}
-            \label{fig:sobel_overexposed.png}
-        \end{subfigure}
-        \caption{Grayscale colormaps for three different \glsplural{lsp} after Sobel operations along X and Y directions and resulting magnitude.}
-        \label{fig:sobel.png}
-    \end{figure} 
+    \section{Choosing Correlation Algorithm}        
+        As per the literature survey, \gls{ncc} is widely used as a correlation algorithm. The study also utilizes the same algorithm. It should also be made clear, that primary objective of this research is not to compare different template matching or sub-pixel interpolation algorithms. As correlation algorithm is not be changed during the course of the conducted experiments, measurement error analysis should be independent of it. Also, this research does not investigate different sub-pixel interpolation algorithms, as it is not implemented for this research.
+    
+    
+     
