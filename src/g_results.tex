@@ -1,54 +1,78 @@
-\chapter{Results and Discussion} \label{chap:results_and_discussion}
+\chapter{Results} \label{chapter:results}
 
-The following equations are used in explanation of results. The distances $a_x$ and $a_y$ are calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ actual}, a_{y\ actual})$. The error in position for respective axes is calculated using the following formulae:
+% The following equations are used in explanation of results. The distances $a_x$ and $a_y$ are calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ actual}, a_{y\ actual})$. The error in position for respective axes is calculated using the following formulae:
 
-\begin{equation}
-    \text{Error X (mm)} = a_x - a_{x\ actual}
-\end{equation}
-\begin{equation}
-    \text{Error Y (mm)} = a_y - a_{y\ actual}
-\end{equation}
-\begin{equation}
-    \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ actual}} \times 100\% \\
-\end{equation}
-\begin{equation}
-    \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ actual}} \times 100\%
-\end{equation}
-
-\vspace{10mm}
-\noindent The factors affecting position measurement using \gls{ncc} are discussed in the following sections:
+% \begin{equation}
+%     \text{Error X (mm)} = a_x - a_{x\ actual}
+% \end{equation}
+% \begin{equation}
+%     \text{Error Y (mm)} = a_y - a_{y\ actual}
+% \end{equation}
+% \begin{equation}
+%     \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ actual}} \times 100\% \\
+% \end{equation}
+% \begin{equation}
+%     \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ actual}} \times 100\%
+% \end{equation}
 
 \section{Effect of Calibration Matrix} \label{section:results_discussion_calib}
-As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
+    The calibration along X- and Y-axis was done 40 times each, by moving the hexapod to coordinates $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and $(\SI{0}{\milli\meter}, \SI{0.1}{\milli\meter})$ respectively. During the displacement measurement using \gls{ncc}, pixel locking\cite{raffel} effects were observed for calibrations along both X- and Y-axis. 
+    
+    \vspace{5mm}
+    \noindent For hexapod motion to coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ for X-axis calibration, $A_{xx}$ fluctuated between -26 to -25 pixel units and $A_{yx}$ between 0 to 1 pixel units. For hexapod motion to coordinate $(\SI{0}{\milli\meter}, \SI{0.1}{\milli\meter})$ for Y-axis calibration, $A_{xy}$ fluctuated between 0 to 1 pixel units and $A_{yy}$ between 25, 26, and 27 pixel units (See Table \ref{table:freq_table_calib_xy}). For one of those experiments, these fluctuation effects are plotted under \textsf{Standstill} in Fig. \ref{fig:vibration_calib_x.png} and \ref{fig:vibration_calib_y.png}. Values of calibration matrix $T$ are dependent on these pixel displacements according to the Eqn. \ref{eqn:calib_matrix_param}. As a result $T$ can be different depending on chosen pixel displacement values.
+
+% As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
 
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/e_exp_design/vibration_calib_x.png}
+        \includegraphics[width=\textwidth]{images/e_experiments/vibration_calib_x.png}
         \caption{Calibration: X-Axis.}
         \label{fig:vibration_calib_x.png}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/e_exp_design/vibration_calib_y.png}
+        \includegraphics[width=\textwidth]{images/e_experiments/vibration_calib_y.png}
         \caption{Calibration: Y-Axis.}
         \label{fig:vibration_calib_y.png}
     \end{subfigure}
-    \caption{Pixel shifts during calibration demonstrating vibrations.}
+    \caption{Pixel locking effects during calibration measurements.}
     \label{fig:vibration}
 \end{figure}
 
-\vspace{5mm}
-\noindent Because of the fluctuation of pixel shifts, the each of the parameters of calibration matrix $T$ can have 2 choices. Thus, resulting 16 different permutations of $T$. Instead of testing each of those, 4 were chosen on random basis. Apart from this, another $T$ was calculated based on average of fluctuations across 40 calibrations for each axis (See Table \ref{table:stats_x} and \ref{table:stats_y}). These 5 calibration matrices are given in Eqn. \ref{eqn:calib_matrices_permutations}. From Eqn. \ref{eqn:dist_calc}, the position $(a_x, a_y)$ is decided by the elements inside $T$. Because the matrices differ from each other, so will the final distances that are calculated. For the exposure time of \SI{150}{\micro\second} and gain equal to $0$, it can be seen by comparing Tables from \ref{table:stats_matrix_topright} to \ref{table:stats_matrix_bottomright} that across all movements of hexapod, $T_{Avg}$ fares better in comparison to other matrices. The maximum magnitude of error in position observed for $T_{Avg}$ is \SI{9}{\micro\meter} along X-Axis and \SI{7}{\micro\meter} along Y-Axis (See Table \ref{subtable:t_avg}). \gls{mig} does not change here, because same dataset was used to perform \gls{ncc}.
+\noindent To investigate the effect of a calibration matrix on final measurements, 5 different calibration matrices were chosen. The matrices from $T_1$ to $T_4$ contain different values of $A_{xx}$, $A_{yx}$ and $A_{xy}$ with the exception of $A_{yy}$ which was not changed as it occurred in 90\% of the measurements. The $T5$ matrix was made by averaging the pixel displacements across the 40 experiments, as seen in Table \ref{table:mean_pixel_displacements}.
+
+\begin{equation}
+    T &=
+        \begin{bmatrix}
+            T_{xx} & T_{xy} \\
+            T_{yx} & T_{yy}
+        \end{bmatrix} &=
+        \begin{bmatrix}
+            A_{xx}/a_x & A_{xy}/a_y \\
+            A_{yx}/a_x & A_{yy}/a_y
+        \end{bmatrix} &=
+        \begin{bmatrix}
+            A_{xx}/0.1 & A_{xy}/0.1 \\
+            A_{yx}/0.1 & A_{yy}/0.1
+        \end{bmatrix}
+    \label{eqn:calib_matrix_example}
+\end{equation}
 
 \begin{equation}
     \begin{aligned}
         T_1 &= 
         \begin{bmatrix}
+            -26/0.1 & 1/0.1 \\
+            0/0.1 & 26/0.1
+        \end{bmatrix} &= 
+        \begin{bmatrix}
             -260 & 10 \\
             0 & 260
         \end{bmatrix}
+        \\
+        \text{and similarly,}
         \\
         T_2 &= 
         \begin{bmatrix}
@@ -77,972 +101,736 @@ As explained in Section \ref{subsection:calib_matrix}, the calibration matrix ha
     \label{eqn:calib_matrices_permutations}
 \end{equation}
 
-\begin{table}[h]
-	\centering
-    \footnotesize
-    \begin{tabular}{l@{\hspace{2.5cm}}r@{\hspace{2.5cm}}r}
-        \toprule
-            & $A_{xx}$ & $A_{yx}$  \\
-        \midrule
-        Valid & $40$ & $40$  \\
-        Missing & $0$ & $0$  \\
-        Mean & $-25.675$ & $0.350$  \\
-        Std. Deviation & $0.474$ & $0.483$  \\
-        Minimum & $-26.000$ & $0.000$  \\
-        Maximum & $-25.000$ & $1.000$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{Descriptive statistics of 40 calibrations along X-Axis.}
-    \label{table:stats_x}
-\end{table}
-
-\begin{table}[h]
-	\centering
-    \footnotesize
-    \begin{tabular}{l@{\hspace{2.5cm}}r@{\hspace{2.5cm}}r}
-        \toprule
-            & $A_{xy}$ & $A_{yy}$  \\
-        \midrule
-        Valid & $40$ & $40$  \\
-        Missing & $0$ & $0$  \\
-        Mean & $0.250$ & $26.050$  \\
-        Std. Deviation & $0.439$ & $0.316$  \\
-        Minimum & $0.000$ & $25.000$  \\
-        Maximum & $1.000$ & $27.000$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{Descriptive statistics of 40 calibrations along Y-Axis.}
-	\label{table:stats_y}
-\end{table}
-
-% TopRight Calib Matrix
-\begin{table}[h]
+\begin{figure}[ht]
     \centering
-    \begin{subtable}{\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.308$ & $0.305$ & $0.008$ & $0.005$ & $384.922$  \\
-			Std. Deviation & $6.693\times10^{-5}$ & $0.002$ & $6.693\times10^{-5}$ & $0.002$ & $1.558$  \\
-			Minimum & $0.308$ & $0.304$ & $0.008$ & $0.004$ & $381.311$  \\
-			Maximum & $0.308$ & $0.308$ & $0.008$ & $0.008$ & $386.608$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_1$}
-    \end{subtable}
-    
-    \vspace{10pt} % Add some vertical space between tables
-    
-    \begin{subtable}{\textwidth}
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_bottomleft.png}
+        \caption{\textsf{BottomLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.296$ & $0.294$ & $-0.004$ & $-0.006$ & $384.922$  \\
-			Std. Deviation & $0.000$ & $0.002$ & $0.000$ & $0.002$ & $1.558$  \\
-			Minimum & $0.296$ & $0.292$ & $-0.004$ & $-0.008$ & $381.311$  \\
-			Maximum & $0.296$ & $0.296$ & $-0.004$ & $-0.004$ & $386.608$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_2$}
-    \end{subtable}
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_bottomright.png}
+        \caption{\textsf{BottomRight}}
+    \end{subfigure}
 
-    \vspace{10pt} % Add some vertical space between tables
+    \vspace{5mm}
     
-    \begin{subtable}{\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.320$ & $0.305$ & $0.020$ & $0.005$ & $384.922$  \\
-			Std. Deviation & $6.964\times10^{-5}$ & $0.002$ & $6.964\times10^{-5}$ & $0.002$ & $1.558$  \\
-			Minimum & $0.320$ & $0.304$ & $0.020$ & $0.004$ & $381.311$  \\
-			Maximum & $0.320$ & $0.308$ & $0.020$ & $0.008$ & $386.608$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_3$}
-    \end{subtable}
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_topleft.png}
+        \caption{\textsf{TopLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_topright.png}
+        \caption{\textsf{TopRight}}
+    \end{subfigure}
 
-    \vspace{10pt}
+    \caption{Mean error in measurements for different calibration matrices.}
+    \label{fig:mean_error_calib_matrices}
+\end{figure}
 
-    \begin{subtable}{\textwidth}
+\noindent The calibration matrices given in Eqn. \ref{eqn:calib_matrices_permutations} were used to convert pixel displacements to distance in millimeter by using the \gls{lsp} dataset captured with an exposure time of \SI{150}{\micro\second} and gain of 0 (See Table \ref{table:exp_plan_gain}). In Fig. \ref{fig:mean_error_calib_matrices}, the mean error in position measurements is plotted against the different calibration matrices. Similarly, in Fig. \ref{fig:stddev_error_calib_matrices} the standard deviation of error in position measurements is plotted for different calibration matrices. As the same dataset is used for each calibration matrix, the \gls{mig} value does not change for each of the motions, as seen in Fig. \ref{fig:mean_error_calib_matrices}. The descending order of magnitude of errors for different motions is given in the Table \ref{table:oom_calib_matrices}.
+
+\begin{table}[ht]
     \centering
     \footnotesize
-    \begin{tabular}{lrrrrr}
-        \toprule
-            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-        \midrule
-        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-        Mean & $0.308$ & $0.293$ & $0.008$ & $-0.007$ & $384.922$  \\
-        Std. Deviation & $0.000$ & $0.002$ & $0.000$ & $0.002$ & $1.558$  \\
-        Minimum & $0.308$ & $0.292$ & $0.008$ & $-0.008$ & $381.311$  \\
-        Maximum & $0.308$ & $0.296$ & $0.008$ & $-0.004$ & $386.608$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{$T_4$}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
+    \begin{tabular}{ccccc}
             \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+            \textbf{Hexapod Motion} & & \textbf{Descending order} & \textbf{Magnitude of} & \textbf{Magnitude of} \\
+            & & \textbf{of magnitude of error} & \textbf{max. error} & \textbf{min. error} \\
             \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.303$ & $0.300$ & $0.003$ & $2.497\times10^{-4}$ & $384.922$  \\
-			Std. Deviation & $1.673\times10^{-5}$ & $0.002$ & $1.673\times10^{-5}$ & $0.002$ & $1.558$  \\
-			Minimum & $0.303$ & $0.299$ & $0.003$ & $-8.060\times10^{-4}$ & $381.311$  \\
-			Maximum & $0.303$ & $0.303$ & $0.003$ & $0.003$ & $386.608$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_{Avg}$}
-        \end{subtable}
+            
+            \multirow{2}{*}{\textsf{BottomLeft}} & Along X & $T_3$ > $T_4$ > $T_1$ > ($T_2$ = $T_{Avg}$) & $T_3$ = \SI{21}{\micro\meter} & $T_2$ = $T_{Avg}$  = \SI{3}{\micro\meter} \\
+            & Along Y & ($T_4$ = $T_2$) > ($T_3$ = $T_1$) > $T_{Avg}$ & $T_4$ = $T_2$ = \SI{21}{\micro\meter} & $T_{Avg}$ = \SI{0.9}{\micro\meter} \\
+            
+            \midrule
+            
+            \multirow{2}{*}{\textsf{BottomRight}} & Along X & $T_4$ > $T_1$ > $T_{Avg}$ > ($T_2$ = $T_3$) & $T_4$ = \SI{15}{\micro\meter} & $T_2$ = $T_3$  = \SI{3}{\micro\meter} \\
+            & Along Y & ($T_4$ = $T_2$) > ($T_3$ = $T_1$) > $T_{Avg}$ & $T_4$ = $T_2$ = \SI{9}{\micro\meter} & $T_{Avg}$ = \SI{0.63}{\micro\meter} \\
 
-    \caption{Descriptive statistics for 5 calibration matrices for \textsf{TopRight:} (\SI{0.3}{\milli\meter}, \SI{0.3}{\milli\meter})}
-    \label{table:stats_matrix_topright}
+            \midrule
+
+            \multirow{2}{*}{\textsf{TopLeft}} & Along X & $T_4$ > $T_1$ > $T_{Avg}$ > ($T_2$ = $T_3$) & $T_4$ = \SI{16}{\micro\meter} & $T_2$ = $T_3$  = \SI{4}{\micro\meter} \\
+            & Along Y & $T_4$ > $T_2$ > $T_{Avg}$ > ($T_1$ = $T_3$) & $T_4$ = \SI{13}{\micro\meter} & $T_1$ = $T_3$ = \SI{0.39}{\micro\meter} \\
+
+            \midrule
+
+            \multirow{2}{*}{\textsf{TopRight}} & Along X & $T_3$ > ($T_1$ = $T_4$) > $T_2$ > $T_{Avg}$ & $T_3$ = \SI{20}{\micro\meter} & $T_{Avg}$ = \SI{3}{\micro\meter} \\
+            & Along Y & $T_4$ > $T_2$ > ($T_1$ = $T_3$) > $T_{Avg}$ & $T_4$ = \SI{7}{\micro\meter} & $T_{Avg}$ = \SI{0.25}{\micro\meter} \\
+            
+            \bottomrule
+    \end{tabular}
+    \caption{Order of magnitude of errors in position measurement for different calibration matrices.}
+    \label{table:oom_calib_matrices}
 \end{table}
 
-% TopLeft Calib Matrix
-\begin{table}[h]
+\begin{figure}[ht]
     \centering
-    \begin{subtable}{\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $-0.292$ & $0.300$ & $0.008$ & $3.846\times10^{-4}$ & $386.977$  \\
-			Std. Deviation & $8.535\times10^{-4}$ & $0.001$ & $8.535\times10^{-4}$ & $0.001$ & $0.240$  \\
-			Minimum & $-0.296$ & $0.300$ & $0.004$ & $0.000$ & $386.333$  \\
-			Maximum & $-0.292$ & $0.304$ & $0.008$ & $0.004$ & $387.365$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_1$}
-    \end{subtable}
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_bottomleft.png}
+        \caption{\textsf{BottomLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_bottomright.png}
+        \caption{\textsf{BottomRight}}
+    \end{subfigure}
+
+    \vspace{5mm}
     
-    \vspace{10pt} % Add some vertical space between tables
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_topleft.png}
+        \caption{\textsf{TopLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_topright.png}
+        \caption{\textsf{TopRight}}
+    \end{subfigure}
+
+    \caption{Standard deviation of error in measurements for different calibration matrices.}
+    \label{fig:stddev_error_calib_matrices}
+\end{figure}
+
+
+% % TopRight Calib Matrix
+% \begin{table}[h]
+%     \centering
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.308$ & $0.305$ & $0.008$ & $0.005$ & $384.922$  \\
+% 			Std. Deviation & $6.693\times10^{-5}$ & $0.002$ & $6.693\times10^{-5}$ & $0.002$ & $1.558$  \\
+% 			Minimum & $0.308$ & $0.304$ & $0.008$ & $0.004$ & $381.311$  \\
+% 			Maximum & $0.308$ & $0.308$ & $0.008$ & $0.008$ & $386.608$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_1$}
+%     \end{subtable}
     
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $-0.304$ & $0.312$ & $-0.004$ & $0.012$ & $386.977$  \\
-			Std. Deviation & $8.489\times10^{-4}$ & $0.001$ & $8.489\times10^{-4}$ & $0.001$ & $0.240$  \\
-			Minimum & $-0.308$ & $0.312$ & $-0.008$ & $0.012$ & $386.333$  \\
-			Maximum & $-0.304$ & $0.316$ & $-0.004$ & $0.016$ & $387.365$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_2$}
-    \end{subtable}
-
-    \vspace{10pt} % Add some vertical space between tables
+%     \vspace{10pt} % Add some vertical space between tables
     
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $-0.304$ & $0.300$ & $-0.004$ & $3.846\times10^{-4}$ & $386.977$  \\
-			Std. Deviation & $8.877\times10^{-4}$ & $0.001$ & $8.877\times10^{-4}$ & $0.001$ & $0.240$  \\
-			Minimum & $-0.308$ & $0.300$ & $-0.008$ & $0.000$ & $386.333$  \\
-			Maximum & $-0.304$ & $0.304$ & $-0.004$ & $0.004$ & $387.365$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_3$}
-    \end{subtable}
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.296$ & $0.294$ & $-0.004$ & $-0.006$ & $384.922$  \\
+% 			Std. Deviation & $0.000$ & $0.002$ & $0.000$ & $0.002$ & $1.558$  \\
+% 			Minimum & $0.296$ & $0.292$ & $-0.004$ & $-0.008$ & $381.311$  \\
+% 			Maximum & $0.296$ & $0.296$ & $-0.004$ & $-0.004$ & $386.608$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_2$}
+%     \end{subtable}
 
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-    \centering
-    \footnotesize
-    \begin{tabular}{lrrrrr}
-        \toprule
-            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-        \midrule
-        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-        Mean & $-0.316$ & $0.313$ & $-0.016$ & $0.013$ & $386.977$  \\
-        Std. Deviation & $8.829\times10^{-4}$ & $0.001$ & $8.829\times10^{-4}$ & $0.001$ & $0.240$  \\
-        Minimum & $-0.320$ & $0.312$ & $-0.020$ & $0.012$ & $386.333$  \\
-        Maximum & $-0.316$ & $0.316$ & $-0.016$ & $0.016$ & $387.365$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{$T_4$}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $-0.305$ & $0.304$ & $-0.005$ & $0.004$ & $386.977$  \\
-			Std. Deviation & $8.604\times10^{-4}$ & $0.001$ & $8.604\times10^{-4}$ & $0.001$ & $0.240$  \\
-			Minimum & $-0.309$ & $0.304$ & $-0.009$ & $0.004$ & $386.333$  \\
-			Maximum & $-0.305$ & $0.307$ & $-0.005$ & $0.007$ & $387.365$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_{Avg}$}
-        \label{subtable:t_avg}
-        \end{subtable}
-
-    \caption{Descriptive statistics for 5 calibration matrices for \textsf{TopLeft:} (\SI{-0.3}{\milli\meter}, \SI{0.3}{\milli\meter})}
-    \label{table:stats_matrix_topleft}
-\end{table}
-
-% Bottom Left Calib Matrix
-\begin{table}[h]
-    \centering
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-            Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-            Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-            Mean & $-0.308$ & $-0.304$ & $-0.008$ & $-0.004$ & $389.465$  \\
-            Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
-            Minimum & $-0.312$ & $-0.308$ & $-0.012$ & $-0.008$ & $389.242$  \\
-            Maximum & $-0.308$ & $-0.300$ & $-0.008$ & $0.000$ & $389.665$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_1$}
-    \end{subtable}
+%     \vspace{10pt} % Add some vertical space between tables
     
-    \vspace{10pt} % Add some vertical space between tables
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.320$ & $0.305$ & $0.020$ & $0.005$ & $384.922$  \\
+% 			Std. Deviation & $6.964\times10^{-5}$ & $0.002$ & $6.964\times10^{-5}$ & $0.002$ & $1.558$  \\
+% 			Minimum & $0.320$ & $0.304$ & $0.020$ & $0.004$ & $381.311$  \\
+% 			Maximum & $0.320$ & $0.308$ & $0.020$ & $0.008$ & $386.608$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_3$}
+%     \end{subtable}
+
+%     \vspace{10pt}
+
+%     \begin{subtable}{\textwidth}
+%     \centering
+%     \footnotesize
+%     \begin{tabular}{lrrrrr}
+%         \toprule
+%             & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%         \midrule
+%         Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+%         Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+%         Mean & $0.308$ & $0.293$ & $0.008$ & $-0.007$ & $384.922$  \\
+%         Std. Deviation & $0.000$ & $0.002$ & $0.000$ & $0.002$ & $1.558$  \\
+%         Minimum & $0.308$ & $0.292$ & $0.008$ & $-0.008$ & $381.311$  \\
+%         Maximum & $0.308$ & $0.296$ & $0.008$ & $-0.004$ & $386.608$  \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{$T_4$}
+%     \end{subtable}
+
+%     \vspace{10pt}
+
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.303$ & $0.300$ & $0.003$ & $2.497\times10^{-4}$ & $384.922$  \\
+% 			Std. Deviation & $1.673\times10^{-5}$ & $0.002$ & $1.673\times10^{-5}$ & $0.002$ & $1.558$  \\
+% 			Minimum & $0.303$ & $0.299$ & $0.003$ & $-8.060\times10^{-4}$ & $381.311$  \\
+% 			Maximum & $0.303$ & $0.303$ & $0.003$ & $0.003$ & $386.608$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_{Avg}$}
+%         \end{subtable}
+
+%     \caption{Descriptive statistics for 5 calibration matrices for \textsf{TopRight:} (\SI{0.3}{\milli\meter}, \SI{0.3}{\milli\meter})}
+%     \label{table:stats_matrix_topright}
+% \end{table}
+
+% % TopLeft Calib Matrix
+% \begin{table}[h]
+%     \centering
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $-0.292$ & $0.300$ & $0.008$ & $3.846\times10^{-4}$ & $386.977$  \\
+% 			Std. Deviation & $8.535\times10^{-4}$ & $0.001$ & $8.535\times10^{-4}$ & $0.001$ & $0.240$  \\
+% 			Minimum & $-0.296$ & $0.300$ & $0.004$ & $0.000$ & $386.333$  \\
+% 			Maximum & $-0.292$ & $0.304$ & $0.008$ & $0.004$ & $387.365$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_1$}
+%     \end{subtable}
     
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $-0.297$ & $-0.292$ & $0.003$ & $0.008$ & $389.465$  \\
-			Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
-			Minimum & $-0.300$ & $-0.296$ & $0.000$ & $0.004$ & $389.242$  \\
-			Maximum & $-0.296$ & $-0.289$ & $0.004$ & $0.011$ & $389.665$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_2$}
-    \end{subtable}
-
-    \vspace{10pt} % Add some vertical space between tables
+%     \vspace{10pt} % Add some vertical space between tables
     
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-            Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $-0.321$ & $-0.304$ & $-0.021$ & $-0.004$ & $389.465$  \\
-			Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
-			Minimum & $-0.324$ & $-0.308$ & $-0.024$ & $-0.008$ & $389.242$  \\
-			Maximum & $-0.320$ & $-0.300$ & $-0.020$ & $0.000$ & $389.665$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_3$}
-    \end{subtable}
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $-0.304$ & $0.312$ & $-0.004$ & $0.012$ & $386.977$  \\
+% 			Std. Deviation & $8.489\times10^{-4}$ & $0.001$ & $8.489\times10^{-4}$ & $0.001$ & $0.240$  \\
+% 			Minimum & $-0.308$ & $0.312$ & $-0.008$ & $0.012$ & $386.333$  \\
+% 			Maximum & $-0.304$ & $0.316$ & $-0.004$ & $0.016$ & $387.365$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_2$}
+%     \end{subtable}
 
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-    \centering
-    \footnotesize
-    \begin{tabular}{lrrrrr}
-        \toprule
-            & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-        \midrule
-        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-        Mean & $-0.309$ & $-0.292$ & $-0.009$ & $0.008$ & $389.465$  \\
-        Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
-        Minimum & $-0.312$ & $-0.296$ & $-0.012$ & $0.004$ & $389.242$  \\
-        Maximum & $-0.308$ & $-0.288$ & $-0.008$ & $0.012$ & $389.665$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{$T_4$}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-            Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-            Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-            Mean & $-0.303$ & $-0.299$ & $-0.003$ & $9.097\times10^{-4}$ & $389.465$  \\
-            Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
-            Minimum & $-0.307$ & $-0.303$ & $-0.007$ & $-0.003$ & $389.242$  \\
-            Maximum & $-0.303$ & $-0.295$ & $-0.003$ & $0.005$ & $389.665$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_{Avg}$}
-        \end{subtable}
-
-    \caption{Descriptive statistics for 5 calibration matrices for \textsf{BottomLeft:} (\SI{-0.3}{\milli\meter}, \SI{-0.3}{\milli\meter})}
-    \label{table:stats_matrix_bottomleft}
-\end{table}
-
-% Bottom Right Calib Matrix
-\begin{table}[h]
-    \centering
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.292$ & $-0.297$ & $-0.008$ & $0.003$ & $388.784$  \\
-			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
-			Minimum & $0.288$ & $-0.300$ & $-0.012$ & $0.000$ & $388.619$  \\
-			Maximum & $0.292$ & $-0.296$ & $-0.008$ & $0.004$ & $388.996$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_1$}
-    \end{subtable}
+%     \vspace{10pt} % Add some vertical space between tables
     
-    \vspace{10pt} % Add some vertical space between tables
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $-0.304$ & $0.300$ & $-0.004$ & $3.846\times10^{-4}$ & $386.977$  \\
+% 			Std. Deviation & $8.877\times10^{-4}$ & $0.001$ & $8.877\times10^{-4}$ & $0.001$ & $0.240$  \\
+% 			Minimum & $-0.308$ & $0.300$ & $-0.008$ & $0.000$ & $386.333$  \\
+% 			Maximum & $-0.304$ & $0.304$ & $-0.004$ & $0.004$ & $387.365$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_3$}
+%     \end{subtable}
+
+%     \vspace{10pt}
+
+%     \begin{subtable}{\textwidth}
+%     \centering
+%     \footnotesize
+%     \begin{tabular}{lrrrrr}
+%         \toprule
+%             & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%         \midrule
+%         Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+%         Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+%         Mean & $-0.316$ & $0.313$ & $-0.016$ & $0.013$ & $386.977$  \\
+%         Std. Deviation & $8.829\times10^{-4}$ & $0.001$ & $8.829\times10^{-4}$ & $0.001$ & $0.240$  \\
+%         Minimum & $-0.320$ & $0.312$ & $-0.020$ & $0.012$ & $386.333$  \\
+%         Maximum & $-0.316$ & $0.316$ & $-0.016$ & $0.016$ & $387.365$  \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{$T_4$}
+%     \end{subtable}
+
+%     \vspace{10pt}
+
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $-0.305$ & $0.304$ & $-0.005$ & $0.004$ & $386.977$  \\
+% 			Std. Deviation & $8.604\times10^{-4}$ & $0.001$ & $8.604\times10^{-4}$ & $0.001$ & $0.240$  \\
+% 			Minimum & $-0.309$ & $0.304$ & $-0.009$ & $0.004$ & $386.333$  \\
+% 			Maximum & $-0.305$ & $0.307$ & $-0.005$ & $0.007$ & $387.365$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_{Avg}$}
+%         \label{subtable:t_avg}
+%         \end{subtable}
+
+%     \caption{Descriptive statistics for 5 calibration matrices for \textsf{TopLeft:} (\SI{-0.3}{\milli\meter}, \SI{0.3}{\milli\meter})}
+%     \label{table:stats_matrix_topleft}
+% \end{table}
+
+% % Bottom Left Calib Matrix
+% \begin{table}[h]
+%     \centering
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+%             Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+%             Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+%             Mean & $-0.308$ & $-0.304$ & $-0.008$ & $-0.004$ & $389.465$  \\
+%             Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+%             Minimum & $-0.312$ & $-0.308$ & $-0.012$ & $-0.008$ & $389.242$  \\
+%             Maximum & $-0.308$ & $-0.300$ & $-0.008$ & $0.000$ & $389.665$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_1$}
+%     \end{subtable}
     
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.303$ & $-0.309$ & $0.003$ & $-0.009$ & $388.784$  \\
-			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
-			Minimum & $0.300$ & $-0.312$ & $0.000$ & $-0.012$ & $388.619$  \\
-			Maximum & $0.304$ & $-0.308$ & $0.004$ & $-0.008$ & $388.996$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_2$}
-    \end{subtable}
-
-    \vspace{10pt} % Add some vertical space between tables
+%     \vspace{10pt} % Add some vertical space between tables
     
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.303$ & $-0.297$ & $0.003$ & $0.003$ & $388.784$  \\
-			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
-			Minimum & $0.300$ & $-0.300$ & $0.000$ & $0.000$ & $388.619$  \\
-			Maximum & $0.304$ & $-0.296$ & $0.004$ & $0.004$ & $388.996$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_3$}
-    \end{subtable}
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $-0.297$ & $-0.292$ & $0.003$ & $0.008$ & $389.465$  \\
+% 			Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+% 			Minimum & $-0.300$ & $-0.296$ & $0.000$ & $0.004$ & $389.242$  \\
+% 			Maximum & $-0.296$ & $-0.289$ & $0.004$ & $0.011$ & $389.665$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_2$}
+%     \end{subtable}
 
-    \vspace{10pt}
+%     \vspace{10pt} % Add some vertical space between tables
+    
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+%             Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $-0.321$ & $-0.304$ & $-0.021$ & $-0.004$ & $389.465$  \\
+% 			Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+% 			Minimum & $-0.324$ & $-0.308$ & $-0.024$ & $-0.008$ & $389.242$  \\
+% 			Maximum & $-0.320$ & $-0.300$ & $-0.020$ & $0.000$ & $389.665$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_3$}
+%     \end{subtable}
 
-    \begin{subtable}{\textwidth}
-    \centering
-    \footnotesize
-    \begin{tabular}{lrrrrr}
-        \toprule
-        & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-        \midrule
-        Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-        Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-        Mean & $0.315$ & $-0.309$ & $0.015$ & $-0.009$ & $388.784$  \\
-        Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
-        Minimum & $0.312$ & $-0.312$ & $0.012$ & $-0.012$ & $388.619$  \\
-        Maximum & $0.316$ & $-0.308$ & $0.016$ & $-0.008$ & $388.996$  \\
-        \bottomrule
-    \end{tabular}
-    \caption{$T_4$}
-    \end{subtable}
+%     \vspace{10pt}
 
-    \vspace{10pt}
+%     \begin{subtable}{\textwidth}
+%     \centering
+%     \footnotesize
+%     \begin{tabular}{lrrrrr}
+%         \toprule
+%             & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%         \midrule
+%         Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+%         Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+%         Mean & $-0.309$ & $-0.292$ & $-0.009$ & $0.008$ & $389.465$  \\
+%         Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+%         Minimum & $-0.312$ & $-0.296$ & $-0.012$ & $0.004$ & $389.242$  \\
+%         Maximum & $-0.308$ & $-0.288$ & $-0.008$ & $0.012$ & $389.665$  \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{$T_4$}
+%     \end{subtable}
 
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lrrrrr}
-            \toprule
-                & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
-            \midrule
-			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
-			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
-			Mean & $0.304$ & $-0.301$ & $0.004$ & $-6.292\times10^{-4}$ & $388.784$  \\
-			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
-			Minimum & $0.301$ & $-0.304$ & $8.430\times10^{-4}$ & $-0.004$ & $388.619$  \\
-			Maximum & $0.305$ & $-0.300$ & $0.005$ & $3.720\times10^{-4}$ & $388.996$  \\
-            \bottomrule
-        \end{tabular}
-        \caption{$T_{Avg}$}
-        \end{subtable}
+%     \vspace{10pt}
 
-    \caption{Descriptive statistics for 5 calibration matrices for \textsf{BottomRight:} (\SI{0.3}{\milli\meter}, \SI{-0.3}{\milli\meter})}
-    \label{table:stats_matrix_bottomright}
-\end{table}
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+%             Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+%             Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+%             Mean & $-0.303$ & $-0.299$ & $-0.003$ & $9.097\times10^{-4}$ & $389.465$  \\
+%             Std. Deviation & $0.001$ & $0.001$ & $0.001$ & $0.001$ & $0.122$  \\
+%             Minimum & $-0.307$ & $-0.303$ & $-0.007$ & $-0.003$ & $389.242$  \\
+%             Maximum & $-0.303$ & $-0.295$ & $-0.003$ & $0.005$ & $389.665$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_{Avg}$}
+%         \end{subtable}
+
+%     \caption{Descriptive statistics for 5 calibration matrices for \textsf{BottomLeft:} (\SI{-0.3}{\milli\meter}, \SI{-0.3}{\milli\meter})}
+%     \label{table:stats_matrix_bottomleft}
+% \end{table}
+
+% % Bottom Right Calib Matrix
+% \begin{table}[h]
+%     \centering
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.292$ & $-0.297$ & $-0.008$ & $0.003$ & $388.784$  \\
+% 			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+% 			Minimum & $0.288$ & $-0.300$ & $-0.012$ & $0.000$ & $388.619$  \\
+% 			Maximum & $0.292$ & $-0.296$ & $-0.008$ & $0.004$ & $388.996$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_1$}
+%     \end{subtable}
+    
+%     \vspace{10pt} % Add some vertical space between tables
+    
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.303$ & $-0.309$ & $0.003$ & $-0.009$ & $388.784$  \\
+% 			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+% 			Minimum & $0.300$ & $-0.312$ & $0.000$ & $-0.012$ & $388.619$  \\
+% 			Maximum & $0.304$ & $-0.308$ & $0.004$ & $-0.008$ & $388.996$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_2$}
+%     \end{subtable}
+
+%     \vspace{10pt} % Add some vertical space between tables
+    
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.303$ & $-0.297$ & $0.003$ & $0.003$ & $388.784$  \\
+% 			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+% 			Minimum & $0.300$ & $-0.300$ & $0.000$ & $0.000$ & $388.619$  \\
+% 			Maximum & $0.304$ & $-0.296$ & $0.004$ & $0.004$ & $388.996$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_3$}
+%     \end{subtable}
+
+%     \vspace{10pt}
+
+%     \begin{subtable}{\textwidth}
+%     \centering
+%     \footnotesize
+%     \begin{tabular}{lrrrrr}
+%         \toprule
+%         & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%         \midrule
+%         Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+%         Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+%         Mean & $0.315$ & $-0.309$ & $0.015$ & $-0.009$ & $388.784$  \\
+%         Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+%         Minimum & $0.312$ & $-0.312$ & $0.012$ & $-0.012$ & $388.619$  \\
+%         Maximum & $0.316$ & $-0.308$ & $0.016$ & $-0.008$ & $388.996$  \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{$T_4$}
+%     \end{subtable}
+
+%     \vspace{10pt}
+
+%     \begin{subtable}{\textwidth}
+%         \centering
+%         \footnotesize
+%         \begin{tabular}{lrrrrr}
+%             \toprule
+%                 & $a_x$ & $a_y$ & Error X (mm) & Error Y (mm) & MIG  \\
+%             \midrule
+% 			Valid & $40$ & $40$ & $40$ & $40$ & $40$  \\
+% 			Missing & $0$ & $0$ & $0$ & $0$ & $0$  \\
+% 			Mean & $0.304$ & $-0.301$ & $0.004$ & $-6.292\times10^{-4}$ & $388.784$  \\
+% 			Std. Deviation & $0.002$ & $0.002$ & $0.002$ & $0.002$ & $0.075$  \\
+% 			Minimum & $0.301$ & $-0.304$ & $8.430\times10^{-4}$ & $-0.004$ & $388.619$  \\
+% 			Maximum & $0.305$ & $-0.300$ & $0.005$ & $3.720\times10^{-4}$ & $388.996$  \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{$T_{Avg}$}
+%         \end{subtable}
+
+%     \caption{Descriptive statistics for 5 calibration matrices for \textsf{BottomRight:} (\SI{0.3}{\milli\meter}, \SI{-0.3}{\milli\meter})}
+%     \label{table:stats_matrix_bottomright}
+% \end{table}
 
 \clearpage
-\section{Effect of Exposure Time and Gain} \label{section:effect_of_exp_time_gain}
-\subsection*{Exposure Time}
-Depending on value of exposure time, an image could be under- or overexposed or correctly exposed. In case of under- or overexposed images, they have lower \gls{mig} values. The reason is attributed to lower gradient of intensity values between neighboring pixels. This can be seen in Fig. \ref{fig:exposure_time_mig.png}, where lower exposure times have lower \gls{mig} values. As exposure time increases, \gls{mig} increases, until it falls low for higher exposure times.
 
-\begin{figure}[h]
+\section{Effect of Exposure Time} \label{section:effect_of_exp_time}
+Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_exposure_time}, the mean errors in position and standard deviation of error for different exposure times are plotted in Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} respectively. Example images of the dataset is shown in Fig. \ref{fig:example_images_exposure_time}. It can be clearly observed that as exposure time increases, the contrast of the images increases, until it decreases again because of overexposure. This is also demonstrated by the \gls{mig} values, which increase as exposure times increase from \SI{20}{\micro\second} to \SI{150}{\micro\second} followed by decline in range of \SI{320}{\micro\second} to \SI{3000}{\micro\second}. 
+
+\begin{figure}[ht]
     \centering
-    \begin{subfigure}[b]{0.4\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_20.png}
-        \caption{Exposure Time: \SI{20}{\micro\second}, \gls{mig}: 65.86}
-        \label{subfig:underexposed.png}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_bottomleft.png}
+        \caption{\textsf{BottomLeft}}
     \end{subfigure}
     \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_80.png}
-        \caption{Exposure Time: \SI{80}{\micro\second}, \gls{mig}: 276.23}
-        \label{subfig:underexposed.png}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_bottomright.png}
+        \caption{\textsf{BottomRight}}
     \end{subfigure}
 
     \vspace{5mm}
     
-    \begin{subfigure}[b]{0.4\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_150.png}
-        \caption{Exposure Time: \SI{150}{\micro\second}, \gls{mig}: 381.89}
-        \label{subfig:underexposed.png}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_topleft.png}
+        \caption{\textsf{TopLeft}}
     \end{subfigure}
     \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_320.png}
-        \caption{Exposure Time: \SI{320}{\micro\second}, \gls{mig}: 360.06}
-        \label{subfig:underexposed.png}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_topright.png}
+        \caption{\textsf{TopRight}}
     \end{subfigure}
 
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_1000.png}
-        \caption{Exposure Time: \SI{1000}{\micro\second}, \gls{mig}: 86.21}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/exp_time_3000.png}
-        \caption{Exposure Time: \SI{3000}{\micro\second}, \gls{mig}: 5.35}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \caption{\glsplural{lsp} for different exposure times and gain of 0.}
+    \caption{Mean error in measurements for different exposure times.}
+    \label{fig:mean_error_exposure_time}
 \end{figure}
 
 \vspace{5mm}
-\noindent As seen in Table \ref{table:stats_matrix_exposuretime}, for all exposure times except \SI{3000}{\micro\second}, the maximum mean absolute error in position along the X-axis is \SI{8}{\micro\meter}, and along the Y-axis is \SI{5}{\micro\meter}. This demonstrates that position measurement remains reliable even in what are typically regarded as over- or underexposed images, as long as the \gls{mig} is not exceptionally low.
+\noindent It can be seen from the Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} that, for images captured with exposure time of \SI{3000}{\micro\second}, there is an increase in magnitude of mean error and standard deviation in comparison to the other exposure times. The minimum values of mean errors observed for \gls{lsp} tests conducted with exposure time of \SI{3000}{\micro\second} were \SI{0.148}{\milli\meter} for X-axis and \SI{0.074}{\milli\meter} for Y-axis, with standard deviation of \SI{0.2}{\milli\meter} and \SI{0.223}{\milli\meter} respectively. Put comparison with other values as well over here.
 
-\begin{table}[h]
+\begin{figure}[ht]
     \centering
-    \begin{subtable}{\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.006$ & $0.001$ & $-0.002$ & $0.001$ & $66.573$ & $0.070$ \\
-            \textsf{BottomRight} & $0.005$ & $8.647\times10^{-4}$ & $-0.004$ & $0.002$ & $66.881$ & $0.043$ \\
-            \textsf{TopLeft} & $-0.007$ & $0.002$ & $0.005$ & $0.002$ & $66.059$ & $0.057$ \\
-            \textsf{TopRight} & $0.005$ & $0.002$ & $0.003$ & $0.001$ & $66.073$ & $0.176$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{\SI{20}{\micro\second}}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_bottomleft.png}
+        \caption{\textsf{BottomLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.006$ & $0.001$ & $-0.003$ & $0.002$ & $277.466$ & $0.166$ \\
-            \textsf{BottomRight} & $0.005$ & $0.001$ & $-0.003$ & $0.002$ & $278.288$ & $0.173$ \\
-            \textsf{TopLeft} & $-0.007$ & $0.002$ & $0.005$ & $0.002$ & $275.759$ & $0.194$ \\
-            \textsf{TopRight} & $0.006$ & $0.002$ & $0.003$ & $8.387\times10^{-4}$ & $276.665$ & $0.172$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{\SI{80}{\micro\second}}
-    \end{subtable}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_bottomright.png}
+        \caption{\textsf{BottomRight}}
+    \end{subfigure}
 
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $0.001$ & $9.097\times10^{-4}$ & $0.001$ & $389.465$ & $0.122$ \\
-            \textsf{BottomRight} & $0.004$ & $0.002$ & $-6.292\times10^{-4}$ & $0.002$ & $388.784$ & $0.075$ \\
-            \textsf{TopLeft} & $-0.005$ & $8.604\times10^{-4}$ & $0.004$ & $0.001$ & $386.977$ & $0.240$ \\
-            \textsf{TopRight} & $0.003$ & $1.673\times10^{-5}$ & $2.497\times10^{-4}$ & $0.002$ & $384.922$ & $1.588$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{\SI{150}{\micro\second}}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_topleft.png}
+        \caption{\textsf{TopLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $0.001$ & $7.178\times10^{-4}$ & $6.086\times10^{-4}$ & $360.017$ & $0.251$ \\
-            \textsf{BottomRight} & $0.004$ & $0.001$ & $-9.237\times10^{-4}$ & $0.002$ & $361.861$ & $0.167$ \\
-            \textsf{TopLeft} & $-0.005$ & $1.338\times10^{-5}$ & $0.004$ & $0.001$ & $359.438$ & $0.204$ \\
-            \textsf{TopRight} & $0.003$ & $1.836\times10^{-5}$ & $7.296\times10^{-4}$ & $0.002$ & $360.913$ & $0.186$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{\SI{320}{\micro\second}}
-    \end{subtable}
+        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_topright.png}
+        \caption{\textsf{TopRight}}
+    \end{subfigure}
 
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $6.159\times10^{-4}$ & $9.032\times10^{-4}$ & $0.001$ & $108.655$ & $0.827$ \\
-            \textsf{BottomRight} & $0.008$ & $0.002$ & $0.003$ & $0.002$ & $115.888$ & $0.990$ \\
-            \textsf{TopLeft} & $-0.005$ & $8.167\times10^{-6}$ & $0.003$ & $8.473\times10^{-4}$ & $106.268$ & $3.961$ \\
-            \textsf{TopRight} & $0.003$ & $8.616\times10^{-4}$ & $6.043\times10^{-5}$ & $0.002$ & $95.672$ & $3.578$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{\SI{1000}{\micro\second}}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $0.455$ & $0.204$ & $-0.098$ & $0.327$ & $6.155$ & $0.234$ \\
-            \textsf{BottomRight} & $-0.201$ & $0.288$ & $-0.074$ & $0.223$ & $6.145$ & $0.253$ \\
-            \textsf{TopLeft} & $0.347$ & $0.296$ & $-0.649$ & $0.275$ & $5.463$ & $0.238$ \\
-            \textsf{TopRight} & $-0.148$ & $0.200$ & $-0.631$ & $0.447$ & $5.45$ & $0.244$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{\SI{3000}{\micro\second}}
-    \end{subtable}
-
-    \caption{Descriptive statistics for different exposure times and gain of $0$.}
-    \label{table:stats_matrix_exposuretime}
-\end{table}
+    \caption{Standard deviation of error in measurements for different exposure times.}
+    \label{fig:stddev_error_exposure_time}
+\end{figure}
 
 \clearpage
 
 \subsection*{Gain}
-Similar to the effects of increasing exposure time, increasing gain can also decrease \gls{mig}. This is illustrated in Fig. \ref{fig:gain_mig.png}. The intensity of pixels increases by increasing gain, and can be seen by comparing images from Fig. \ref{fig:gain_mig_0_to_30}.
+Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_gain}, the mean errors in position and standard deviation of error for different gan values is plotted in Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}. Example images of dataset are given in Fig. \ref{fig:example_images_gain}. The \gls{mig} value increases slightly with increase in gain values from 0 to 4, and show a declining trend for gain values in range of 6 to 30.  
 
-\begin{figure}[h]
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{images/f_results_discussion/gain_mig.png}
+%     \caption{\gls{mig} relationship with gain for exposure time of \SI{150}{\micro\second}.}
+%     \label{fig:gain_mig.png}
+% \end{figure}
+
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/f_results_discussion/gain_mig.png}
-    \caption{\gls{mig} relationship with gain for exposure time of \SI{150}{\micro\second}.}
-    \label{fig:gain_mig.png}
-\end{figure}
-
-\vspace{10mm}
-\noindent From comparing Table \ref{table:stats_matrix_gain} and Table \ref{table:stats_matrix_gain_20}, it can be inferred that as \gls{mig} becomes extremely low, errors in position along X-Axis and Y-Axis becomes more apparent. The maximum absolute mean error along X-Axis and along Y-Axis is \SI{5}{\micro\meter} for gain of 0, 2, 4, 6, 8, 10. The positional errors become evident for gain value of 20 and 30, where they are greater than actual displacement of the hexapod.
-
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_0.png}
-        \caption{Gain: 0, \gls{mig}: 389.465}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_2.png}
-        \caption{Gain: 2, \gls{mig}: 400.064}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_4.png}
-        \caption{Gain: 4, \gls{mig}: 407.020}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_6.png}
-        \caption{Gain: 6, \gls{mig}: 367.907}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-
-    \vspace{5mm}
-
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_8.png}
-        \caption{Gain: 8, \gls{mig}: 328.666}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_10.png}
-        \caption{Gain: 10, \gls{mig}: 269.310}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_20.png}
-        \caption{Gain: 20, \gls{mig}: 37.248}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/f_results_discussion/gain_30.png}
-        \caption{Gain: 30, \gls{mig}: 0.744}
-        \label{subfig:underexposed.png}
-    \end{subfigure}
-    \caption{\glsplural{lsp} for exposure time of \SI{150}{\micro\second} and different gain values.}
-    \label{fig:gain_mig_0_to_30}
-\end{figure}
-
-\begin{table}[h]
-    \centering
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $0.001$ & $9.097\times10^{-4}$ & $0.001$ & $389.465$ & $0.112$ \\
-            \textsf{BottomRight} & $0.004$ & $0.002$ & $-6.292\times10^{-4}$ & $0.002$ & $388.784$ & $0.075$ \\
-            \textsf{TopLeft} & $-0.005$ & $8.064\times10^{-4}$ & $0.004$ & $0.001$ & $386.977$ & $0.240$ \\
-            \textsf{TopRight} & $0.003$ & $1.673\times10^{-5}$ & $2.497\times10^{-4}$ & $0.002$ & $384.922$ & $1.558$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 0}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $1.715\times10^{-5}$ & $3.261\times10^{-4}$ & $0.002$ & $400.064$ & $0.106$ \\
-            \textsf{BottomRight} & $0.005$ & $-1.951\times10^{-5}$ & $-9.277\times10^{-4}$ & $0.002$ & $399.994$ & $0.128$ \\
-            \textsf{TopLeft} & $-0.005$ & $0.001$ & $0.003$ & $0.001$ & $399.510$ & $0.116$ \\
-            \textsf{TopRight} & $-0.001$ & $6.184\times10^{-4}$ & $0.005$ & $0.002$ & $401.572$ & $0.099$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 2}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $1.124\times10^{-5}$ & $4.221\times10^{-4}$ & $0.001$ & $407.020$ & $0.090$ \\
-            \textsf{BottomRight} & $0.005$ & $1.871\times10^{-5}$ & $-0.002$ & $0.002$ & $408.481$ & $0.104$ \\
-            \textsf{TopLeft} & $-0.005$ & $0.001$ & $0.003$ & $0.001$ & $408.912$ & $0.122$ \\
-            \textsf{TopRight} & $0.002$ & $0.001$ & $0.001$ & $0.002$ & $408.985$ & $0.288$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 4}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $9.870\times10^{-6}$ & $5.181\times10^{-4}$ & $0.001$ & $367.907$ & $0.370$ \\
-            \textsf{BottomRight} & $0.004$ & $0.002$ & $-7.226\times10^{-4}$ & $0.002$ & $367.443$ & $0.294$ \\
-            \textsf{TopLeft} & $-0.005$ & $1.673\times10^{-5}$ & $0.002$ & $0.002$ & $368.475$ & $0.163$ \\
-            \textsf{TopRight} & $0.002$ & $0.002$ & $-2.982\times10^{-5}$ & $0.002$ & $367.360$ & $0.819$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 6}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $6.151\times10^{-4}$ & $3.274\times10^{-4}$ & $0.001$ & $328.666$ & $0.256$ \\
-            \textsf{BottomRight} & $0.004$ & $0.001$ & $3.6\times10^{-5}$ & $0.001$ & $327.298$ & $0.342$ \\
-            \textsf{TopLeft} & $-0.005$ & $1.755\times10^{-5}$ & $0.002$ & $0.002$ & $327.991$ & $0.308$ \\
-            \textsf{TopRight} & $0.002$ & $0.002$ & $7.468\times10^{-4}$ & $0.002$ & $325.817$ & $0.314$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 8}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $0$ & $8.060\times10^{-4}$ & $0.000$ & $269.310$ & $2.027$ \\
-            \textsf{BottomRight} & $0.004$ & $0.001$ & $2.305\times10^{-4}$ & $5.997\times10^{-4}$ & $262.760$ & $0.9$ \\
-            \textsf{TopLeft} & $-0.005$ & $1.632\times10^{-5}$ & $0.003$ & $0.002$ & $276.684$ & $1.098$ \\
-            \textsf{TopRight} & $0.002$ & $0.001$ & $5.443\times10^{-4}$ & $0.002$ & $274.124$ & $0.216$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 10}
-    \end{subtable}
-
-    \caption{Descriptive statistics for different gains and exposure time of \SI{150}{\micro\second}.}
-    \label{table:stats_matrix_gain}
-\end{table}
-
-\begin{table}[h]
-    \centering
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $-0.003$ & $8.167\times10^{-6}$ & $9.979\times10^{-4}$ & $8.471\times10^{-4}$ & $37.248$ & $0.737$ \\
-            \textsf{BottomRight} & $0.004$ & $0.002$ & $1.385\times10^{-4}$ & $0.001$ & $36.556$ & $0.395$ \\
-            \textsf{TopLeft} & $0.038$ & $0.076$ & $-0.397$ & $0.355$ & $36.984$ & $0.912$ \\
-            \textsf{TopRight} & $0.002$ & $0.002$ & $7.389\times10^{-4}$ & $0.002$ & $36.584$ & $0.294$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 20}
-    \end{subtable}
-
-    \vspace{10pt}
-
-    \begin{subtable}{\textwidth}
-        \centering
-        \footnotesize
-        \begin{tabular}{lcccccc}
-            \toprule
-            Hexapod Movement & \multicolumn{2}{c}{Error X (mm)} & \multicolumn{2}{c}{Error Y (mm)} & \multicolumn{2}{c}{MIG}  \\
-            \midrule
-            & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Std. Dev.} \\
-            \midrule
-            \textsf{BottomLeft} & $1.034$ & $0.414$ & $-0.215$ & $0.471$ & $0.744$ & $0.026$ \\
-            \textsf{BottomRight} & $0.187$ & $0.638$ & $-0.158$ & $0.466$ & $0.692$ & $0.058$ \\
-            \textsf{TopLeft} & $1.102$ & $0.575$ & $-0.824$ & $0.550$ & $0.467$ & $0.084$ \\
-            \textsf{TopRight} & $0.044$ & $0.482$ & $-0.676$ & $0.521$ & $0.473$ & $0.067$ \\
-            \bottomrule
-        \end{tabular}
-        \caption{Gain: 30}
-    \end{subtable}
-
-    \caption{Descriptive statistics for different gains and exposure time of \SI{150}{\micro\second}.}
-    \label{table:stats_matrix_gain_20}
-\end{table}
-
-\clearpage
-
-\subsection*{Deduction on effects of Gain and Exposure Time}
-\noindent In conclusion, the camera parameters (here, gain and exposure time) are sensitive to the experimental setup. An independent parameter like \gls{mig} can help counter this issue. For instance, in Fig. \ref{fig:laser_spot_block.JPG}, part of the laser is incident on the lens body which causes, lower laser power to be incident on the surface of the hexapod. Consequently requiring higher exposure or gain to acheive a higher \gls{mig} value. 
-
-\vspace{5mm}
-\noindent Furthermore, when experimental setup is changed, such as laser module or the camera is switched, or distances between components is changed, it has an effect on camera parameters. Thus, \gls{mig} can be monitored as an independent parameter in such situations. The experimental findings suggest that when \gls{mig} is within a range of $\sim$66 to $\sim$409, the position values are reliable with a maximum absolute error of less than \SI{10}{\micro\meter}.
-
-\vspace{5mm}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[angle=90, width=0.35\textwidth]{images/f_results_discussion/laser_spot_block.JPG}
-    \caption{Laser partly incident on lens body.}
-    \label{fig:laser_spot_block.JPG}
-\end{figure}
-
-\section{Corrected Setup vs. Old Setup}
-Earlier concept of the experimental setup in Fig. \ref{fig:old_setup_potrait.JPG} has a 3D-printed \gls{pla} mount for the laser module, which has an inbuilt tilted cylinder in it's design to fit the laser module. Furthermore, the camera is tilted such that, image sensor plane is not parallel to the hexapod surface. As a result, laser is partly incident on laser body (See Fig. \ref{fig:laser_spot_block.JPG}). As a consequence, higher exposure times are required to have similar values of \gls{mig} when comparing the old setup in Fig. \ref{fig:old_setup_potrait.JPG} with corrected setup in Fig. \ref{fig:new_setup_potrait.JPG}.
-
-\begin{figure}[h]
-    \centering
-    \captionsetup{justification=centering}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_mig.png}
-        \caption{Old Setup \\ Gain: 0, Exposure Time: \SI{510}{\micro\second}}
-        \label{fig:old_mount_mig.png}
-    \end{subfigure}
     \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_mig.png}
-        \caption{Corrected Setup \\ Gain: 0, Exposure Time: \SI{150}{\micro\second}}
-        \label{fig:new_mount_mig.png}
+        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_bottomleft.png}
+        \caption{\textsf{BottomLeft}}
     \end{subfigure}
-    \caption{\gls{mig} comparison for different setups.}
-    \label{fig:mig_comparison_setups}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_bottomright.png}
+        \caption{\textsf{BottomRight}}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_topleft.png}
+        \caption{\textsf{TopLeft}}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_topright.png}
+        \caption{\textsf{TopRight}}
+    \end{subfigure}
+
+    \caption{Mean error in measurements for different gain values.}
+    \label{fig:mean_error_gain}
 \end{figure}
 
-\begin{figure}[h]
+\noindent It can be seen from Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}, that mean error and standard deviation of error increases for gain value of 30 as compared to other values. The minimum magnitude of mean errors observed for gain of 30 were. Put comparison with other values here as well.
+
+\begin{figure}[ht]
     \centering
-    \captionsetup{justification=centering}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_x.png}
-        \caption{Old setup: X-Axis}
-        \label{fig:old_mount_error_x.png}
+        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_bottomleft.png}
+        \caption{\textsf{BottomLeft}}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_y.png}
-        \caption{Old setup: Y-Axis}
-        \label{fig:old_mount_error_y.png}
+        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_bottomright.png}
+        \caption{\textsf{BottomRight}}
     \end{subfigure}
-    \begin{subfigure}[b]{0.44\textwidth}
-        \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_x.png}
-        \caption{Corrected setup: X-Axis}
-        \label{fig:new_mount_error_x.png}
-    \end{subfigure}
-    \hspace{5mm}
-    \begin{subfigure}[b]{0.44\textwidth}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.46\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_y.png}
-        \caption{Corrected setup: Y-Axis}
-        \label{fig:new_mount_error_y.png}
+        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_topleft.png}
+        \caption{\textsf{TopLeft}}
     \end{subfigure}
-    \caption{Positional error comparison for XY-Axes for different setups.}
-    \label{fig:error_comparison_setups}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_topright.png}
+        \caption{\textsf{TopRight}}
+    \end{subfigure}
+
+    \caption{Standard deviation of error in measurements for different gain values.}
+    \label{fig:stddev_error_gain}
 \end{figure}
 
-\clearpage
 
-\vspace{5mm}
-\noindent As established in Section \ref{section:effect_of_exp_time_gain}, the camera parameters can change based on experimental setup used. Therefore, in order to compare positional errors for these two setups, it was essential to focus on exposure times that yielded similar \gls{mig} values (See Fig. \ref{fig:mig_comparison_setups}). It can be observed from Fig. \ref{fig:error_comparison_setups} that, there is a decrease in error along Y-Axis for all movements of hexapod when the corrected setup is used. The cause of this error in older setup is the tilt of the image sensor with respect to hexapod surface which introduces an out-of-plane motion. This motion causes an unintended magnification of captured \gls{lsp}, resulting in additional in-plane displacements \cite{pan}. 
+% \section{Corrected Setup vs. Old Setup}
+% Earlier concept of the experimental setup in Fig. \ref{fig:old_setup_potrait.JPG} has a 3D-printed \gls{pla} mount for the laser module, which has an inbuilt tilted cylinder in it's design to fit the laser module. Furthermore, the camera is tilted such that, image sensor plane is not parallel to the hexapod surface. As a result, laser is partly incident on laser body (See Fig. \ref{fig:laser_spot_block.JPG}). As a consequence, higher exposure times are required to have similar values of \gls{mig} when comparing the old setup in Fig. \ref{fig:old_setup_potrait.JPG} with corrected setup in Fig. \ref{fig:new_setup_potrait.JPG}.
+
+% \begin{figure}[h]
+%     \centering
+%     \captionsetup{justification=centering}
+%     \begin{subfigure}[b]{0.49\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_mig.png}
+%         \caption{Old Setup \\ Gain: 0, Exposure Time: \SI{510}{\micro\second}}
+%         \label{fig:old_mount_mig.png}
+%     \end{subfigure}
+%     \begin{subfigure}[b]{0.46\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_mig.png}
+%         \caption{Corrected Setup \\ Gain: 0, Exposure Time: \SI{150}{\micro\second}}
+%         \label{fig:new_mount_mig.png}
+%     \end{subfigure}
+%     \caption{\gls{mig} comparison for different setups.}
+%     \label{fig:mig_comparison_setups}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \centering
+%     \captionsetup{justification=centering}
+%     \begin{subfigure}[b]{0.49\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_x.png}
+%         \caption{Old setup: X-Axis}
+%         \label{fig:old_mount_error_x.png}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[b]{0.49\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_y.png}
+%         \caption{Old setup: Y-Axis}
+%         \label{fig:old_mount_error_y.png}
+%     \end{subfigure}
+%     \begin{subfigure}[b]{0.44\textwidth}
+%         \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_x.png}
+%         \caption{Corrected setup: X-Axis}
+%         \label{fig:new_mount_error_x.png}
+%     \end{subfigure}
+%     \hspace{5mm}
+%     \begin{subfigure}[b]{0.44\textwidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_y.png}
+%         \caption{Corrected setup: Y-Axis}
+%         \label{fig:new_mount_error_y.png}
+%     \end{subfigure}
+%     \caption{Positional error comparison for XY-Axes for different setups.}
+%     \label{fig:error_comparison_setups}
+% \end{figure}
+
+% \clearpage
+
+% \vspace{5mm}
+% \noindent As established in Section \ref{section:effect_of_exp_time_gain}, the camera parameters can change based on experimental setup used. Therefore, in order to compare positional errors for these two setups, it was essential to focus on exposure times that yielded similar \gls{mig} values (See Fig. \ref{fig:mig_comparison_setups}). It can be observed from Fig. \ref{fig:error_comparison_setups} that, there is a decrease in error along Y-Axis for all movements of hexapod when the corrected setup is used. The cause of this error in older setup is the tilt of the image sensor with respect to hexapod surface which introduces an out-of-plane motion. This motion causes an unintended magnification of captured \gls{lsp}, resulting in additional in-plane displacements \cite{pan}. 
 
 \section{Effect of Laser Diameter}
 Due to limited literature on influence of laser diameter on position measurement accuracy, it is of necessity to revisit concept of decorrelation. Decorrelation occurs, when the \gls{lsp} undergoes significant changes after a certain amount of translation. This decorrelation also happens during the conducted experiments. Due to the nature of formation of \gls{lsp}, surface roughness plays a pivotal role in determining how laser interacts with the surface and is captured by the camera. This is specially the case, when there is a moving surface, as that has an effect on the underlying reflection. Thus, having an impact on appearance of \gls{lsp}. 

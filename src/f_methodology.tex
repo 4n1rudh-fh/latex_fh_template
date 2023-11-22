@@ -22,7 +22,7 @@
             \]
 
             \vspace{5mm}
-            \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A 3 \times 3 Sobel operator was used because it is less noise sensitive and computations are faster as compared to 5 \times 5 counterpart. The gradient calculation in X ($G_x$) and Y ($G_y$) direction is done by convolving $S_x$ and $S_y$ with the original image $A$ (See Eqn. \ref{eqn:g_x} and \ref{eqn:g_y}). Total magnitude of gradient is calculated using the Eqn. \ref{eqn:mag_eqn}. The image quality parameter \gls{mig} is calculated by dividing the magnitude $G$ by size of image (\( m \times n\) pixels) using Eqn. \ref{eqn:mig}. 
+            \noindent Sobel operator is a discrete differentiation operator, which calculates approximate gradient of image intensity function. A 3 \times 3 Sobel operator was used, because it is less noise sensitive, and computations are faster as compared to its 5 \times 5 operator counterpart. The gradient calculation in X ($G_x$) and Y ($G_y$) direction is done by convolving $S_x$ and $S_y$ with the original image $A$ (See Eqn. \ref{eqn:g_x} and \ref{eqn:g_y}). Total magnitude of gradient is calculated using the Eqn. \ref{eqn:mag_eqn}. The image quality parameter \gls{mig} is calculated by dividing the magnitude $G$ by size of image (\( m \times n\) pixels) using Eqn. \ref{eqn:mig}. 
             
             %  Then, magnitude of intensity gradient $G_x, G_y$ for each pixel is calculated as given by the Eqn. \ref{eqn:mag_eqn}, after the gradients had been calculated for X and Y directions using Eqn. \ref{eqn:g_x} and Eqn. \ref{eqn:g_y}. The results of the Sobel operation and resulting gradient magnitude after binary thresholding, are displayed in Fig. \ref{fig:sobel.png}. This figure shows how over-/underexposed images have lower \gls{mig} values, because of lesser number of pixels having a higher gradient values (indicated by white pixels). Finally, in order to calculate average intensity gradient for the whole frame, the magnitude of gradients was summed up for all pixels and divided by the total number of pixels inside the frame, as given by Eqn. \ref{eqn:mig}, where $m$ and $n$ denote the number of rows and columns of pixels inside the frame respectively. To calculate average \gls{mig} for a certain pair of exposure time and gain (See Eqn. \ref{eqn:avg_mig}), \gls{mig} across all frames are added and divided by total number of frames. 
 
@@ -88,7 +88,7 @@
     
     \section{Displacement Measurement Verification}
         \subsection*{Displacement Calculation}
-            \noindent After images are recorded simultaneously for the motion of hexapod to position \(a_{x\ hexapod}, a_{y\ hexapod}\), the displacements are calculated in pixel units by \gls{ncc}. Verification of this displacement with hexapod motion is done using the Eqn. \ref{eqn:dist_calc} \cite{charrett_2018}. 
+            \noindent After images are recorded simultaneously for the motion of hexapod to position (\(a_{x\ hexapod}, a_{y\ hexapod}\)), the displacements are calculated in pixel units by \gls{ncc}. Verification of this displacement with hexapod motion is done using the Eqn. \ref{eqn:dist_calc} \cite{charrett_2018}. 
 
             \begin{equation}\label{eqn:dist_calc}
                 \begin{aligned}
@@ -98,26 +98,26 @@
             \end{equation}
 
         \subsection*{Error Calculation}
-            The error in calculated displacement is measured by following formulae:
+            The error in measured displacement was calculated by Eqn. \ref{eqn:error_x} and \ref{eqn:error_y}. The mean and standard deviation of error across the 40 repetitions of hexapod motion was calculated by using JASP software \cite{jasp_2023}. The experimental plan in Table \ref{table:exp_plan_exposure_time} and \ref{table:exp_plan_gain} details conditions for exposure time, gain and hexapod motion used for each image acquisition.
             
             % The following equations are used in explanation of results. The distances $a_x$ and $a_y$ are calculated using the Eqn. \ref{eqn:dist_calc}, after the hexapod has been moved to a coordinate $(a_{x\ hexapod}, a_{y\ hexapod})$. The error in position for respective axes is calculated using the following formulae:
 
-            \begin{equation}
+            \begin{equation}\label{eqn:error_x}
                 \text{Error X (mm)} = a_x - a_{x\ hexapod}
             \end{equation}
-            \begin{equation}
+            \begin{equation}\label{eqn:error_y}
                 \text{Error Y (mm)} = a_y - a_{y\ hexapod}
             \end{equation}
-            \begin{equation}
-                \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ hexapod}} \times 100\% \\
-            \end{equation}
-            \begin{equation}
-                \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ hexapod}} \times 100\%
-            \end{equation}
+            % \begin{equation}
+            %     \text{Error X (\%)} = \frac{\text{Error X (mm)}}{a_{x\ hexapod}} \times 100\%
+            % \end{equation}
+            % \begin{equation}
+            %     \text{Error Y (\%)} = \frac{\text{Error Y (mm)}}{a_{y\ hexapod}} \times 100\%
+            % \end{equation}
 
 
     \section{Choosing Correlation Algorithm}        
-        As per the literature survey, \gls{ncc} is widely used as a correlation algorithm. The study also utilizes the same algorithm. It should also be made clear, that primary objective of this research is not to compare different template matching or sub-pixel interpolation algorithms. As correlation algorithm is not be changed during the course of the conducted experiments, measurement error analysis should be independent of it. Also, this research does not investigate different sub-pixel interpolation algorithms, as it is not implemented for this research.
+        As per the literature survey, \gls{ncc} is widely used as a correlation algorithm. The study also utilizes the same algorithm. It should also be made clear, that primary objective of this research is not to compare different template matching or sub-pixel interpolation algorithms, but to investigate, if \gls{mig} is a suitable quality parameter for \gls{lsp} images to assess displacement accuracy. As correlation algorithm is not be changed during the course of the conducted experiments, measurement error analysis should be independent of it. Also, this research does not investigate different sub-pixel interpolation algorithms, as it is not implemented for this research.
     
     
      

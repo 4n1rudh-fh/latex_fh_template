@@ -298,7 +298,7 @@ In order to achieve the testing goal, the procedure can be divided into the foll
         %     \caption{\glsplural{lsp} for different pairs of gain and exposure time with corresponding \gls{mig} values.}
         % \end{figure}
 
-    \subsubsection*{Image Acquisition Procedure}\label{subsection:image_acq_calib}
+    \subsubsection*{Image Acquisition Procedure}\label{subsubsection:image_acq_calib}
         During the process of image capture for calibration the following parameters were kept constant:
         \begin{itemize}
             \item Camera Aperture: \emph{f}/1.85
@@ -306,22 +306,23 @@ In order to achieve the testing goal, the procedure can be divided into the foll
             \item Laser Spot Diameter: \SI{7}{\milli\meter}
         \end{itemize}
         
-        \noindent The calibration was done separately for X- and Y-axis and the details of the procedure can be found in the Table \ref{table:calibration_plan} given below. As the hexapod was manually controlled, the number of images differed during each of the 40 image acquisitions, and as a result mean number of images is calculated. The movement of hexapod can also be visualized in Fig. \ref{fig:calibration.png}, where the orientation of X- and Y-axis correspond to the hexapod's X- and Y-axis.
+        \noindent The calibration was done separately for X- and Y-axis and the details of the procedure can be found in the Table \ref{table:calibration_plan} given below. As the hexapod was manually controlled, the number of images differed during each of the 40 image acquisitions, and as a result mean number of images is calculated.
 
         \begin{table}[ht]
             \centering
             \footnotesize
-            \adjustbox{max width=\textwidth}
-            {
+            % \adjustbox{max width=\textwidth}
+            % {
             \begin{tabular}{ccccc}
                 \toprule
-                \textbf{Axis} & \textbf{Distance (mm)} & \textbf{Speed of Hexapod (mm/s)} & \textbf{Repetitions} & \textbf{Mean number of recorded images} \\
+                \textbf{Calibration Axis} & \textbf{Coordinate (mm, mm)} & \textbf{Speed of} & \textbf{Repetitions} & \textbf{Mean number of} \\
+                 & & \textbf{Hexapod (mm/s)} & & \textbf{recorded images} \\
                 \midrule
-                X & 0.1 & 1 & 40 & 56.425 \\
-                Y & 0.1 & 1 & 40 & 49.15 \\
+                X & (0.1, 0) & 1 & 40 & 56.425 \\
+                Y & (0, 0.1) & 1 & 40 & 49.15 \\
                 \bottomrule
             \end{tabular}
-            }
+            % }
             \caption{Experimental plan for calibration.}
             \label{table:calibration_plan}
         \end{table}
@@ -406,45 +407,45 @@ In order to achieve the testing goal, the procedure can be divided into the foll
                 \toprule
                 \textbf{Exposure Time (\SI{}{\micro\second})} & \textbf{Gain} & \textbf{Repetitions} & \textbf{Quadrant/Name} & \textbf{Coordinate (mm, mm)} \\
                 \midrule
-                \multirow{4}{*}{20} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{20} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{80} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{80} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
                 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{320} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{320} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{1000} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{1000} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{3000} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{3000} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
                 \bottomrule
             \end{tabular}
             }
@@ -461,59 +462,59 @@ In order to achieve the testing goal, the procedure can be divided into the foll
                 \toprule
                 \textbf{Exposure Time (\SI{}{\micro\second})} & \textbf{Gain} & \textbf{Repetitions} & \textbf{Quadrant/Name} & \textbf{Coordinate (mm, mm)} \\
                 \midrule
-                \multirow{4}{*}{150} & \multirow{4}{*}{0} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{2} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{2} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
                 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{4} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{4} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{6} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{6} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{8} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{8} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{10} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{10} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{20} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{20} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
                 
                 \midrule
 
-                \multirow{4}{*}{150} & \multirow{4}{*}{30} & \multirow{4}{*}{40} & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                \multirow{4}{*}{150} & \multirow{4}{*}{30} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
                 \bottomrule
             \end{tabular}
             }

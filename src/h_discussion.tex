@@ -1,0 +1,26 @@
+\chapter{Discussion}\label{chapter:discussion}
+
+\section{Calibration Matrix}
+Because of the fluctuation of pixel shifts, the each of the parameters of calibration matrix $T$ can have 2 choices. Thus, resulting 16 different permutations of $T$. Instead of testing each of those, 4 were chosen on random basis. Apart from this, another $T$ was calculated based on average of fluctuations across 40 calibrations for each axis (See Table \ref{table:stats_x} and \ref{table:stats_y}). These 5 calibration matrices are given in Eqn. \ref{eqn:calib_matrices_permutations}. From Eqn. \ref{eqn:dist_calc}, the position $(a_x, a_y)$ is decided by the elements inside $T$. Because the matrices differ from each other, so will the final distances that are calculated. For the exposure time of \SI{150}{\micro\second} and gain equal to $0$, it can be seen by comparing Tables from \ref{table:stats_matrix_topright} to \ref{table:stats_matrix_bottomright} that across all movements of hexapod, $T_{Avg}$ fares better in comparison to other matrices. The maximum magnitude of error in position observed for $T_{Avg}$ is \SI{9}{\micro\meter} along X-Axis and \SI{7}{\micro\meter} along Y-Axis (See Table \ref{subtable:t_avg}). \gls{mig} does not change here, because same dataset was used to perform \gls{ncc}.
+
+As the dataset from the same motion of hexapod is used.
+
+Depending on value of exposure time, an image could be under- or overexposed or correctly exposed. In case of under- or overexposed images, they have lower \gls{mig} values. The reason is attributed to lower gradient of intensity values between neighboring pixels. This can be seen in Fig. \ref{fig:exposure_time_mig.png}, where lower exposure times have lower \gls{mig} values. As exposure time increases, \gls{mig} increases, until it falls low for higher exposure times.
+
+\subsection*{Deduction on effects of Gain and Exposure Time}
+\noindent In conclusion, the camera parameters (here, gain and exposure time) are sensitive to the experimental setup. An independent parameter like \gls{mig} can help counter this issue. For instance, in Fig. \ref{fig:laser_spot_block.JPG}, part of the laser is incident on the lens body which causes, lower laser power to be incident on the surface of the hexapod. Consequently requiring higher exposure or gain to acheive a higher \gls{mig} value. 
+
+\vspace{5mm}
+\noindent Furthermore, when experimental setup is changed, such as laser module or the camera is switched, or distances between components is changed, it has an effect on camera parameters. Thus, \gls{mig} can be monitored as an independent parameter in such situations. The experimental findings suggest that when \gls{mig} is within a range of $\sim$66 to $\sim$409, the position values are reliable with a maximum absolute error of less than \SI{10}{\micro\meter}.
+
+\vspace{5mm}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[angle=90, width=0.35\textwidth]{images/f_results_discussion/laser_spot_block.JPG}
+    \caption{Laser partly incident on lens body.}
+    \label{fig:laser_spot_block.JPG}
+\end{figure}
+
+\vspace{10mm}
+\noindent From comparing Table \ref{table:stats_matrix_gain} and Table \ref{table:stats_matrix_gain_20}, it can be inferred that as \gls{mig} becomes extremely low, errors in position along X-Axis and Y-Axis becomes more apparent. The maximum absolute mean error along X-Axis and along Y-Axis is \SI{5}{\micro\meter} for gain of 0, 2, 4, 6, 8, 10. The positional errors become evident for gain value of 20 and 30, where they are greater than actual displacement of the hexapod.

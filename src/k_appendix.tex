@@ -1,4 +1,4 @@
-\chapter*{Appendix}
+\chapter{Appendix}\label{chapter:appendix}
 
 \begin{table}[h]
     \centering
@@ -103,3 +103,247 @@
     \caption{Technical specifications of M-824 Hexapod. \cite{hexapod_manual}}
     \label{table:technical_specifications_hexapod}
 \end{table}
+
+\begin{table}[h]
+	\centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        {
+            \begin{tabular}{ccc}
+                \toprule
+                Pixel Shift X (Columns) & Frequency & Percent  \\
+                \midrule
+                $-26$ & $27$ & $67.500$ \\
+                $-25$ & $13$ & $32.500$ \\
+                Total & $40$ & $100.000$ \\
+                \bottomrule
+            \end{tabular}
+        }
+        \caption{Frequency table for $A_{xx}$}
+        \label{subtable:freq_table_axx}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        {
+            \begin{tabular}{ccc}
+                \toprule
+                Pixel Shift Y (Rows) & Frequency & Percent \\
+                \midrule
+                $0$ & $26$ & $65.000$ \\
+                $1$ & $14$ & $35.000$ \\
+                Total & $40$ & $100.000$ \\
+                \bottomrule
+            \end{tabular}
+        }
+        \caption{Frequency table for $A_{yx}$}
+        \label{subtable:freq_table_ayx}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        {
+            \begin{tabular}{ccc}
+                \toprule
+                Pixel Shift X (Columns) & Frequency & Percent  \\
+                \midrule
+                $0$ & $30$ & $75.000$  \\
+                $1$ & $10$ & $25.000$  \\
+                Total & $40$ & $100.000$  \\
+                \bottomrule
+            \end{tabular}
+        }
+        \caption{Frequency table for $A_{xy}$}
+        \label{subtable:freq_table_axy}
+    \end{subtable}
+
+    \vspace{10pt}
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        {
+            \begin{tabular}{ccc}
+                \toprule
+                Pixel Shift Y (Rows) & Frequency & Percent \\
+                \midrule
+                $25$ & $1$ & $2.500$  \\
+                $26$ & $36$ & $90.000$  \\
+                $27$ & $3$ & $7.500$  \\
+                Total & $40$ & $100.000$ \\
+                \bottomrule
+            \end{tabular}
+        }
+        \caption{Frequency table for $A_{yy}$}
+        \label{subtable:freq_table_ayy}
+    \end{subtable}
+
+    \caption{Summary of pixel displacements for calibration along X-axis and Y-axis.}
+    \label{table:freq_table_calib_xy}
+\end{table}
+
+\begin{table}[h]
+	\centering
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{ccc}
+            \toprule
+                & $A_{xx}$ & $A_{yx}$  \\
+            \midrule
+            Mean & $-25.675$ & $0.350$  \\
+            Std. Deviation & $0.474$ & $0.483$  \\
+            % Minimum & $-26.000$ & $0.000$  \\
+            % Maximum & $-25.000$ & $1.000$  \\
+            \bottomrule
+        \end{tabular}
+        \label{subtable:average_shift_axx_ayx}
+        \caption{Along X-axis.}
+    \end{subtable}
+
+   \vspace{10pt} 
+
+    \begin{subtable}{\textwidth}
+        \centering
+        \footnotesize
+        \begin{tabular}{ccc}
+            \toprule
+                & $A_{xy}$ & $A_{yy}$  \\
+            \midrule
+            Mean & $0.250$ & $26.050$  \\
+            Std. Deviation & $0.439$ & $0.316$  \\
+            % Minimum & $0.000$ & $25.000$  \\
+            % Maximum & $1.000$ & $27.000$  \\
+            \bottomrule
+        \end{tabular}
+        \label{subtable:average_shift_axy_ayy}
+        \caption{Along Y-axis.}
+    \end{subtable}
+    \caption{Mean of pixel displacements for calibrations.}
+	\label{table:mean_pixel_displacements}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/exp_time_20.png}
+        \caption{Exposure Time: \SI{20}{\micro\second}, \gls{mig}: 65.86}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/exp_time_80.png}
+        \caption{Exposure Time: \SI{80}{\micro\second}, \gls{mig}: 276.23}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/exp_time_150.png}
+        \caption{Exposure Time: \SI{150}{\micro\second}, \gls{mig}: 381.89}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/exp_time_320.png}
+        \caption{Exposure Time: \SI{320}{\micro\second}, \gls{mig}: 360.06}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/exp_time_1000.png}
+        \caption{Exposure Time: \SI{1000}{\micro\second}, \gls{mig}: 86.21}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/exp_time_3000.png}
+        \caption{Exposure Time: \SI{3000}{\micro\second}, \gls{mig}: 5.35}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \caption{\glsplural{lsp} for different exposure times and gain of 0.}
+    \label{fig:example_images_exposure_time}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_0.png}
+        \caption{Gain: 0, \gls{mig}: 389.465}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_2.png}
+        \caption{Gain: 2, \gls{mig}: 400.064}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_4.png}
+        \caption{Gain: 4, \gls{mig}: 407.020}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_6.png}
+        \caption{Gain: 6, \gls{mig}: 367.907}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_8.png}
+        \caption{Gain: 8, \gls{mig}: 328.666}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_10.png}
+        \caption{Gain: 10, \gls{mig}: 269.310}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+
+    \vspace{5mm}
+    
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_20.png}
+        \caption{Gain: 20, \gls{mig}: 37.248}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/g_results/gain_30.png}
+        \caption{Gain: 30, \gls{mig}: 0.744}
+        \label{subfig:underexposed.png}
+    \end{subfigure}
+    \caption{\glsplural{lsp} for exposure time of \SI{150}{\micro\second} and different gain values.}
+    \label{fig:example_images_gain}
+\end{figure}
