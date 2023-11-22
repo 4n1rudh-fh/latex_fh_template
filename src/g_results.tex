@@ -21,184 +21,184 @@
     \vspace{5mm}
     \noindent For hexapod motion to coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ for X-axis calibration, $A_{xx}$ fluctuated between -26 to -25 pixel units and $A_{yx}$ between 0 to 1 pixel units. For hexapod motion to coordinate $(\SI{0}{\milli\meter}, \SI{0.1}{\milli\meter})$ for Y-axis calibration, $A_{xy}$ fluctuated between 0 to 1 pixel units and $A_{yy}$ between 25, 26, and 27 pixel units (See Table \ref{table:freq_table_calib_xy}). For one of those experiments, these fluctuation effects are plotted under \textsf{Standstill} in Fig. \ref{fig:vibration_calib_x.png} and \ref{fig:vibration_calib_y.png}. Values of calibration matrix $T$ are dependent on these pixel displacements according to the Eqn. \ref{eqn:calib_matrix_param}. As a result $T$ can be different depending on chosen pixel displacement values.
 
-% As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
+    % As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
 
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}{0.49\textwidth}
+    \begin{figure}[h]
         \centering
-        \includegraphics[width=\textwidth]{images/e_experiments/vibration_calib_x.png}
-        \caption{Calibration: X-Axis.}
-        \label{fig:vibration_calib_x.png}
-    \end{subfigure}
-    \begin{subfigure}{0.49\textwidth}
+        \begin{subfigure}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/e_experiments/vibration_calib_x.png}
+            \caption{Calibration: X-Axis.}
+            \label{fig:vibration_calib_x.png}
+        \end{subfigure}
+        \begin{subfigure}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/e_experiments/vibration_calib_y.png}
+            \caption{Calibration: Y-Axis.}
+            \label{fig:vibration_calib_y.png}
+        \end{subfigure}
+        \caption{Pixel locking effects during calibration measurements.}
+        \label{fig:vibration}
+    \end{figure}
+
+    \noindent To investigate the effect of a calibration matrix on final measurements, 5 different calibration matrices were chosen. The matrices from $T_1$ to $T_4$ contain different values of $A_{xx}$, $A_{yx}$ and $A_{xy}$ with the exception of $A_{yy}$ which was not changed as it occurred in 90\% of the measurements. The $T5$ matrix was made by averaging the pixel displacements across the 40 experiments, as seen in Table \ref{table:mean_pixel_displacements}.
+
+    \begin{equation}
+        T &=
+            \begin{bmatrix}
+                T_{xx} & T_{xy} \\
+                T_{yx} & T_{yy}
+            \end{bmatrix} &=
+            \begin{bmatrix}
+                A_{xx}/a_x & A_{xy}/a_y \\
+                A_{yx}/a_x & A_{yy}/a_y
+            \end{bmatrix} &=
+            \begin{bmatrix}
+                A_{xx}/0.1 & A_{xy}/0.1 \\
+                A_{yx}/0.1 & A_{yy}/0.1
+            \end{bmatrix}
+        \label{eqn:calib_matrix_example}
+    \end{equation}
+
+    \begin{equation}
+        \begin{aligned}
+            T_1 &= 
+            \begin{bmatrix}
+                -26/0.1 & 1/0.1 \\
+                0/0.1 & 26/0.1
+            \end{bmatrix} &= 
+            \begin{bmatrix}
+                -260 & 10 \\
+                0 & 260
+            \end{bmatrix}
+            \\
+            \text{and similarly,}
+            \\
+            T_2 &= 
+            \begin{bmatrix}
+                -260 & 0 \\
+                10 & 260
+            \end{bmatrix}
+            \\
+            T_3 &= 
+            \begin{bmatrix}
+                -250 & 10 \\
+                0 & 260
+            \end{bmatrix}
+            \\
+            T_4 &= 
+            \begin{bmatrix}
+                -250 & 0 \\
+                10 & 260
+            \end{bmatrix}
+            \\
+            T_{Avg} &= 
+            \begin{bmatrix}
+                -256.75 & 2.5 \\
+                3.5 & 260.5
+            \end{bmatrix}
+        \end{aligned}
+        \label{eqn:calib_matrices_permutations}
+    \end{equation}
+
+    \begin{figure}[ht]
         \centering
-        \includegraphics[width=\textwidth]{images/e_experiments/vibration_calib_y.png}
-        \caption{Calibration: Y-Axis.}
-        \label{fig:vibration_calib_y.png}
-    \end{subfigure}
-    \caption{Pixel locking effects during calibration measurements.}
-    \label{fig:vibration}
-\end{figure}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_bottomleft.png}
+            \caption{\textsf{BottomLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_bottomright.png}
+            \caption{\textsf{BottomRight}}
+        \end{subfigure}
 
-\noindent To investigate the effect of a calibration matrix on final measurements, 5 different calibration matrices were chosen. The matrices from $T_1$ to $T_4$ contain different values of $A_{xx}$, $A_{yx}$ and $A_{xy}$ with the exception of $A_{yy}$ which was not changed as it occurred in 90\% of the measurements. The $T5$ matrix was made by averaging the pixel displacements across the 40 experiments, as seen in Table \ref{table:mean_pixel_displacements}.
+        \vspace{5mm}
+        
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_topleft.png}
+            \caption{\textsf{TopLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_topright.png}
+            \caption{\textsf{TopRight}}
+        \end{subfigure}
 
-\begin{equation}
-    T &=
-        \begin{bmatrix}
-            T_{xx} & T_{xy} \\
-            T_{yx} & T_{yy}
-        \end{bmatrix} &=
-        \begin{bmatrix}
-            A_{xx}/a_x & A_{xy}/a_y \\
-            A_{yx}/a_x & A_{yy}/a_y
-        \end{bmatrix} &=
-        \begin{bmatrix}
-            A_{xx}/0.1 & A_{xy}/0.1 \\
-            A_{yx}/0.1 & A_{yy}/0.1
-        \end{bmatrix}
-    \label{eqn:calib_matrix_example}
-\end{equation}
+        \caption{Mean error in measurements for different calibration matrices.}
+        \label{fig:mean_error_calib_matrices}
+    \end{figure}
 
-\begin{equation}
-    \begin{aligned}
-        T_1 &= 
-        \begin{bmatrix}
-            -26/0.1 & 1/0.1 \\
-            0/0.1 & 26/0.1
-        \end{bmatrix} &= 
-        \begin{bmatrix}
-            -260 & 10 \\
-            0 & 260
-        \end{bmatrix}
-        \\
-        \text{and similarly,}
-        \\
-        T_2 &= 
-        \begin{bmatrix}
-            -260 & 0 \\
-            10 & 260
-        \end{bmatrix}
-        \\
-        T_3 &= 
-        \begin{bmatrix}
-            -250 & 10 \\
-            0 & 260
-        \end{bmatrix}
-        \\
-        T_4 &= 
-        \begin{bmatrix}
-            -250 & 0 \\
-            10 & 260
-        \end{bmatrix}
-        \\
-        T_{Avg} &= 
-        \begin{bmatrix}
-            -256.75 & 2.5 \\
-            3.5 & 260.5
-        \end{bmatrix}
-    \end{aligned}
-    \label{eqn:calib_matrices_permutations}
-\end{equation}
+    \noindent The calibration matrices given in Eqn. \ref{eqn:calib_matrices_permutations} were used to convert pixel displacements to distance in millimeter by using the \gls{lsp} dataset captured with an exposure time of \SI{150}{\micro\second} and gain of 0 (See Table \ref{table:exp_plan_gain}). In Fig. \ref{fig:mean_error_calib_matrices}, the mean error in position measurements is plotted against the different calibration matrices. Similarly, in Fig. \ref{fig:stddev_error_calib_matrices} the standard deviation of error in position measurements is plotted for different calibration matrices. As the same dataset is used for each calibration matrix, the \gls{mig} value does not change for each of the motions, as seen in Fig. \ref{fig:mean_error_calib_matrices}. The descending order of magnitude of errors for different motions is given in the Table \ref{table:oom_calib_matrices}.
 
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.46\textwidth}
+    \begin{table}[ht]
         \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_bottomleft.png}
-        \caption{\textsf{BottomLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
+        \footnotesize
+        \begin{tabular}{ccccc}
+                \toprule
+                \textbf{Hexapod Motion} & & \textbf{Descending order} & \textbf{Magnitude of} & \textbf{Magnitude of} \\
+                & & \textbf{of magnitude of error} & \textbf{max. error} & \textbf{min. error} \\
+                \midrule
+                
+                \multirow{2}{*}{\textsf{BottomLeft}} & Along X & $T_3$ > $T_4$ > $T_1$ > ($T_2$ = $T_{Avg}$) & $T_3$ = \SI{21}{\micro\meter} & $T_2$ = $T_{Avg}$  = \SI{3}{\micro\meter} \\
+                & Along Y & ($T_4$ = $T_2$) > ($T_3$ = $T_1$) > $T_{Avg}$ & $T_4$ = $T_2$ = \SI{21}{\micro\meter} & $T_{Avg}$ = \SI{0.9}{\micro\meter} \\
+                
+                \midrule
+                
+                \multirow{2}{*}{\textsf{BottomRight}} & Along X & $T_4$ > $T_1$ > $T_{Avg}$ > ($T_2$ = $T_3$) & $T_4$ = \SI{15}{\micro\meter} & $T_2$ = $T_3$  = \SI{3}{\micro\meter} \\
+                & Along Y & ($T_4$ = $T_2$) > ($T_3$ = $T_1$) > $T_{Avg}$ & $T_4$ = $T_2$ = \SI{9}{\micro\meter} & $T_{Avg}$ = \SI{0.63}{\micro\meter} \\
+
+                \midrule
+
+                \multirow{2}{*}{\textsf{TopLeft}} & Along X & $T_4$ > $T_1$ > $T_{Avg}$ > ($T_2$ = $T_3$) & $T_4$ = \SI{16}{\micro\meter} & $T_2$ = $T_3$  = \SI{4}{\micro\meter} \\
+                & Along Y & $T_4$ > $T_2$ > $T_{Avg}$ > ($T_1$ = $T_3$) & $T_4$ = \SI{13}{\micro\meter} & $T_1$ = $T_3$ = \SI{0.39}{\micro\meter} \\
+
+                \midrule
+
+                \multirow{2}{*}{\textsf{TopRight}} & Along X & $T_3$ > ($T_1$ = $T_4$) > $T_2$ > $T_{Avg}$ & $T_3$ = \SI{20}{\micro\meter} & $T_{Avg}$ = \SI{3}{\micro\meter} \\
+                & Along Y & $T_4$ > $T_2$ > ($T_1$ = $T_3$) > $T_{Avg}$ & $T_4$ = \SI{7}{\micro\meter} & $T_{Avg}$ = \SI{0.25}{\micro\meter} \\
+                
+                \bottomrule
+        \end{tabular}
+        \caption{Order of magnitude of errors in position measurement for different calibration matrices.}
+        \label{table:oom_calib_matrices}
+    \end{table}
+
+    \begin{figure}[ht]
         \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_bottomright.png}
-        \caption{\textsf{BottomRight}}
-    \end{subfigure}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_bottomleft.png}
+            \caption{\textsf{BottomLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_bottomright.png}
+            \caption{\textsf{BottomRight}}
+        \end{subfigure}
 
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_topleft.png}
-        \caption{\textsf{TopLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/mean_error_topright.png}
-        \caption{\textsf{TopRight}}
-    \end{subfigure}
+        \vspace{5mm}
+        
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_topleft.png}
+            \caption{\textsf{TopLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_topright.png}
+            \caption{\textsf{TopRight}}
+        \end{subfigure}
 
-    \caption{Mean error in measurements for different calibration matrices.}
-    \label{fig:mean_error_calib_matrices}
-\end{figure}
-
-\noindent The calibration matrices given in Eqn. \ref{eqn:calib_matrices_permutations} were used to convert pixel displacements to distance in millimeter by using the \gls{lsp} dataset captured with an exposure time of \SI{150}{\micro\second} and gain of 0 (See Table \ref{table:exp_plan_gain}). In Fig. \ref{fig:mean_error_calib_matrices}, the mean error in position measurements is plotted against the different calibration matrices. Similarly, in Fig. \ref{fig:stddev_error_calib_matrices} the standard deviation of error in position measurements is plotted for different calibration matrices. As the same dataset is used for each calibration matrix, the \gls{mig} value does not change for each of the motions, as seen in Fig. \ref{fig:mean_error_calib_matrices}. The descending order of magnitude of errors for different motions is given in the Table \ref{table:oom_calib_matrices}.
-
-\begin{table}[ht]
-    \centering
-    \footnotesize
-    \begin{tabular}{ccccc}
-            \toprule
-            \textbf{Hexapod Motion} & & \textbf{Descending order} & \textbf{Magnitude of} & \textbf{Magnitude of} \\
-            & & \textbf{of magnitude of error} & \textbf{max. error} & \textbf{min. error} \\
-            \midrule
-            
-            \multirow{2}{*}{\textsf{BottomLeft}} & Along X & $T_3$ > $T_4$ > $T_1$ > ($T_2$ = $T_{Avg}$) & $T_3$ = \SI{21}{\micro\meter} & $T_2$ = $T_{Avg}$  = \SI{3}{\micro\meter} \\
-            & Along Y & ($T_4$ = $T_2$) > ($T_3$ = $T_1$) > $T_{Avg}$ & $T_4$ = $T_2$ = \SI{21}{\micro\meter} & $T_{Avg}$ = \SI{0.9}{\micro\meter} \\
-            
-            \midrule
-            
-            \multirow{2}{*}{\textsf{BottomRight}} & Along X & $T_4$ > $T_1$ > $T_{Avg}$ > ($T_2$ = $T_3$) & $T_4$ = \SI{15}{\micro\meter} & $T_2$ = $T_3$  = \SI{3}{\micro\meter} \\
-            & Along Y & ($T_4$ = $T_2$) > ($T_3$ = $T_1$) > $T_{Avg}$ & $T_4$ = $T_2$ = \SI{9}{\micro\meter} & $T_{Avg}$ = \SI{0.63}{\micro\meter} \\
-
-            \midrule
-
-            \multirow{2}{*}{\textsf{TopLeft}} & Along X & $T_4$ > $T_1$ > $T_{Avg}$ > ($T_2$ = $T_3$) & $T_4$ = \SI{16}{\micro\meter} & $T_2$ = $T_3$  = \SI{4}{\micro\meter} \\
-            & Along Y & $T_4$ > $T_2$ > $T_{Avg}$ > ($T_1$ = $T_3$) & $T_4$ = \SI{13}{\micro\meter} & $T_1$ = $T_3$ = \SI{0.39}{\micro\meter} \\
-
-            \midrule
-
-            \multirow{2}{*}{\textsf{TopRight}} & Along X & $T_3$ > ($T_1$ = $T_4$) > $T_2$ > $T_{Avg}$ & $T_3$ = \SI{20}{\micro\meter} & $T_{Avg}$ = \SI{3}{\micro\meter} \\
-            & Along Y & $T_4$ > $T_2$ > ($T_1$ = $T_3$) > $T_{Avg}$ & $T_4$ = \SI{7}{\micro\meter} & $T_{Avg}$ = \SI{0.25}{\micro\meter} \\
-            
-            \bottomrule
-    \end{tabular}
-    \caption{Order of magnitude of errors in position measurement for different calibration matrices.}
-    \label{table:oom_calib_matrices}
-\end{table}
-
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_bottomleft.png}
-        \caption{\textsf{BottomLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_bottomright.png}
-        \caption{\textsf{BottomRight}}
-    \end{subfigure}
-
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_topleft.png}
-        \caption{\textsf{TopLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/calib_matrix/stddev_error_topright.png}
-        \caption{\textsf{TopRight}}
-    \end{subfigure}
-
-    \caption{Standard deviation of error in measurements for different calibration matrices.}
-    \label{fig:stddev_error_calib_matrices}
-\end{figure}
+        \caption{Standard deviation of error in measurements for different calibration matrices.}
+        \label{fig:stddev_error_calib_matrices}
+    \end{figure}
 
 
 % % TopRight Calib Matrix
@@ -625,227 +625,206 @@
 \clearpage
 
 \section{Effect of Exposure Time} \label{section:effect_of_exp_time}
-Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_exposure_time}, the mean errors in position and standard deviation of error for different exposure times are plotted in Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} respectively. Example images of the dataset is shown in Fig. \ref{fig:example_images_exposure_time}. It can be clearly observed that as exposure time increases, the contrast of the images increases, until it decreases again because of overexposure. This is also demonstrated by the \gls{mig} values, which increase as exposure times increase from \SI{20}{\micro\second} to \SI{150}{\micro\second} followed by decline in range of \SI{320}{\micro\second} to \SI{3000}{\micro\second}. 
+    Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_exposure_time}, the mean errors in position and standard deviation of error for different exposure times are plotted in Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} respectively. Example images of the dataset is shown in Fig. \ref{fig:example_images_exposure_time}. It can be clearly observed that as exposure time increases, the contrast of the images increases, until it decreases again because of overexposure. This is also demonstrated by the \gls{mig} values, which increase as exposure times increase from \SI{20}{\micro\second} to \SI{150}{\micro\second} followed by decline in range of \SI{320}{\micro\second} to \SI{3000}{\micro\second}. 
 
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.46\textwidth}
+    \begin{figure}[ht]
         \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_bottomleft.png}
-        \caption{\textsf{BottomLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_bottomright.png}
-        \caption{\textsf{BottomRight}}
-    \end{subfigure}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_bottomleft.png}
+            \caption{\textsf{BottomLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_bottomright.png}
+            \caption{\textsf{BottomRight}}
+        \end{subfigure}
 
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_topleft.png}
-        \caption{\textsf{TopLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_topright.png}
-        \caption{\textsf{TopRight}}
-    \end{subfigure}
+        \vspace{5mm}
+        
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_topleft.png}
+            \caption{\textsf{TopLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/mean_error_topright.png}
+            \caption{\textsf{TopRight}}
+        \end{subfigure}
 
-    \caption{Mean error in measurements for different exposure times.}
-    \label{fig:mean_error_exposure_time}
-\end{figure}
-
-\vspace{5mm}
-\noindent It can be seen from the Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} that, for images captured with exposure time of \SI{3000}{\micro\second}, there is an increase in magnitude of mean error and standard deviation in comparison to the other exposure times. The minimum values of mean errors observed for \gls{lsp} tests conducted with exposure time of \SI{3000}{\micro\second} were \SI{0.148}{\milli\meter} for X-axis and \SI{0.074}{\milli\meter} for Y-axis, with standard deviation of \SI{0.2}{\milli\meter} and \SI{0.223}{\milli\meter} respectively. Put comparison with other values as well over here.
-
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_bottomleft.png}
-        \caption{\textsf{BottomLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_bottomright.png}
-        \caption{\textsf{BottomRight}}
-    \end{subfigure}
+        \caption{Mean error in measurements for different exposure times.}
+        \label{fig:mean_error_exposure_time}
+    \end{figure}
 
     \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_topleft.png}
-        \caption{\textsf{TopLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_topright.png}
-        \caption{\textsf{TopRight}}
-    \end{subfigure}
+    \noindent It can be seen from the Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} that, for images captured with exposure time of \SI{3000}{\micro\second}, there is an increase in magnitude of mean error and standard deviation in comparison to the other exposure times. The minimum values of mean errors observed for \gls{lsp} tests conducted with exposure time of \SI{3000}{\micro\second} were \SI{0.148}{\milli\meter} for X-axis and \SI{0.074}{\milli\meter} for Y-axis, with standard deviation of \SI{0.2}{\milli\meter} and \SI{0.223}{\milli\meter} respectively. Taking rest of the exposure times into account, maximum mean errors observed for X- and Y-axis are, \SI{8}{\micro\meter} and \SI{5}{\micro\meter} with standard deviation of \SI{2}{\micro\meter} for both axis respectively. 
 
-    \caption{Standard deviation of error in measurements for different exposure times.}
-    \label{fig:stddev_error_exposure_time}
-\end{figure}
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_bottomleft.png}
+            \caption{\textsf{BottomLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_bottomright.png}
+            \caption{\textsf{BottomRight}}
+        \end{subfigure}
+
+        \vspace{5mm}
+        
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_topleft.png}
+            \caption{\textsf{TopLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/exposure_time/stddev_error_topright.png}
+            \caption{\textsf{TopRight}}
+        \end{subfigure}
+
+        \caption{Standard deviation of error in measurements for different exposure times.}
+        \label{fig:stddev_error_exposure_time}
+    \end{figure}
 
 \clearpage
 
 \subsection*{Gain}
-Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_gain}, the mean errors in position and standard deviation of error for different gan values is plotted in Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}. Example images of dataset are given in Fig. \ref{fig:example_images_gain}. The \gls{mig} value increases slightly with increase in gain values from 0 to 4, and show a declining trend for gain values in range of 6 to 30.  
+    Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_gain}, the mean errors in position and standard deviation of error for different gan values is plotted in Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}. Example images of dataset are given in Fig. \ref{fig:example_images_gain}. The \gls{mig} value increases slightly with increase in gain values from 0 to 4, and show a declining trend for gain values in range of 6 to 30.  
 
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/f_results_discussion/gain_mig.png}
-%     \caption{\gls{mig} relationship with gain for exposure time of \SI{150}{\micro\second}.}
-%     \label{fig:gain_mig.png}
-% \end{figure}
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.8\textwidth]{images/f_results_discussion/gain_mig.png}
+    %     \caption{\gls{mig} relationship with gain for exposure time of \SI{150}{\micro\second}.}
+    %     \label{fig:gain_mig.png}
+    % \end{figure}
 
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.46\textwidth}
+    \begin{figure}[ht]
         \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_bottomleft.png}
-        \caption{\textsf{BottomLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_bottomright.png}
-        \caption{\textsf{BottomRight}}
-    \end{subfigure}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_bottomleft.png}
+            \caption{\textsf{BottomLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_bottomright.png}
+            \caption{\textsf{BottomRight}}
+        \end{subfigure}
 
-    \vspace{5mm}
+        \vspace{5mm}
+        
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_topleft.png}
+            \caption{\textsf{TopLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_topright.png}
+            \caption{\textsf{TopRight}}
+        \end{subfigure}
+
+        \caption{Mean error in measurements for different gain values.}
+        \label{fig:mean_error_gain}
+    \end{figure}
+
+    \noindent It can be seen from Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}, that mean error and standard deviation of error increases for gain value of 30 as compared to other values. The minimum magnitude of mean errors observed for gain of 30 were \SI{0.044}{\milli\meter} for X-axis and \SI{0.158}{\milli\meter} for Y-axis, with standard deviation \SI{0.482}{\milli\meter} and \SI{0.521}{\milli\meter} respectively. The maximum magnitude of mean errors observed for gain of 20 were \SI{38}{\micro\meter} for X-axis and \SI{0.397}{\milli\meter} for Y-axis, with standard deviation \SI{76}{\micro\meter} and \SI{0.355}{\milli\meter} respectively. For rest of the gain values, maximum magnitude of mean errors were \SI{5}{\micro\meter} for both X- and Y-axis, with standard deviation \SI{1}{\micro\meter} and \SI{2}{\micro\meter} respectively.
+
+    \clearpage
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_bottomleft.png}
+            \caption{\textsf{BottomLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_bottomright.png}
+            \caption{\textsf{BottomRight}}
+        \end{subfigure}
+
+        \vspace{5mm}
+        
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_topleft.png}
+            \caption{\textsf{TopLeft}}
+        \end{subfigure}
+        \hspace{1cm}
+        \begin{subfigure}[b]{0.46\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_topright.png}
+            \caption{\textsf{TopRight}}
+        \end{subfigure}
+
+        \caption{Standard deviation of error in measurements for different gain values.}
+        \label{fig:stddev_error_gain}
+    \end{figure}
+
+\section{Effect of Laser Spot Diameter}\label{section:laser_spot_dia}
+
+    Based on the experimental plan laid out in Table \ref{table:exp_plan_laser_dia}, \gls{ncc} analysis was performed for \gls{lsp} images collected for different laser spot diameters with calbration matrix $T_{Avg}$. The objective of this test was, to investigate effects of laser spot diameter on position measurement accuracy. For laser spot diameters of \SI{1}{\milli\meter} and \SI{2}{\milli\meter} the confidence scores drop below < 80\%, while for diameter values \SI{5}{\milli\meter}, \SI{7}{\milli\meter}, and \SI{9}{\milli\meter} the confidence scores at end of hexapod motion were above 90\% (See Fig. \ref{subfig:laser_spot_dia/confidence.png}). In Fig. \ref{fig:position_tracking} the position measurement of hexapod motion is verified. It is clear that, for laser diameter of \SI{1}{\milli\meter} and \SI{2}{\milli\meter}, the template tracking went amiss as compared to laser diameters. Fig. \ref{subfig:laser_spot_dia/mig_laser_spot.png}, shows \gls{mig} values for frames captured for different laser spot diameters. The example images can be found in Fig. \ref{fig:laser_spot_dia_example_images}
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}[b]{0.65\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/decorrelation.png}
+            \caption{Position tracking for \gls{lsp} images.}
+            \label{subfig:laser_spot_dia/decorrelation.png}
+        \end{subfigure}
+        
+        \vspace{3mm}
+        
+        \begin{subfigure}[b]{0.65\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/decorrelation_2.png}
+            \caption{Position tracking with changed scales.}
+            \label{subfig:laser_spot_dia/decorrelation_2.png}
+        \end{subfigure}
+        \caption{Position tracking for \gls{lsp} images for different laser spot diameters.}
+        \label{fig:position_tracking}
+    \end{figure}
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}[b]{0.65\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/confidence.png}
+            \caption{Confidence scores for template matching.}
+            \label{subfig:laser_spot_dia/confidence.png}
+        \end{subfigure}
+
+        \vspace{3mm}
+        
+        \begin{subfigure}[b]{0.65\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/mig_laser_spot.png}
+            \caption{\gls{mig} for \gls{lsp} images.}
+            \label{subfig:laser_spot_dia/mig_laser_spot.png}
+        \end{subfigure} 
+        \caption{Confidence scores and \gls{mig} for \gls{lsp} images collected for different laser spot diameters.}
+        \label{fig:laser_spot_dia_results}
+    \end{figure}
+
+
+    % \vspace{5mm}
+    % \noindent To further investigate this effect, laser diameter is changed in unit increments from \SI{1}{\milli\meter} to \SI{9}{\milli\meter}. The hexapod is moved to the \textsf{TopRight} coordinate (\SI{0.3}{\milli\meter}, \SI{0.3}{\milli\meter}). Images are recorded, and analyzed using the \gls{ncc} algorithm. 
+
+    % \vspace{5mm}
+    % \noindent The results from Fig. \ref{fig:laser_decorrelation.png} show that, there is a drop in cross-correlation value observed across all laser diameters. The reason can be attributed to decorrelation happening because of movement of hexapod. Another observation is that, the rate of drop is significant when laser diameter is between \SI{1}{\milli\meter} to \SI{4}{\milli\meter}. In conclusion, the substantial reduction in cross-correlation values signifies that the template is no longer reliably detected within the underlying image. It merely suggests the possibility of its presence.
     
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_topleft.png}
-        \caption{\textsf{TopLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/mean_error_topright.png}
-        \caption{\textsf{TopRight}}
-    \end{subfigure}
-
-    \caption{Mean error in measurements for different gain values.}
-    \label{fig:mean_error_gain}
-\end{figure}
-
-\noindent It can be seen from Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}, that mean error and standard deviation of error increases for gain value of 30 as compared to other values. The minimum magnitude of mean errors observed for gain of 30 were. Put comparison with other values here as well.
-
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_bottomleft.png}
-        \caption{\textsf{BottomLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_bottomright.png}
-        \caption{\textsf{BottomRight}}
-    \end{subfigure}
-
-    \vspace{5mm}
-    
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_topleft.png}
-        \caption{\textsf{TopLeft}}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{images/g_results/gain/stddev_error_topright.png}
-        \caption{\textsf{TopRight}}
-    \end{subfigure}
-
-    \caption{Standard deviation of error in measurements for different gain values.}
-    \label{fig:stddev_error_gain}
-\end{figure}
-
-
-% \section{Corrected Setup vs. Old Setup}
-% Earlier concept of the experimental setup in Fig. \ref{fig:old_setup_potrait.JPG} has a 3D-printed \gls{pla} mount for the laser module, which has an inbuilt tilted cylinder in it's design to fit the laser module. Furthermore, the camera is tilted such that, image sensor plane is not parallel to the hexapod surface. As a result, laser is partly incident on laser body (See Fig. \ref{fig:laser_spot_block.JPG}). As a consequence, higher exposure times are required to have similar values of \gls{mig} when comparing the old setup in Fig. \ref{fig:old_setup_potrait.JPG} with corrected setup in Fig. \ref{fig:new_setup_potrait.JPG}.
-
-% \begin{figure}[h]
-%     \centering
-%     \captionsetup{justification=centering}
-%     \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_mig.png}
-%         \caption{Old Setup \\ Gain: 0, Exposure Time: \SI{510}{\micro\second}}
-%         \label{fig:old_mount_mig.png}
-%     \end{subfigure}
-%     \begin{subfigure}[b]{0.46\textwidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_mig.png}
-%         \caption{Corrected Setup \\ Gain: 0, Exposure Time: \SI{150}{\micro\second}}
-%         \label{fig:new_mount_mig.png}
-%     \end{subfigure}
-%     \caption{\gls{mig} comparison for different setups.}
-%     \label{fig:mig_comparison_setups}
-% \end{figure}
-
-% \begin{figure}[h]
-%     \centering
-%     \captionsetup{justification=centering}
-%     \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_x.png}
-%         \caption{Old setup: X-Axis}
-%         \label{fig:old_mount_error_x.png}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{images/f_results_discussion/old_mount_error_y.png}
-%         \caption{Old setup: Y-Axis}
-%         \label{fig:old_mount_error_y.png}
-%     \end{subfigure}
-%     \begin{subfigure}[b]{0.44\textwidth}
-%         \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_x.png}
-%         \caption{Corrected setup: X-Axis}
-%         \label{fig:new_mount_error_x.png}
-%     \end{subfigure}
-%     \hspace{5mm}
-%     \begin{subfigure}[b]{0.44\textwidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{images/f_results_discussion/new_mount_error_y.png}
-%         \caption{Corrected setup: Y-Axis}
-%         \label{fig:new_mount_error_y.png}
-%     \end{subfigure}
-%     \caption{Positional error comparison for XY-Axes for different setups.}
-%     \label{fig:error_comparison_setups}
-% \end{figure}
-
-% \clearpage
-
-% \vspace{5mm}
-% \noindent As established in Section \ref{section:effect_of_exp_time_gain}, the camera parameters can change based on experimental setup used. Therefore, in order to compare positional errors for these two setups, it was essential to focus on exposure times that yielded similar \gls{mig} values (See Fig. \ref{fig:mig_comparison_setups}). It can be observed from Fig. \ref{fig:error_comparison_setups} that, there is a decrease in error along Y-Axis for all movements of hexapod when the corrected setup is used. The cause of this error in older setup is the tilt of the image sensor with respect to hexapod surface which introduces an out-of-plane motion. This motion causes an unintended magnification of captured \gls{lsp}, resulting in additional in-plane displacements \cite{pan}. 
-
-\section{Effect of Laser Diameter}
-Due to limited literature on influence of laser diameter on position measurement accuracy, it is of necessity to revisit concept of decorrelation. Decorrelation occurs, when the \gls{lsp} undergoes significant changes after a certain amount of translation. This decorrelation also happens during the conducted experiments. Due to the nature of formation of \gls{lsp}, surface roughness plays a pivotal role in determining how laser interacts with the surface and is captured by the camera. This is specially the case, when there is a moving surface, as that has an effect on the underlying reflection. Thus, having an impact on appearance of \gls{lsp}. 
-
-\vspace{5mm}
-\noindent To further investigate this effect, laser diameter is changed in unit increments from \SI{1}{\milli\meter} to \SI{9}{\milli\meter}. The hexapod is moved to the \textsf{TopRight} coordinate (\SI{0.3}{\milli\meter}, \SI{0.3}{\milli\meter}). Images are recorded, and analyzed using the \gls{ncc} algorithm. 
-
-\vspace{5mm}
-\noindent The results from Fig. \ref{fig:laser_decorrelation.png} show that, there is a drop in cross-correlation value observed across all laser diameters. The reason can be attributed to decorrelation happening because of movement of hexapod. Another observation is that, the rate of drop is significant when laser diameter is between \SI{1}{\milli\meter} to \SI{4}{\milli\meter}. In conclusion, the substantial reduction in cross-correlation values signifies that the template is no longer reliably detected within the underlying image. It merely suggests the possibility of its presence.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{images/f_results_discussion/laser_decorrelation.png}
-    \caption{Decorrelation in a \gls{lsp} vs. Laser Diameter}
-    \label{fig:laser_decorrelation.png}
-\end{figure}
-
 \clearpage

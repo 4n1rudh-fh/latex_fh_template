@@ -365,162 +365,190 @@ In order to achieve the testing goal, the procedure can be divided into the foll
         % To observe effects of gain alone on position measurement, necessity arose to decide on a single exposure time. Here, $T3$ was chosen, based on it's higher \gls{mig} value. Choosing images with higher contrast i.e. higher \gls{mig} value became apparent, as it felt unnecessary to test effects of gain on position measurement for images captured with extremely low or higher exposure times. The gain for the camera can be changed in whole number increments from $0$ to $40$. But for our experiments, only the following gain values were tested: $0$, $2$, $4$, $6$, $8$, $10$, $20$, and $30$. 
 
     \subsection*{Data Collection Procedure}\label{subsection:data_collection_procedure}
-        The hexapod is moved to the positions, as shown in the Fig. \ref{fig:testing_2.png} below. During motion of the hexapod, simultaneously the \gls{lsp} images are captured. To avoid image template being tracked from moving out of the scope of image sensor, the hexapod is moved a relative distance of \SI{0.3}{\milli\meter}. Futhermore, as calibration is done separately for X- and Y-axis, for investigation of position measurement, the coordinates are chosen which contain simultaneous movement for both X- and Y-axis. Due to the manual operation of hexapod, the number of images collected differ for each acquisition (See Fig. \ref{fig:mean_frames_data_collection}). Rest of the data acquisition procedure is detailed in the Tables \ref{table:exp_plan_exposure_time} and \ref{table:exp_plan_gain}. The following parameters were kept constant during this data collection:
+        \subsubsection{Dataset for different exposure time and gain}
+            The hexapod is moved to the positions, as shown in the Fig. \ref{fig:testing_2.png} below. During motion of the hexapod, simultaneously the \gls{lsp} images are captured. To avoid image template being tracked from moving out of the scope of image sensor, the hexapod is moved a relative distance of \SI{0.3}{\milli\meter}. Futhermore, as calibration is done separately for X- and Y-axis, for investigation of position measurement, the coordinates are chosen which contain simultaneous movement for both X- and Y-axis. Due to the manual operation of hexapod, the number of images collected differ for each acquisition (See Fig. \ref{fig:mean_frames_data_collection}). Rest of the data acquisition procedure is detailed in the Tables \ref{table:exp_plan_exposure_time} and \ref{table:exp_plan_gain}. The following parameters were kept constant during this data collection:
+            
+            \begin{itemize}
+                \item Camera Aperture: \emph{f}/1.85
+                \item Height between hexapod surface and camera-laser setup: \SI{150}{\milli\meter}
+                \item Laser Spot Diameter: \SI{7}{\milli\meter}
+                \item Speed of hexapod = \SI{1}{\milli\meter/\second}
+            \end{itemize}
+
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.65\textwidth]{images/e_experiments/testing_2.png}
+                \caption{Relative movements of hexapod to positions of data collection.}
+                \label{fig:testing_2.png}
+            \end{figure}
+
+            \begin{figure}[ht]
+                \centering
+                \begin{subfigure}{0.55\textwidth}
+                    \includegraphics[width=\textwidth]{images/e_experiments/data_mean_frames_exp_time.png}
+                    \caption{Gain = 0}
+                    \label{subfig:data_mean_frames_exp_time.png}
+                \end{subfigure}
+
+                \begin{subfigure}{0.55\textwidth}
+                    \includegraphics[width=\textwidth]{images/e_experiments/data_mean_frames_gain.png}
+                    \caption{Exposure Time = \SI{150}{\micro\second}}
+                    \label{subfig:data_mean_frames_exp_time.png}
+                \end{subfigure}
+                \caption{Mean number of frames during data collection}
+                \label{fig:mean_frames_data_collection}
+            \end{figure}
+
+            \begin{table}[ht]
+                \centering
+                \footnotesize
+                \adjustbox{max width=\textwidth}
+                {
+                \begin{tabular}{ccccc}
+                    \toprule
+                    \textbf{Exposure Time (\SI{}{\micro\second})} & \textbf{Gain} & \textbf{Repetitions} & \textbf{Quadrant/Name} & \textbf{Coordinate (mm, mm)} \\
+                    \midrule
+                    \multirow{4}{*}{20} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{80} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                    
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{320} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{1000} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{3000} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                    \bottomrule
+                \end{tabular}
+                }
+                \caption{Experimental plan for data collection for gain of 0.}
+                \label{table:exp_plan_exposure_time}
+            \end{table}
+
+            \begin{table}[ht]
+                \centering
+                \footnotesize
+                \adjustbox{max width=\textwidth}
+                {
+                \begin{tabular}{ccccc}
+                    \toprule
+                    \textbf{Exposure Time (\SI{}{\micro\second})} & \textbf{Gain} & \textbf{Repetitions} & \textbf{Quadrant/Name} & \textbf{Coordinate (mm, mm)} \\
+                    \midrule
+                    \multirow{4}{*}{150} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{2} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                    
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{4} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{6} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{8} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{10} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{20} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                    
+                    \midrule
+
+                    \multirow{4}{*}{150} & \multirow{4}{*}{30} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
+                    & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
+                    & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
+                    & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
+                    \bottomrule
+                \end{tabular}
+                }
+                \caption{Experimental plan for data collection for exposure time of \SI{150}{\micro\second}.}
+                \label{table:exp_plan_gain}
+            \end{table}
         
-        \begin{itemize}
-            \item Camera Aperture: \emph{f}/1.85
-            \item Height between hexapod surface and camera-laser setup: \SI{150}{\milli\meter}
-            \item Laser Spot Diameter: \SI{7}{\milli\meter}
-            \item Speed of hexapod = \SI{1}{\milli\meter/\second}
-        \end{itemize}
+        \clearpage
+            
+        \subsubsection{Dataset for different laser spot diameter}
+            At exposure time of \SI{150}{\micro\second} and gain of 0, the \gls{lsp} images were collected once for different laser spot diameters. The data collection procedure is summarized below in Table \ref{table:exp_plan_laser_dia}.
+            
+            \vspace{10pt}
 
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.65\textwidth]{images/e_experiments/testing_2.png}
-            \caption{Relative movements of hexapod to positions of data collection.}
-            \label{fig:testing_2.png}
-        \end{figure}
-
-        \begin{figure}[ht]
-            \centering
-            \begin{subfigure}{0.55\textwidth}
-                \includegraphics[width=\textwidth]{images/e_experiments/data_mean_frames_exp_time.png}
-                \caption{Gain = 0}
-                \label{subfig:data_mean_frames_exp_time.png}
-            \end{subfigure}
-
-            \begin{subfigure}{0.55\textwidth}
-                \includegraphics[width=\textwidth]{images/e_experiments/data_mean_frames_gain.png}
-                \caption{Exposure Time = \SI{150}{\micro\second}}
-                \label{subfig:data_mean_frames_exp_time.png}
-            \end{subfigure}
-            \caption{Mean number of frames during data collection}
-            \label{fig:mean_frames_data_collection}
-        \end{figure}
-
-        \begin{table}[ht]
-            \centering
-            \footnotesize
-            \adjustbox{max width=\textwidth}
-            {
-            \begin{tabular}{ccccc}
-                \toprule
-                \textbf{Exposure Time (\SI{}{\micro\second})} & \textbf{Gain} & \textbf{Repetitions} & \textbf{Quadrant/Name} & \textbf{Coordinate (mm, mm)} \\
-                \midrule
-                \multirow{4}{*}{20} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{80} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-                
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{320} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{1000} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{3000} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-                \bottomrule
-            \end{tabular}
-            }
-            \caption{Experimental plan for data collection for gain of 0.}
-            \label{table:exp_plan_exposure_time}
-        \end{table}
-
-        \begin{table}[ht]
-            \centering
-            \footnotesize
-            \adjustbox{max width=\textwidth}
-            {
-            \begin{tabular}{ccccc}
-                \toprule
-                \textbf{Exposure Time (\SI{}{\micro\second})} & \textbf{Gain} & \textbf{Repetitions} & \textbf{Quadrant/Name} & \textbf{Coordinate (mm, mm)} \\
-                \midrule
-                \multirow{4}{*}{150} & \multirow{4}{*}{0} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{2} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-                
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{4} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{6} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{8} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{10} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{20} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-                
-                \midrule
-
-                \multirow{4}{*}{150} & \multirow{4}{*}{30} & 40 & 1st (\textsf{TopRight}) & (0.3, 0.3) \\
-                & & 40 & 2nd (\textsf{TopLeft}) & (-0.3, 0.3) \\
-                & & 40 & 3rd (\textsf{BottomLeft}) & (-0.3, -0.3) \\
-                & & 40 & 4th (\textsf{BottomRight}) & (0.3, -0.3) \\
-                \bottomrule
-            \end{tabular}
-            }
-            \caption{Experimental plan for data collection for exposure time of \SI{150}{\micro\second}.}
-            \label{table:exp_plan_gain}
-        \end{table}
+            \begin{table}[ht]
+                \centering
+                \footnotesize
+                \begin{tabular}{ccccccc}
+                    \toprule
+                    \textbf{Exposure} & \textbf{Gain} & \textbf{Speed of} & \textbf{Laser Spot} & \textbf{Quadrant} & \textbf{Coordinate} & \textbf{Number of} \\
+                    \textbf{Time (\(\textbf{\bm{\mu}}\)s)} & & \textbf{Hexapod (mm/s)} & \textbf{Diameter (mm)} & & \textbf{(mm, mm)} & \textbf{frames} \\
+                    \midrule
+                    \multirow{6}{*}{150} & \multirow{6}{*}{0} & \multirow{6}{*}{1} & 1 & \textsf{TopRight} & (0.3, 0.3) & 66 \\
+                     & & & 2 & \textsf{TopRight} & (0.3, 0.3) & 73 \\
+                     & & & 3 & \textsf{TopRight} & (0.3, 0.3) & 65 \\
+                     & & & 5 & \textsf{TopRight} & (0.3, 0.3) & 67 \\
+                     & & & 7 & \textsf{TopRight} & (0.3, 0.3) & 72 \\
+                     & & & 9 & \textsf{TopRight} & (0.3, 0.3) & 68 \\
+                    \bottomrule
+                \end{tabular}
+                \caption{Experimental plan for data collection for different laser spot diameters.}
+                \label{table:exp_plan_laser_dia}
+            \end{table}
     
         % Keeping the testing goals in mind, for each pair of exposure time and gain values of the camera, the hexapod was moved to each of the quadrants 40 times to the specified coordinate, and simultaneously images were captured for each movement of the hexapod (See Fig. \ref{fig:testing.png}). The movement of hexapod to the specified coordinate is named according to the following:
 
