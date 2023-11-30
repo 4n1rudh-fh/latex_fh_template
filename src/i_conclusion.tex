@@ -1,31 +1,17 @@
 \chapter{Conclusion}
+    To conclude, this research aimed at choosing \gls{mig} as a \gls{lsp} quality parameter, and its efficacy was tested to verify position measurement using template matching with 2D-\gls{ncc}. Experimental parameters such as exposure time, gain and laser spot diameter were changed, and their clear effect on appearance of \gls{lsp} and \gls{mig} were observed. Based on the conducted tests, there is a correlation between \gls{mig} values and accuracy of position measurement. However \gls{mig} is an incomplete parameter, because the nature of formation of \gls{lsp} is dependent on multiple factors, and it only considers gray level values of the \gls{lsp}, ignoring the other factors such as speckle size and density which have an effect on the accuracy. Therefore, further research is necessary into other speckle quality parameters to address these shortcomings. This research provides a new insight into practical application of a widely used image quality criteria in predicting accuracy of position measurement using \gls{lsp} images, whereas the current state-of-the-art primarily focussed on artificial speckle patterns and numerical deformation of speckle pattern images.
 
-\section*{Project Findings}
+% To conclude, \gls{lsp} analysis using \gls{ncc} algorithm seems a promising alternative to measure relative position change. For small distances, such as the ones used in this project, the positional errors in XY plane have an absolute magnitude of less than \SI{10}{\micro\meter}. It is also to be noted that, camera and setup parameters have an end-effect on appearance of \gls{lsp}. Hence, an image quality parameter becomes a necessity, because the experimental variables are subject to change depending on the requirements. For this project, the chosen \gls{lsp} quality criteria - \gls{mig} - shows that reliable positional accuracy is possible for small distances, regardless of value of gain and exposure time of the camera, provided it's value lies between $\sim66$ and $\sim409$. Additionally, camera's orientation with respect to hexapod surface and laser diameter also plays a significant role in accuracy of position measurement. 
 
-To conclude, \gls{lsp} analysis using \gls{ncc} algorithm seems a promising alternative to measure relative position change. For small distances, such as the ones used in this project, the positional errors in XY plane have an absolute magnitude of less than \SI{10}{\micro\meter}. It is also to be noted that, camera and setup parameters have an end-effect on appearance of \gls{lsp}. Hence, an image quality parameter becomes a necessity, because the experimental variables are subject to change depending on the requirements. For this project, the chosen \gls{lsp} quality criteria - \gls{mig} - shows that reliable positional accuracy is possible for small distances, regardless of value of gain and exposure time of the camera, provided it's value lies between $\sim66$ and $\sim409$. Additionally, camera's orientation with respect to hexapod surface and laser diameter also plays a significant role in accuracy of position measurement. 
+% \vspace{5mm}
+% \noindent Currently the makeup of error $e_{total}$ based on the observations can be summarized in Eqn. \ref{eqn:makeup_error} where:
 
-\vspace{5mm}
-\noindent Currently the makeup of error $e_{total}$ based on the observations can be summarized in Eqn. \ref{eqn:makeup_error} where:
-
-\begin{itemize}
-    \item $e_{pixel\ locking}$ is the error due to pixel locking and vibrational effects explained in Section \ref{section:results_discussion_calib}. 
-    \item $e_{calibration\ matrix}$ is the error introduced in position calculation due to calibration errors because of pixel locking and vibration.
-    \item $e_{hexapod}$ is the repeatability error in position of hexapod. This amounts to 0.1667\% \cite{hexapod_manual}.
-\end{itemize}
-\begin{equation}
-    e_{total} \approx f(e_{pixel\ locking}, e_{calibration\ matrix}, e_{hexapod})
-    \label{eqn:makeup_error}
-\end{equation}
-
-\section*{Limitations and Future Scope}  
-
-\begin{itemize}
-    \item \gls{mig} fails to take speckle size into account. Other than that, the range determined for \gls{mig} is subject to change due to environmental factors, for example temperature of camera. Hence, an accurate assessment of \gls{mig} range is not performed. The assumption here is, that for most reliable measurements, attempt should be made for highest possible \gls{mig} value. Other kinds of image quality parameters remain to be tested as well. 
-    \item The position error analysis is only done for the planar XY movements. But, in a real sceanrio using a robot, there will also be vibrations in Z-Axis. Due to time constraints, no experiments are performed to test this.
-    \item The calibration process is in itself affected by pixel-locking and vibrations. These inaccuracies make their way into the final position calculation. Therefore, a cumulative effect of error is happening, as the actual testing is also marred by these issues. Better signal processing methods need to be researched, so that errors from the calibration error can be minimized. Sub-Pixel interpolation schemes such as 3 point guassian interpolation and high order interpolation scheme is highly recommended by Schreier et. al. \cite{schreier} and Knauss et. al. \cite{knauss} as they provide improved convergence than the simple interpolation schemes do (From Paper by \cite{pan}).
-    \item To obtain sub-pixel accuracy it involves two steps: accurate initial guess of displacement and then sub-pixel interpolation methods to improve accuracy.
-    \item The disadvantage of NCC is outlined in the paper by Pan et. al. \cite{pan}.
-    \item Due to nature of \gls{ncc} algorithm, it is not possible to test \gls{lsp} for rotation. Due to time constraints, other approaches which take rotation of \gls{roi} template into account are not tested.
-    \item The position error analysis is only done on small distances. For longer distances, template resetting becomes necessary. It involves resetting the \gls{roi} used for template matching. This approach will allow looking into a possible issue of error accumulation during longer translations.
-    \item Velocity verification is also not performed due to time constraints. Other than that, the project findings are collected using a hexapod, which has a maximum velocity of \SI{1}{\milli\meter/\second}. The opportunity to test relative position and velocity using \gls{lsp} captured with higher velocity hexapod still remains a possibility.
-\end{itemize}
+% \begin{itemize}
+%     \item $e_{pixel\ locking}$ is the error due to pixel locking and vibrational effects explained in Section \ref{section:results_discussion_calib}. 
+%     \item $e_{calibration\ matrix}$ is the error introduced in position calculation due to calibration errors because of pixel locking and vibration.
+%     \item $e_{hexapod}$ is the repeatability error in position of hexapod. This amounts to 0.1667\% \cite{hexapod_manual}.
+% \end{itemize}
+% \begin{equation}
+%     e_{total} \approx f(e_{pixel\ locking}, e_{calibration\ matrix}, e_{hexapod})
+%     \label{eqn:makeup_error}
+% \end{equation}

@@ -16,10 +16,7 @@
 % \end{equation}
 
 \section{Effect of Calibration Matrix} \label{section:results_discussion_calib}
-    The calibration along X- and Y-axis was done 40 times each, by moving the hexapod to coordinates $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and $(\SI{0}{\milli\meter}, \SI{0.1}{\milli\meter})$ respectively. During the displacement measurement using \gls{ncc}, pixel locking\cite{raffel} effects were observed for calibrations along both X- and Y-axis. 
-    
-    \vspace{5mm}
-    \noindent For hexapod motion to coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ for X-axis calibration, $A_{xx}$ fluctuated between -26 to -25 pixel units and $A_{yx}$ between 0 to 1 pixel units. For hexapod motion to coordinate $(\SI{0}{\milli\meter}, \SI{0.1}{\milli\meter})$ for Y-axis calibration, $A_{xy}$ fluctuated between 0 to 1 pixel units and $A_{yy}$ between 25, 26, and 27 pixel units (See Table \ref{table:freq_table_calib_xy}). For one of those experiments, these fluctuation effects are plotted under \textsf{Standstill} in Fig. \ref{fig:vibration_calib_x.png} and \ref{fig:vibration_calib_y.png}. Values of calibration matrix $T$ are dependent on these pixel displacements according to the Eqn. \ref{eqn:calib_matrix_param}. As a result $T$ can be different depending on chosen pixel displacement values.
+    During the displacement measurement using \gls{ncc}, pixel locking\cite{raffel} effects were observed for calibrations along both X- and Y-axis. For hexapod motion to coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ for X-axis calibration, $A_{xx}$ fluctuated between -26 to -25 pixel units and $A_{yx}$ between 0 to 1 pixel units. For hexapod motion to coordinate $(\SI{0}{\milli\meter}, \SI{0.1}{\milli\meter})$ for Y-axis calibration, $A_{xy}$ fluctuated between 0 to 1 pixel units and $A_{yy}$ between 25, 26, and 27 pixel units (See Table \ref{table:freq_table_calib_xy}). For one of those experiments, these fluctuation effects are plotted under \textsf{Standstill} in Fig. \ref{fig:vibration_calib_x.png} and \ref{fig:vibration_calib_y.png}. Values of calibration matrix $T$ are dependent on these pixel displacements according to the Eqn. \ref{eqn:calib_matrix_param}. As a result $T$ can be different depending on chosen pixel displacement values.
 
     % As explained in Section \ref{subsection:calib_matrix}, the calibration matrix has 4 elements: $T_{xx}$, $T_{yx}$, $T_{xy}$, $T_{yy}$. These parameters have a direct relationship with pixel shift variables $A_{xx}$, $A_{yx}$, $A_{xy}$, $A_{yy}$, as detailed in Eqn. \ref{eqn:calib_matrix_param}. Inside the Fig. \ref{fig:vibration_calib_x.png}, after hexapod has moved to the coordinate $(\SI{0.1}{\milli\meter}, \SI{0}{\milli\meter})$ and is in \textsf{Standstill} mode, the value of $A_{xx}$ fluctuates within the range of -26 to -25, and that of $A_{yx}$ alternates between 0 and 1. These variations are also visualized in Figure \ref{fig:vibration_calib_y.png}, where the Y-axis calibration reveals that, $A_{xy}$ and $A_{yy}$ oscillate between 0 to 1 and 26 to 27, respectively. These fluctuations can be attributed to a combination of pixel-locking and vibration effects.
 
@@ -41,7 +38,7 @@
         \label{fig:vibration}
     \end{figure}
 
-    \noindent To investigate the effect of a calibration matrix on final measurements, 5 different calibration matrices were chosen. The matrices from $T_1$ to $T_4$ contain different values of $A_{xx}$, $A_{yx}$ and $A_{xy}$ with the exception of $A_{yy}$ which was not changed as it occurred in 90\% of the measurements. The $T5$ matrix was made by averaging the pixel displacements across the 40 experiments, as seen in Table \ref{table:mean_pixel_displacements}.
+    \noindent The matrices from $T_1$ to $T_4$ contain different values of $A_{xx}$, $A_{yx}$ and $A_{xy}$ with the exception of $A_{yy}$ which was not changed as it occurred in 90\% of the measurements. The $T5$ matrix was made by averaging the pixel displacements across the 40 experiments, as seen in Table \ref{table:mean_pixel_displacements}. This is performed to investigate the effect of a calibration matrix on final measurements. 
 
     \begin{equation}
         T &=
@@ -625,7 +622,7 @@
 \clearpage
 
 \section{Effect of Exposure Time} \label{section:effect_of_exp_time}
-    Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_exposure_time}, the mean errors in position and standard deviation of error for different exposure times are plotted in Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} respectively. Example images of the dataset is shown in Fig. \ref{fig:example_images_exposure_time}. It can be clearly observed that as exposure time increases, the contrast of the images increases, until it decreases again because of overexposure. This is also demonstrated by the \gls{mig} values, which increase as exposure times increase from \SI{20}{\micro\second} to \SI{150}{\micro\second} followed by decline in range of \SI{320}{\micro\second} to \SI{3000}{\micro\second}. 
+    Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_exposure_time}, the mean errors in position and standard deviation of error for different exposure times are plotted in Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} respectively. The example images of the dataset as shown in Fig. \ref{fig:example_images_exposure_time} (Appendix). This is also demonstrated by the \gls{mig} values, which increase as exposure times increase from \SI{20}{\micro\second} to \SI{150}{\micro\second} followed by decline in range of \SI{320}{\micro\second} to \SI{3000}{\micro\second}. 
 
     \begin{figure}[ht]
         \centering
@@ -660,7 +657,7 @@
     \end{figure}
 
     \vspace{5mm}
-    \noindent It can be seen from the Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} that, for images captured with exposure time of \SI{3000}{\micro\second}, there is an increase in magnitude of mean error and standard deviation in comparison to the other exposure times. The minimum values of mean errors observed for \gls{lsp} tests conducted with exposure time of \SI{3000}{\micro\second} were \SI{0.148}{\milli\meter} for X-axis and \SI{0.074}{\milli\meter} for Y-axis, with standard deviation of \SI{0.2}{\milli\meter} and \SI{0.223}{\milli\meter} respectively. Taking rest of the exposure times into account, maximum mean errors observed for X- and Y-axis are, \SI{8}{\micro\meter} and \SI{5}{\micro\meter} with standard deviation of \SI{2}{\micro\meter} for both axis respectively. 
+    \noindent It can be seen from the Fig. \ref{fig:mean_error_exposure_time} and \ref{fig:stddev_error_exposure_time} that, for images captured with exposure time of \SI{3000}{\micro\second}, there is an increase in magnitude of mean error and standard deviation in comparison to the other exposure times. The largest magnitude of mean errors observed for \gls{lsp} tests conducted with exposure time of \SI{3000}{\micro\second} were \SI{0.455}{\milli\meter} for X-axis and \SI{0.649}{\milli\meter} for Y-axis, with standard deviation of \SI{0.204}{\milli\meter} and \SI{0.275}{\milli\meter} respectively. Taking rest of the exposure times into account, maximum mean errors observed for X- and Y-axis are, \SI{8}{\micro\meter} and \SI{5}{\micro\meter} with standard deviation of \SI{2}{\micro\meter} for both axis respectively. 
 
     \begin{figure}[ht]
         \centering
@@ -697,7 +694,7 @@
 \clearpage
 
 \subsection*{Gain}
-    Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_gain}, the mean errors in position and standard deviation of error for different gan values is plotted in Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}. Example images of dataset are given in Fig. \ref{fig:example_images_gain}. The \gls{mig} value increases slightly with increase in gain values from 0 to 4, and show a declining trend for gain values in range of 6 to 30.  
+    Using $T_{Avg}$ as the calibration matrix, and the \gls{lsp} dataset collected from Table \ref{table:exp_plan_gain}, the mean errors in position and standard deviation of error for different gain values is plotted in Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}. The example images of dataset are given in Fig. \ref{fig:example_images_gain} (Appendix). The \gls{mig} value increases slightly with increase in gain values from 0 to 4, and show a declining trend for gain values in range of 6 to 30.  
 
     % \begin{figure}[h]
     %     \centering
@@ -738,7 +735,7 @@
         \label{fig:mean_error_gain}
     \end{figure}
 
-    \noindent It can be seen from Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}, that mean error and standard deviation of error increases for gain value of 30 as compared to other values. The minimum magnitude of mean errors observed for gain of 30 were \SI{0.044}{\milli\meter} for X-axis and \SI{0.158}{\milli\meter} for Y-axis, with standard deviation \SI{0.482}{\milli\meter} and \SI{0.521}{\milli\meter} respectively. The maximum magnitude of mean errors observed for gain of 20 were \SI{38}{\micro\meter} for X-axis and \SI{0.397}{\milli\meter} for Y-axis, with standard deviation \SI{76}{\micro\meter} and \SI{0.355}{\milli\meter} respectively. For rest of the gain values, maximum magnitude of mean errors were \SI{5}{\micro\meter} for both X- and Y-axis, with standard deviation \SI{1}{\micro\meter} and \SI{2}{\micro\meter} respectively.
+    \noindent It can be seen from Fig. \ref{fig:mean_error_gain} and \ref{fig:stddev_error_gain}, that mean error and standard deviation of error increases for gain value of 30 as compared to other values. The maximum magnitude of mean errors observed for gain of 30 were \SI{1.102}{\milli\meter} for X-axis and \SI{0.824}{\milli\meter} for Y-axis, with standard deviation \SI{0.575}{\milli\meter} and \SI{0.550}{\milli\meter} respectively. The maximum magnitude of mean errors observed for gain of 20 were \SI{38}{\micro\meter} for X-axis and \SI{0.397}{\milli\meter} for Y-axis, with standard deviation \SI{76}{\micro\meter} and \SI{0.355}{\milli\meter} respectively. For rest of the gain values, maximum magnitude of mean errors were \SI{5}{\micro\meter} for both X- and Y-axis, with standard deviation \SI{1}{\micro\meter} and \SI{2}{\micro\meter} respectively.
 
     \clearpage
 
@@ -776,28 +773,7 @@
 
 \section{Effect of Laser Spot Diameter}\label{section:laser_spot_dia}
 
-    Based on the experimental plan laid out in Table \ref{table:exp_plan_laser_dia}, \gls{ncc} analysis was performed for \gls{lsp} images collected for different laser spot diameters with calbration matrix $T_{Avg}$. The objective of this test was, to investigate effects of laser spot diameter on position measurement accuracy. For laser spot diameters of \SI{1}{\milli\meter} and \SI{2}{\milli\meter} the confidence scores drop below < 80\%, while for diameter values \SI{5}{\milli\meter}, \SI{7}{\milli\meter}, and \SI{9}{\milli\meter} the confidence scores at end of hexapod motion were above 90\% (See Fig. \ref{subfig:laser_spot_dia/confidence.png}). In Fig. \ref{fig:position_tracking} the position measurement of hexapod motion is verified. It is clear that, for laser diameter of \SI{1}{\milli\meter} and \SI{2}{\milli\meter}, the template tracking went amiss as compared to laser diameters. Fig. \ref{subfig:laser_spot_dia/mig_laser_spot.png}, shows \gls{mig} values for frames captured for different laser spot diameters. The example images can be found in Fig. \ref{fig:laser_spot_dia_example_images}
-
-    \begin{figure}[ht]
-        \centering
-        \begin{subfigure}[b]{0.65\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/decorrelation.png}
-            \caption{Position tracking for \gls{lsp} images.}
-            \label{subfig:laser_spot_dia/decorrelation.png}
-        \end{subfigure}
-        
-        \vspace{3mm}
-        
-        \begin{subfigure}[b]{0.65\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/decorrelation_2.png}
-            \caption{Position tracking with changed scales.}
-            \label{subfig:laser_spot_dia/decorrelation_2.png}
-        \end{subfigure}
-        \caption{Position tracking for \gls{lsp} images for different laser spot diameters.}
-        \label{fig:position_tracking}
-    \end{figure}
+    Based on the experimental plan laid out in Table \ref{table:exp_plan_laser_dia}, \gls{ncc} analysis was performed for \gls{lsp} images collected for different laser spot diameters with calibration matrix $T_{Avg}$. The objective of this test was, to investigate effects of laser spot diameter on position measurement accuracy. For laser spot diameters of \SI{1}{\milli\meter} and \SI{2}{\milli\meter} the confidence scores drop below < 80\%, while for diameter values \SI{5}{\milli\meter}, \SI{7}{\milli\meter}, and \SI{9}{\milli\meter} the confidence scores at end of hexapod motion were above 90\% (See Fig. \ref{subfig:laser_spot_dia/confidence.png}). Fig. \ref{subfig:laser_spot_dia/mig_laser_spot.png}, shows \gls{mig} values for frames captured for different laser spot diameters. In Fig. \ref{fig:position_tracking} the position measurement of hexapod motion is verified, and it can be seen that for laser diameter of \SI{1}{\milli\meter} and \SI{2}{\milli\meter}, the template tracking is less accurate as compared to laser diameters. The example images in Fig. \ref{fig:laser_spot_dia_example_images} show that speckle size decreases and speckle density increases with increase in laser spot diameter.
 
     \begin{figure}[ht]
         \centering
@@ -818,6 +794,27 @@
         \end{subfigure} 
         \caption{Confidence scores and \gls{mig} for \gls{lsp} images collected for different laser spot diameters.}
         \label{fig:laser_spot_dia_results}
+    \end{figure}
+    
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}[b]{0.65\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/decorrelation.png}
+            \caption{Position tracking for \gls{lsp} images.}
+            \label{subfig:laser_spot_dia/decorrelation.png}
+        \end{subfigure}
+        
+        \vspace{3mm}
+        
+        \begin{subfigure}[b]{0.65\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/g_results/laser_spot_dia/decorrelation_2.png}
+            \caption{Position tracking with changed scales.}
+            \label{subfig:laser_spot_dia/decorrelation_2.png}
+        \end{subfigure}
+        \caption{Position tracking for \gls{lsp} images for different laser spot diameters.}
+        \label{fig:position_tracking}
     \end{figure}
 
 

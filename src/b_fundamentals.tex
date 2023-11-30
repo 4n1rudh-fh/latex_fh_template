@@ -1,33 +1,16 @@
 \chapter{Fundamentals}\label{chap:fundamentals}
+    This chapter introduces concepts related to \gls{lsi}. Firstly, it explains laser speckle formation (See Section \ref{section:laser_speckle_formation}). Secondly, the concept of template matching is covered (See Section \ref{section:template_matching}), which is then used for relative displacement measurement introduced in Section \ref{section:relative_displacement_measurement}. Additionally, the camera technology is discussed in Section \ref{section:camera_technology} in accordance with \gls{emva} 1288 Standard. Lastly, different quality criteria algorithms are covered in Section \ref{section:quality_lsp}. 
 
-    \section{Camera Technology}
 
-    The \glsfirst{emva} developed a \gls{emva} 1288 Standard which helps define reliable measurement guidelines, specification parameters and characterization data that allows for easier comparison of cameras and image sensors, when choosing a suitable one for a machine vision task. This standard enables the users to evaluate the key performance parameters of digital cameras. The standard includes two categories of measurements: \emph{mandatory} and \emph{optional}. For a camera to be \gls{emva} 1288 compliant, the \emph{mandatory} measurements must be mentioned in the datasheet. Some of the important performance parameters covered by \gls{emva} 1288 include:
-    \begin{itemize}
-        \item Sensitivity: Ability of camera to produce signal in low-light conditions. It is denoted by quantum efficiency, which is the camera's capability to convert incident photons into electrical signal. Higher quantum efficiency means the camera can effectively capture photons in low-light conditions. 
-        \item \gls{dr}: Range between highest and lowest light levels that a camera can capture. Indicates camera's capacity to capture varying light conditions.
-        \item \gls{snr}: Higher \gls{snr} indicates camera's capability to capture better image quality while reducing impact of noise.
-        \item Temporal Dark Noise: Noise produced by the camera when there is no incident light.
-        \item Temporal Readout Noise: Noise produced when reading the signal from sensor.
-        \item Temporal Fixed Pattern Noise: Fixed noise that persists over multiple frames. 
-        \item Pixel Non-Uniformity: This assesses the variation in sensitivity among pixels.
-        \item \gls{dsnu}: This is the difference in dark signal levels among pixels.
-        \item Saturation Capacity: Maximum signal level that can be handled by the pixel or whole image sensor.
-        \item Linearity: This indicates the camera's response to change in incident light.
-    \end{itemize}   
-
-    \vspace{5mm}
-    \nonindent The list of all parameters for the \gls{emva} 1288 parameters can be found in Table \ref{table:emva_table}.
-
-    \section{Laser Speckle Formation}
+    \section{Laser Speckle Formation}\label{section:laser_speckle_formation}
 
     Most surfaces are rough on a scale of wavelength of light (with exception of mirrors), and when laser is incident on those surfaces, it is scattered in many different directions because of those surface irregularities (See Fig. \ref{fig:diffuse_reflection}) \cite{wang_2000}. If the surface with incident laser is being imaged, these waves travel in different directions and different distances to reach the image sensor. Speckles are formed on the image sensor plane, when these waves undergo constructive or destructive interference \cite{dhanasekar, goodman_book, briers}. A constructive and a destructive interference results in a bright and dark spot respectively, thus forming the \gls{lsp} as shown in Fig. \ref{subfig:laser_speckle_view_2.jpg}. A typical \gls{lsp} captured using a monochrome camera will look similar to as shown in Fig. \ref{fig:laser_speckle.png}.
     
     % For e.g. in Fig. \ref{fig:green_laser}, with paper having a higher roughness than a polished hard drive surface, it undergoes diffuse reflection when laser is incident on it.
 
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.6\textwidth]{images/b_fundamentals/diffuse_reflection.png}
+        \includegraphics[width=0.45\textwidth]{images/b_fundamentals/diffuse_reflection.png}
         \caption{Laser beam scattered from a rough surface. \cite{wang_2000} (Adapted from Wang et. al. 2000)}
         \label{fig:diffuse_reflection}
     \end{figure}
@@ -66,9 +49,9 @@
         \label{fig:img_leon}
     \end{figure}
     
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.5\textwidth]{images/b_fundamentals/laser_speckle.png}
+        \includegraphics[width=0.4\textwidth]{images/b_fundamentals/laser_speckle.png}
         \caption{A typical laser speckle pattern.}
         \label{fig:laser_speckle.png}
     \end{figure}
@@ -109,9 +92,9 @@
 
 
     \section{Template Matching}\label{section:template_matching}
-    Template matching is a technique employed to track a template or sub-image within a larger image. By sliding the template over the image, a similarity score is calculated at each pixel location of the latter. For the purpose of template matching, correlation is often used as a criteria to measure this similarity. Pan et. al reviewed different correlation techniques used in \gls{dic} for speckle patterns and categorized them into two groups: \gls{cc} and \glsfirst{ssd} correlation criteria \cite{pan_review}. They are listed below in Table \ref{table:pan_table_cc} and \ref{table:pan_table_ssd}. The authors also stated that \glsentryshort{zncc} criterion is related to \glsentryshort{znssd} criterion, and its derivation is outlined in Ref. \cite{pan_derivation}. Similarly, the \glsentryshort{ncc} criterion can be derived from \glsentryshort{nssd} criterion as \( C_{NSSD}(p) = 2[1 - C_{NCC}(p)] \) \cite{pan_review}.
+    Template matching is a technique employed to track a template or sub-image within a larger image over time. By sliding the template over the image, a similarity score is calculated at each pixel location of the latter. For the purpose of template matching, correlation is often used as a criteria to measure this similarity. Pan et al. reviewed different correlation techniques used in \gls{dic} for speckle patterns and categorized them into two groups: \gls{cc} and \glsfirst{ssd} correlation criteria \cite{pan_review}. They are listed below in Table \ref{table:pan_table_cc} and \ref{table:pan_table_ssd}.
 
-    \begin{table}[h]
+    \begin{table}[ht]
         \centering
         \footnotesize
         \renewcommand{\arraystretch}{1.2}
@@ -132,7 +115,7 @@
     
             \bottomrule
         \end{tabular}
-        \caption{Commonly used cross-correlation criteria (Adapted from Pan et. al. 2009) \cite{pan_review}.}
+        \caption{Commonly used cross-correlation criteria (Adapted from Pan et al. 2009) \cite{pan_review}.}
         \label{table:pan_table_cc}
     \end{table}
     
@@ -157,7 +140,7 @@
     
             \bottomrule
         \end{tabular}
-        \caption{Commonly used \gls{ssd} correlation criteria (Adapted from Pan et. al. 2009) \cite{pan_review}.}
+        \caption{Commonly used \gls{ssd} correlation criteria (Adapted from Pan et al. 2009) \cite{pan_review}.}
         \label{table:pan_table_ssd}
     \end{table}
     
@@ -185,15 +168,17 @@
 
     \begin{equation}
         \Delta g = \sqrt{\sum_{i=-M}^{M} \sum_{j=-M}^{M} [g(x_{i}^{'}, y_{j}^{'}) - g_m]^2}
-    \end{equation}
-        
-    \vspace{5mm}
-    \noindent $f_m$ is the mean of $f(x_i, y_j)$ under the region of template and $g_m$ is the mean of the template. The \glsentryshort{znssd} and \glsentryshort{zncc} correlation criteria give the best noise proof performance and are insensitive to offset of lighting and change in illumination. \gls{ncc} and \glsentryshort{nssd} are insensitive to change in illumination conditions but sensitive to offset of lighting. Conversely, both \gls{cc} and \gls{ssd} are sensitive to all lighting variations \cite{lewis, pan_review}. Lewis, in his work \cite{lewis}, derives the \gls{ncc} formula, akin to the one presented by Pan et al. in their review paper \cite{pan_review}, where it is referred to as \glsentryshort{zncc}.
+    \end{equation} 
+    
+
+    \noindent $f_m$ is the mean of $f(x_i, y_j)$ within the template region and $g_m$ is the mean of the template. The authors also stated that \glsentryshort{zncc} criterion is related to \glsentryshort{znssd} criterion, and its derivation is outlined in Ref. \cite{pan_derivation}. Similarly, the \glsentryshort{ncc} criterion can be derived from \glsentryshort{nssd} criterion as \( C_{NSSD}(p) = 2[1 - C_{NCC}(p)] \) \cite{pan_review}. The \glsentryshort{znssd} and \glsentryshort{zncc} correlation criteria give the best noise proof performance and are insensitive to offset of lighting and change in illumination. \gls{ncc} and \glsentryshort{nssd} are insensitive to change in illumination conditions but sensitive to offset of lighting. Conversely, both \gls{cc} and \gls{ssd} are sensitive to all lighting variations \cite{lewis, pan_review}. Lewis, in his work \cite{lewis}, derives the \gls{ncc} formula, akin to the one presented by Pan et al. in their review paper \cite{pan_review}, where it is referred to as \glsentryshort{zncc}.
 
     \vspace{5mm}
     \noindent In Fig. \ref{fig:ncc_example}, the template (Fig. \ref{subfig:template.jpg}) is being compared with the image (Fig. \ref{subfig:card.jpg}) that contains this pattern. The process of template matching is performed by comparing each of the pixel values inside the template to the underlying image, using a technique called \emph{squared euclidean distance}. Here, the difference in pixel values for each pixel location between template and the underlying area in the image is squared and added together. The basic idea is, that if this sum has a low value, that is the probable location of template inside the image. Inside Fig. \ref{fig:corr_cmap.png}, the \gls{ncc} match is shown as the bright spot at the location where center of the template matches with the underlying image. The colorbar maps these correlation values such that darkest points inside this figure corresponds to no match and brightest point to the correlation peak.
 
-    \begin{figure}[h]
+    \clearpage
+    
+    \begin{figure}[ht]
         \begin{subfigure}{0.3\textwidth}
             \centering
             \includegraphics[width=0.8\textwidth]{images/b_fundamentals/card.jpeg}
@@ -223,4 +208,296 @@
     %     \label{fig:corr_plot.png}
     % \end{figure}
 
+    
+    \section{Relative displacement measurement in \glsfirst{lsi}}\label{section:relative_displacement_measurement}
+        Using template matching concept explained earlier, the displacement measurement calculation is outlined in Fig. \ref{fig:sensor_concept.png}. Here, a small region at the center of the reference \gls{lsp} image is tracked in subsequent frames during translation of robot end-effector with respect to surface. Wherever the template is found, it is indicated by a peak in correlation value. The resulting displacement of the tracked template from its initial position provides relative displacement information. 
+        
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.4\textwidth]{images/b_fundamentals/sensor_concept.png}
+            \caption{Sensor concept. In (a) \gls{lsi} setup captures images for relative movement between robot \gls{tcp} and workpiece surface. In (b) 2D-\gls{ncc} between reference and current image gives the correlation peak indicating the occurred translation (Adapted from Charrett et al. 2018 \cite{charrett_2018}).}
+            \label{fig:sensor_concept.png}
+        \end{figure}
+
+    
+    \section{Camera Technology}\label{section:camera_technology}
+        The \glsfirst{emva} developed a \gls{emva} 1288 Standard which helps define reliable measurement guidelines, specification parameters and characterization data that allows for easier comparison of cameras and image sensors, when choosing a suitable one for a machine vision task. This standard enables the users to evaluate the key performance parameters of digital cameras. The standard includes two categories of measurements: \emph{mandatory} and \emph{optional}. For a camera to be \gls{emva} 1288 compliant, the \emph{mandatory} measurements must be mentioned in the datasheet. Some of the important performance parameters covered by \gls{emva} 1288 include:
+    \begin{itemize}
+        \item Sensitivity: Ability of camera to produce signal in low-light conditions. It is denoted by quantum efficiency, which is the camera's capability to convert incident photons into electrical signal. Higher quantum efficiency means the camera can effectively capture photons in low-light conditions. 
+        \item \gls{dr}: Range between highest and lowest light levels that a camera can capture. Indicates camera's capacity to capture varying light conditions.
+        \item \gls{snr}: Higher \gls{snr} indicates camera's capability to capture better image quality while reducing impact of noise.
+        \item Temporal Dark Noise: Noise produced by the camera when there is no incident light.
+        \item Temporal Readout Noise: Noise produced when reading the signal from sensor.
+        \item Temporal Fixed Pattern Noise: Fixed noise that persists over multiple frames. 
+        \item Pixel Non-Uniformity: This assesses the variation in sensitivity among pixels.
+        \item \gls{dsnu}: This is the difference in dark signal levels among pixels.
+        \item Saturation Capacity: Maximum signal level that can be handled by the pixel or whole image sensor.
+        \item Linearity: This indicates the camera's response to change in incident light.
+    \end{itemize}   
+
+    \vspace{5mm}
+    \noindent The list of all parameters for the \gls{emva} 1288 parameters can be found in Table \ref{table:emva_table}.
+
+    \clearpage
+
+    \section{Fundamentals of quality criteria for speckle patterns} \label{section:quality_lsp}
+        Referring to the findings illustrated in Fig. \ref{fig:image_quality_criteria.jpeg}, this sections explains the fundamentals of different quality criteria collected from the literature survey. It presents and explains local image quality criteria, followed by global criteria, and lastly criteria that are neither local or global.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.6\textwidth]{images/c_sota/image_quality_criteria.jpeg}
+            \caption{Overview of quality criteria covered in literature survey.}
+            \label{fig:image_quality_criteria.jpeg}
+        \end{figure}
+
+    \subsection{Local image Quality Criteria}
+
+    \subsubsection{\glsfirst{sssig}}\label{subsubsection:sssig}
+        Pan et al. outlined an image quality criteria called \gls{sssig} \cite{pan_subset}. To define a subset, if an image is divided into $n$ equal sized sub-images, then each of these sub-images can be called as a subset. In their study they derive a theoretical model that is based on correlation criteria \gls{ssd} (See Section \ref{section:template_matching}) that can accurately predict accuracy of displacement measurement based on the value of \glsentryshort{sssig}.
+
+        \begin{equation}
+            \glsentryshort{sssig} = \displaystyle \sum_{i=1}^N \displaystyle \sum_{j=1}^N [f_{x,y(x_{ij})}]^2
+        \end{equation}
+
+        \noindent where, 
+        \begin{itemize}
+            \item $f_{x,y}$ is image intensity gradient
+            \item $N \times N$ denotes image size
+        \end{itemize}
+
+    \subsubsection{Subset Entropy}
+        Yaofeng et al. introduced a local quality parameter known as \emph{subset entropy} (\delta) \cite{yaofeng}. Here, the subset is defined as 8 neighboring pixels around the pixel of interest. The motivation for this study by the authors is to define this local parameter that can evaluate the effect of this image quality of each subset on accuracy of measured displacement.
+
+        \begin{equation}
+            \delta = \dfrac{\sum_{P \in S} \sum_{i=1}^{8}|I_P - I_i|}{2^\beta MN}
+        \end{equation}
+
+        where,
+        \begin{itemize} 
+            \item $\delta$ denotes subset entropy
+            \item $P$ is a pixel point inside subset $S$
+            \item Subset $S$ dimensions are $3\times 3$
+            \item Image dimensions are $M \times N$
+            \item $I_P$ is intensity at point $P$
+            \item $I_i$ is intensity at one of the 8 pixel points neighboring point $P$
+            \item \beta\ is the pixel depth
+        \end{itemize}
+
+        % \subsubsection{\glsfirst{ass}}
+        %     Lecompte et al. investigated effects of subset size and speckle size on accuracy of measured displacements, using image morphology method to calculate speckle size. By repeated erosion and dilation procedures, thresholding method is used to identify a speckle. The authors concluded from the conducted experiments that, larger subsets with larger speckle sizes yielded more accurate results for measured displacements in comparison to small subsets with large speckles. However, this paper only demonstrated that there is dependence of speckle size and subset size on displacement measurement, but does not provide any method to obtain optimal speckle size or subset size \cite{lecompte}.
+
+            % \subsubsection{Image Filter Techniques}
+            % According to Charrett et al., using image filters such as binary threshold and prewitt kernels (See Fig. \ref{fig:charrett_mars_fig12}) lead to reliable velocity measurements \cite{charrett_mars}. 
+
+
+            % \begin{figure}[h] 
+            %     \centering
+            %     \includegraphics[width=0.55\textwidth]{images/c_sota/charrett_mars_fig12.png}
+            %     \caption{Typical speckle images: (a) no pre-filter, (b) Canny edge detection, (c) binary threshold, (d) Prewitt gradient filters. \cite{charrett_mars}}
+            %     \label{fig:charrett_mars_fig12}
+            % \end{figure}
+
+            % \clearpage
+
+            % \begin{figure}[h]
+            %     \centering
+            %     \includegraphics[width=0.7\textwidth]{images/c_sota/charrett_mars_fig13.png}
+            %     \caption{(a) The mean calculated v component of velocity and (b) the minimum correlation Q-value that occurred plotted against stage velocity using the \gls{ncc} method and different pre-filters. \cite{charrett_mars}}
+            %     \label{fig:charrett_mars_fig13}
+            % \end{figure}
+
+
+    \subsection{Global Image Quality Criteria}
+    
+    \subsubsection{\glsfirst{mig}}\label{subsubsection:mig}
+
+        Pan et al. introduced a global speckle quality parameter called \gls{mig} ($\delta_f$) in their study \cite{pan_mig}. 
+        
+        % The authors found that \gls{mig} has direct effect on mean bias error and standard deviation of error for measured displacements. The use of global quality parameter is justified by authors, because speckles inside an image are normally distributed. Therefore, the local parameters for different subsets have minimal differences.
+
+        \begin{equation}
+            \delta_f = \dfrac{\displaystyle \sum_{i=1}^{W} \displaystyle \sum_{j=1}^{H} |\nabla f(x_{ij})|}{(W \times H)}
+        \end{equation}
+
+        \noindent where,
+        \begin{itemize}
+            \item \(|\nabla f(x_{ij})| = \sqrt{f_x(x_{ij})^2 + f_y(x_{ij})^2}\) is the modulus of local intensity gradient
+            \item \( f_x(x_{ij}), f_y(x_{ij}) \) are first derivatives of intensity along X- and Y-axis respectively at a pixel point $x_{ij}$
+            \item $W$ and $H$ are the image width and height.
+        \end{itemize}
+    
+    \subsubsection{\glsfirst{miosd}}
+        Yu et al. described another global speckle quality parameter called \gls{miosd} ($\omega_f$) \cite{yu_miosd}.
+        % Yu et al. found that, measurement accuracy is dependent on both \gls{mig} and \gls{miosd}. According to the authors, high quality speckle patterns should have large \gls{mig} and lower \gls{miosd}. This quality parameter reflects the smoothness of gray surface of speckle patterns. Motivation of the authors behind needing this parameter is, that even speckle patterns with same \gls{mig} ($\delta_f$) can have different accuracies for measured displacements \cite{yu_miosd}. 
+
+        \begin{equation}
+            \omega_f = \dfrac{\displaystyle \sum_{i=1}^{W} \displaystyle \sum_{j=1}^{H} |\nabla^2 f(x_{ij})|}{(W \times H)} 
+        \end{equation}
+
+        \noindent where,
+        \begin{itemize}
+            \item \(|\nabla^2f(x_{ij})| = \sqrt{f_{xx}(x_{ij})^2 + f_{yy}(x_{ij})^2}\) is modulus of second derivative of local intensity and,
+            \item $f_{xx}(x_{ij})$ and $f_{yy}(x_{ij})$ are second derivatives of intensities in X- and Y-directions of a pixel $x_{ij}$. 
+        \end{itemize}
+
+        \noindent The second derivatives can be calculated as follows:
+
+        \begin{equation}
+            f_{xx}(x_{ij}) = f(i,j-1) - 2f(i,j) +f(i,j+1)
+        \end{equation}
+
+        \begin{equation}
+            f_{yy}(x_{ij}) = f(i-1,j) - 2f(i,j) + f(i+1,j)
+        \end{equation}
+
+        % \noindent As per the findings from experiments conducted by authors, the so called 'good' speckle pattern should have large \gls{mig} and small \gls{miosd}. If the speckle was smaller than 2 pixels, then the speckle pattern produced larger deviation in measured displacement, which correlated to a higher \gls{miosd} value. On the other hand, if speckle size was greater than 5 pixels, image had a small \gls{mig} and less spatial features for accurate displacement measurement \cite{yu_miosd}.
+
+    \subsubsection{\gls{msf}}
+        Hua et al. developed another speckle quality criteria called \gls{msf} ($S_f$) \cite{hua_msf}. Firstly a subset of 1 point and 8 neighboring points are selected (See Fig. \ref{fig:msf_subset.png}). Then, from this subset a local parameter $(S_p)$ is calculated using the Eqn. \ref{eqn:local_msf}. It compares the pixel gray value of each point with the mean gray value of the subset, thus capturing local subset fluctuations in gray level. The global \gls{msf} parameter is calculated by taking ($S_p$) for the different points inside the image and using the Eqn. \ref{eqn:global_msf}. 
+        
+        % The authors applied numerical translations on the speckle patterns and observed that mean bias error in measured displacements is small when $S_f$ is high \cite{hua_msf}.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.35\textwidth]{images/c_sota/msf_subset.png}
+            \caption{Selecting points inside a subset. (Adapted from Hua et al. 2011 \cite{hua_msf})}
+            \label{fig:msf_subset.png}
+        \end{figure}        
+        
+        \begin{equation}
+            S_p = \sum_{i=1}^{3} \sum_{j=1}^{3} |a_{ij} - \overline{a}|
+            \label{eqn:local_msf}
+        \end{equation}
+
+        \begin{equation}
+            S_f = \dfrac{\sum_{p \in F} S_p}{H \times V}
+            \label{eqn:global_msf}
+        \end{equation}
+    
+    \subsubsection{\gls{se}}
+        Liu et al. developed a quality parameter based on concept of entropy. This criterion quantifies information content of an image and captures `randomness' inside a speckle pattern.
+
+        \begin{equation}
+            H(Y) = - \displaystyle \sum_{j=0}^{2^{\beta} - 1} p(a_j)\ log(p(a_j)) 
+        \end{equation}
+
+        where,
+        \begin{itemize}
+            \item $H$ represents Shannon entropy (bits/pixel), 
+            \item $\beta$ denotes pixel depth of the image,
+            \item $p(a_j)$ signifies normalized probability of occurrence of each gray level. 
+        \end{itemize}
+
+        % \noindent In order to verify the accuracy of measured displacements using \gls{dic}, the images were numerically deformed to avoid errors introduced by imaging system. The experimental findings showed that images with large \gls{se} had small mean bias error. High \gls{se} values denotes that speckle image has more feature information or higher speckle `uniqueness' \cite{liu_shannon}.
+
+    \subsubsection{\glsfirst{sdgis}}
+        To take aspects of gray intensities and speckle morphology (i.e speckle size and density) into account, Park et al. developed a global quality criterion. Quantifying quality of a speckle pattern involves, firstly, identifying boundary of speckles by converting a speckle pattern image to a binary image using Otsu's method of thresholding \cite{otsu}. \glsentryshort{sdgis} calculation is then made for each speckle. As this is still local assessment of quality for only one speckle, the general quality assessment is done for the subset region. Distribution curves of \glsentryshort{sdgis} are generated for each subset, and then averaged over a given percentage for overall quality assessment. More details can be found in their study \cite{park_sdgis}.
+
+        \begin{equation}
+            \rho = SD_{R50} \dfrac{SD_{R75} - SD_{R25}}{0.5}
+        \end{equation}
+
+        \noindent where,
+        \begin{itemize}
+            \item $\rho$ is speckle pattern quality,
+            \item $SD_{R25}$, $SD_{R50}$, $SD_{R75}$ are lower quartile (25\%), median (50\%) and upper quartile (75\%) in cumulative distribution curve of \glsentryshort{sdgis}.
+        \end{itemize}
+        
+        % Artificial speckle patterns were generated for the study using airbrush techniques. The motivation of the authors behind using ths parameter is that, using gray-intensity alone to judge the speckle pattern quality does not take into account the variability of speckles within the image. 
+
+        % \noindent Higher \glsentryshort{sdgis} means higher level of gray-gradient and can hence provide more `uniqueness' in image correlation. The authors observed that, when distribution curves of \glsentryshort{sdgis} are wide and value of $\rho$ is large, errors in \glsentryshort{dic} measurement are low \cite{park_sdgis}. 
+
+    \subsubsection{E\textbf{_f}}
+        % According to Hu et al. \cite{hu_ef}, most of the existing literature on speckle pattern quality uses only one parameter to evaluate mean bias error and standard deviation of error. On the contrary, the principle of both these error models are quite different from each other. 
+        
+        Hu et al. used \gls{mig} to judge speckle pattern quality based on standard deviation of error. Additionally, $E_f$ was derived based on intensity gradient and its second derivative based on mean bias error \cite{hu_ef}. The bias error calculation $k_x$, $k_y$ for both X- and Y-directions for whole speckle pattern is performed using the Eqn. \ref{eqn:ef_kx} and \ref{eqn:ef_ky}. It can be seen from these equations that $E_f$ is related to first and second order image intensity gradient. 
+        
+        \begin{equation}
+            k_x = \dfrac{ \sum_{i=1}^{W} \sum_{j=1}^{H} |\nabla^2 f_x (x_{ij}) \ \nabla f_x (x_{ij}) | }{ \sum_{i=1}^{W} \sum_{j=1}^{H} [\nabla f_x (x_{ij})]^2 }
+            \label{eqn:ef_kx}
+        \end{equation}
+        
+        \begin{equation}
+            k_y = \dfrac{ \sum_{i=1}^{W} \sum_{j=1}^{H} |\nabla^2 f_y (x_{ij}) \ \nabla f_y (x_{ij}) | }{ \sum_{i=1}^{W} \sum_{j=1}^{H} [\nabla f_y (x_{ij})]^2 }
+            \label{eqn:ef_ky}
+        \end{equation}
+
+        \begin{equation}
+            E_f = \sqrt{k{_x}^{2} + k{_y}^{2}}
+        \end{equation}
+        
+        % $E_f$ was also compared with different image quality criteria by using 8 artificial speckle patterns. The translation movement was applied on speckle patterns numerically using the fourier shifting method \cite{schreier}.
+
+        % \noindent In conclusion, the authors found that order of quality of speckle patterns can differ from one criteria to another because of different definitions of quality and different care indexes. With regards to \gls{mig} and $E_f$, the order of speckle pattern quality are aligns with experimental findings. Additionally the authors observed, that in relation to mean bias error and standard deviation of error, $E_f$ and \gls{mig} are more efficient in assessing the speckle pattern quality as compared to other image quality parameters like \gls{se} and \gls{mffi} \cite{hu_ef}.
+
+    \subsection{Miscellaneous}
+
+    \subsubsection{\glsfirst{mffi}}
+
+        % As per the authors of Ref. \cite{song} most of the traditional quality criteria consider either contrast of the speckle pattern or speckle morphology and are evaluated for artificial speckle patterns instead of \gls{lsp}. 
+        
+        To quantify quality of a \gls{lsp}, Song et al. suggested a new parameter called \gls{mffi} \cite{song}. It takes 3 things into account:
+        \begin{enumerate}
+            
+            \item \textbf{\gls{igd} ($\delta_{IGD}$)}: If the pixels inside a \gls{lsp} are distributed across all possible gray levels $L$, $\delta_{IGD}$ will have the smaller value in comparison to an image where all pixels have same gray intensity values. According to the authors, the distribution of gray levels indicates, that speckle patterns contains a lot of `information' \cite{song}.
+                
+                \begin{equation}
+                    \delta_{IGD} = \sqrt{\sum_{k=0}^{L-1} P_{k}^{2} / (W \times H)}
+                \end{equation}
+                
+                \noindent where, 
+                \begin{itemize}
+                    \item $P_k$ denotes the number of pixels of a particular gray level inside a \gls{lsp},
+                    \item $W$ and $H$ denote the width and height of image in pixels,
+                    \item $L$ denotes gray level number of an image.
+                \end{itemize}
+
+                \noindent If $L = 5$, then $k = {0, 1, 2, 3, 4}$ and number of pixels inside each gray level are given by \(\{P_k, k = 0, 1, ... , L-1\}\).
+
+            \item \textbf{\gls{msdg} ($\delta_{MSDG}$)}: This parameter quantifies the contrast inside an image. It is defined by Eqn. \ref{eqn:msdg}. It identifies the concentration of a certain gray level distribution. The more dispersed the distribution, the higher the value of this parameter, and the better the quality of speckle pattern \cite{song}. 
+                
+                \begin{equation}
+                    \delta_{MSDG} = \sqrt{\sum_{k=0}^{L-1} \biggl\{ (k - \overline{P})^2 \times Q_k \biggr\}}
+                    \label{eqn:msdg}
+                \end{equation}
+
+                \noindent where,
+                \begin{itemize}
+                    \item \(Q_k = P_{k}/(W \times H)\)
+                    \item Mean gray value \(\overline{P} = \sum_{k=0}^{L-1} k \times Q_k\)
+                \end{itemize}   
+
+            
+            \item \textbf{\gls{sdsps} ($\delta_{SDSPS}$)}: This parameter is calculated by Eqn. \ref{eqn:sdsps}, and considers the speckle morphology inside a \gls{lsp}. This parameter gives a high value when differences between speckle sizes are large. The number of speckles inside a speckle pattern is calculated firstly by Otsu's thresholding \cite{otsu}, and then boundary detection to calculate number of points inside each speckle \cite{song}.  
+
+            \begin{equation}
+                \delta_{SDSPS} = \sqrt{\frac{1}{T} \displaystyle \sum_{n=1}^{T} \  (A_n - \overline{A})^2} (max(A_n) > 1)
+                \label{eqn:sdsps}
+            \end{equation}
+
+            where,
+            \begin{itemize}
+                \item $A_n$ denotes size of every speckle particle,
+                \item mean speckle size \(\overline{A} = \sum_{n=1}^{T} A_n / T\),
+                \item $T$ is number of speckle particles.
+            \end{itemize} 
+        \end{enumerate}
+
+        \noindent Finally, these parameters are combined to give $\delta_{MFFI}$ using Eqn. \ref{eqn:mffi}. The authors mentioned, that by combining multiple methods, the shortcoming of considering only a single factor is overcome.
+
+        \begin{equation}
+            \delta_{MFFI} = \dfrac{a \times \delta_{IGD}}{\delta_{MSDG} \times \delta_{SDSPS}}
+            \label{eqn:mffi}
+        \end{equation}
+
+        \vspace{3mm}
+        \noindent where, $a$ denotes a linear coefficient to adjust value of $\delta_{MFFI}$ for better illustration. 
+        
+        % According to findings from the authors, the smaller $\delta_{MFFI}$ is better is the \gls{lsp} quality, which correlated to lower mean bias error and standard deviation of error in measured displacements \cite{song}.
+
+
+    % \subsubsection{Quality assessment using Deep-Learning based \glsentryshort{cnn}}
+
+    %     According to the Kwon et al., the current speckle pattern quality measurements are based on preexisting qualitative knowledge of speckle-pattern-features. The authors found from their experiments that using \gls{cnn} for assessing speckle pattern quality provided better performance than existing measures such as \gls{mig}, \gls{msf}, \gls{se}, and \gls{sdgis}. The authors also used different sizes of artificial speckle pattern images, and observed that \gls{cnn} based error prediction demonstrated higher correlation coefficient than the other image quality criteria. The convolutional layer, because of its local fields and shared weights, was able to extract local features. These local features were combined by the layers of \gls{cnn} to calculate global correlations. This permitted local as well as global assessment of quality of speckle patterns \cite{kwon_cnn}.
+   
     \clearpage

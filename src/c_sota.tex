@@ -1,28 +1,25 @@
 \chapter{State of the Art}\label{chapter:sota}
-In this chapter information collected from literature survey will cover the following topics:
+In this chapter state-of-the-art criteria is covered in four sections. Firstly, experimental setup factors that have an effect on \gls{lsp} is covered in Section \ref{section:exp_factors}. Secondly, the experimental findings of different speckle quality criteria are given a brief overview in Section \ref{section:quality_lsp}. In Section \ref{section:speckle_tracking}, the focus shifts towards feature tracking approaches pertaining to \gls{lsp} images. Finally, Section \ref{section:real_template_matching} explores the real-world applications of template matching. 
 
-\begin{itemize}
-    \item Experimental setup factors affecting \gls{lsp} (Section \ref{section:exp_factors})
-    \item Different quality criteria for speckle patterns (Section \ref{section:quality_lsp})
-    \item Speckle tracking approaches for \gls{lsp} (Section \ref{section:speckle_tracking})
-    \item Real applications of template matching (Section \ref{section:real_template_matching})
-\end{itemize}
+% \begin{itemize}
+%     \item Experimental setup factors affecting \gls{lsp} (Section \ref{section:exp_factors})
+%     \item Different quality criteria for speckle patterns (Section \ref{section:quality_lsp})
+%     \item Speckle tracking approaches for \gls{lsp} (Section \ref{section:speckle_tracking})
+%     \item Real applications of template matching (Section \ref{section:real_template_matching})
+% \end{itemize}
 
 \section{Experimental setup factors affecting \glsfirst{lsp}}\label{section:exp_factors}
 
 \subsection{Camera Parameters}
 
-    \subsubsection{Exposure Time or Shutter Speed}\label{subsubsection:Exposure_Time}
-    Exposure time is defined by the amount of time the digital sensor inside the camera is exposed to light. An increase in shutter speed or decrease in exposure time means, that less light is allowed to fall on the image sensor of a digital camera.
-
-    \vspace{5mm}
-    \noindent Higher shutter speeds helps in capturing more frames in a given time. As the image sensor is exposed to light for a shorter amount of time, combined with more number of frames being captured, results in movements that appear to be frozen in images. Thus, motion blur is minimized. If for the same movement exposure time is increased, motion blur happens, as a result of which speckles would not be observed on the image sensor. Charrett et. al.  used an exposure time of \SI{200}{\micro\second} \cite{charrett_2018}. Bandari et. al. used an exposure time of \SI{600}{\micro\second}. No explanation was given by the authors for choosing these values \cite{bandari}.
+    \subsubsection{Exposure Time}\label{subsubsection:Exposure_Time}
+    Exposure time is defined by the amount of time the digital sensor inside the camera is exposed to light. A decrease in exposure time means, that less light is allowed to fall on the image sensor of a digital camera. Higher frame rates helps in capturing more frames in a given time, consequently image sensor is exposed to light for a shorter amount of time. This can result in darker images, but also captures motions that appear to be frozen in images. Thus, motion blur is minimized. If for the same movement exposure time is increased, motion blur happens, as a result of which speckles would not be observed on the image sensor. Charrett et al.  used an exposure time of \SI{200}{\micro\second} \cite{charrett_2018}. Bandari et. al. used an exposure time of \SI{600}{\micro\second}. No explanation was given by the authors for choosing these values \cite{bandari}.
 
     \vspace{5mm}
 
-    \noindent Hu et. al. confirmed that speckle images captured for exposure values between \emph{B6-B10} gave speckle images of higher quality and higher contrast \noindent \cite{hu}. For their experiment defocussing degree is kept unchanged, and exposure time was adjusted from 1000-16000. A group of 16 \gls{lsp} was captured named \emph{Group B: B1-B16} (See Fig. \ref{fig:hu_fig8}). Unfortunately, no units were given for these values. Therefore, it is not possible to determine if these are actual exposure times or shutter speeds of the camera. However, it was concluded that a balance needs to be found between under- or overexposure of image sensor, as any of the extremes would result in decrease of contrast.
+    \noindent Hu et al. confirmed that speckle images captured for exposure values between \emph{B6-B10} gave speckle images of high quality and contrast \noindent \cite{hu}. For their experiment defocussing degree is kept unchanged, and exposure time was adjusted from 1000-16000 resulting in a group 16 speckle images named \emph{Group B: B1-B16} (See Fig. \ref{fig:hu_fig8}). The authors did not provide any units for these values. However, it was concluded that a balance needs to be found between under- or overexposure of image sensor, as any of the extremes would result in a decrease of contrast.
 
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
         \includegraphics[width=0.6\textwidth]{images/c_sota/hu_fig8.png}
         \caption{\gls{lsp} captured at different exposure times. (Adapted from Hu et al. 2021) \cite{hu}}
@@ -30,13 +27,13 @@ In this chapter information collected from literature survey will cover the foll
     \end{figure}
 
     \subsubsection{Frame Rate}\label{Subsubsection:Frame_Rate}
-    \Gls{lsp} captured with higher frame rate cameras would exhibit less motion blur owing to more frames being captured in a given time. Charret et. al. and Bandari et. al. have used 500 \gls{fps} high speed camera in their setup \cite{charrett_2018} \cite{bandari}. In Ref. \cite{charrett_mars} authors mentioned that if frame rate is high, then low velocities cannot be measured as the detected translation by correlation algorithms would be less than \~0.1 pixels when using sub-pixel interpolation or 1 pixel otherwise. Therefore, appropriate frame rate should be chosen for required velocity range.
+    \Gls{lsp} captured with higher frame rate cameras would exhibit less motion blur owing to more frames being captured in a given time. Charret et al. and Bandari et al. have used 500 \gls{fps} high speed camera in their setup \cite{charrett_2018} \cite{bandari}. In \cite{charrett_mars} authors mentioned that if frame rate is high, then low velocities cannot be measured as the detected translation by correlation algorithms would be less than \~0.1 pixels when using sub-pixel interpolation or 1 pixel otherwise. Therefore, appropriate frame rate should be chosen for required velocity range.
 
     
     \subsubsection{Aperture Size}
-    Aperture is the hole that allows the incoming light to fall on image sensor. Its size controls the exposure of image sensor to light. As a result of higher shutter speeds, larger aperture is required for adequate exposure. In the literature concerning speckle patterns, aperture size has an effect on speckle size. Song et. al. captured \gls{lsp} for different aperture numbers (See Table \ref{table:song_table_c}) and named them respectively from C1 - C5. As aperture number is increasing, amount of available light falling on sensor decreases, as shown by \gls{agl} values, but \gls{ass} is increasing \cite{song}. Charrett et. al. used a 'lensless' or \emph{objective speckle setup} with no imaging lens in front of image sensor. Thus, removing the need for aperture to control speckle size \cite{charrett_2018, francis_autonomous}.
+    Aperture is the hole that allows the incoming light to fall on image sensor. Its size controls the exposure of image sensor to light. In the literature concerning speckle patterns, aperture size has an effect on speckle size. Song et al. captured \gls{lsp} for different aperture numbers (See Table \ref{table:song_table_c}) and named them respectively from C1 - C5. As aperture number is increasing, amount of available light falling on sensor decreases, as shown by \gls{agl} values, but \gls{ass} is increasing \cite{song}. Charrett et al. used a 'lensless' or \emph{objective speckle setup} with no imaging lens in front of image sensor. Thus, removing the need for aperture to control speckle size \cite{charrett_2018, francis_autonomous}.
     
-    \begin{table}[h]
+    \begin{table}[ht]
         \centering
         \footnotesize
         \renewcommand{\arraystretch}{1.2}
@@ -57,7 +54,7 @@ In this chapter information collected from literature survey will cover the foll
         \label{table:song_table_c}
     \end{table}
 
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
         \includegraphics[width=0.6\textwidth]{images/c_sota/song_fig9.png}
         \caption{\gls{lsp} collected under different conditions: C1 - C5 for apertures (8, 11, 16, 22, 32). D1 - D5 for different laser powers (10 mW, 100 mW, 200 mW, 300 mW, 400 mW) and E1 - E5 for different temperatures (1200 °C, 1300 °C, 1400 °C, 1500 °C, 1600 °C). (Adapted from Song et. al. 2020) \cite{song}}
@@ -73,10 +70,10 @@ In this chapter information collected from literature survey will cover the foll
 
     
     \subsubsection{Resolution of Captured Image and Template/Subset Size}\label{subsubsection:template_size}
-    Charrett et al. used an image with a resolution of \(512 \times 512\) pixels, employing an image sensor with a pixel size of \SI{4.8}{\micro\meter} \cite{charrett_2018}. The \gls{ncc} correlation window dimensions were set at \(128 \times 128\) pixels. While a smaller correlation window allows easier \gls{ncc} computation, excessively small windows may increase the likelihood of outliers, thus compromising accuracy. In the study by Pan et al. \cite{pan_subset}, the impact of template size on displacement measurement accuracy was investigated. The authors developed an algorithm adjusting the template size based on the speckle quality parameter \glsentryshort{sssig}. For \gls{dic}, an optimal template should contain unique information to ensure reliable displacement measurements. Large templates, capturing more 'randomness,' are generally preferred, although, with sufficient image contrast, small templates can yield reliable results as well \cite{pan_subset}. Lecompte et al. \cite{lecompte} confirmed that speckle and template size influence the accuracy of displacement measurements. Large templates contribute to more accurate measurements due to increased information content. However, the paper primarily shows the influence of speckle and subset size on accuracy without describing a method for choosing a optimal speckle pattern or template size. Yaofeng et al. similarly concluded that large templates lead to more accurate results. But there is an upper limit to large template sizes because of lower performance due to increased computation times \cite{yaofeng}.
+    Charrett et al. used an image with a resolution of \(512 \times 512\) pixels, employing an image sensor with square pixels of edge length \SI{4.8}{\micro\meter} \cite{charrett_2018}. The \gls{ncc} correlation window dimensions were set at \(128 \times 128\) pixels. While a smaller correlation window allows easier \gls{ncc} computation, excessively small windows may increase the likelihood of outliers, thus compromising accuracy. In the study by Pan et al. \cite{pan_subset}, the impact of template size on displacement measurement accuracy was investigated. The authors developed an algorithm adjusting the template size based on the speckle quality parameter \gls{sssig}. For \gls{dic}, an optimal template should contain unique information to ensure reliable displacement measurements. Large templates, capturing more 'randomness,' are generally preferred, although, with sufficient image contrast, small templates can yield reliable results as well \cite{pan_subset}. Lecompte et al. \cite{lecompte} confirmed that speckle and template size influence the accuracy of displacement measurements. Large templates contribute to more accurate measurements due to increased information content. However, the paper primarily shows the influence of speckle and subset size on accuracy without describing a method for choosing a optimal speckle pattern or template size. Yaofeng et al. similarly concluded that large templates lead to more accurate results. But there is an upper limit to large template sizes because of lower performance due to increased computation times \cite{yaofeng}.
 
-    \subsubsection{Speckle Size}\label{Subsubsection:Speckle_Size}
-    The speckle size is determined by the size of the aperture hole. Particle size increases as aperture value (\emph{f-number}) increases as a result of \emph{diffraction} \cite{song}. Hu et. al. stated that optimal speckle size is between 3 - 5 pixels for better quality of \gls{lsp}. If the speckle size is too small, it leads to image under-sampling causing large interpolation bias. On the other hand, if the speckle size is too large, it leads to poor quality of images because of low detail in images, resulting in large random errors \cite{hu}. Lecompte et al. concluded that when using smaller templates, the speckle pattern with large speckles led to most inaccurate results \cite{lecompte}. Charrett et al. used a speckle size of 4 pixels for their objective speckle setup (See Section \ref{Subsubsection:Objective_Subjective}) \cite{charrett_2019}. Francis et. al. suggested a pixel square of 2 \times \ 2, so that each speckle is made of 4 pixels \cite{francis_autonomous}. For an objective and a subjective speckle setup, speckle size (\sigma) can be measured by equation \ref{eqn:objective} and equation \ref{eqn:subjective} respectively \cite{cloud}. Because of an imaging lens in subjective speckle setup, speckle size can change based on the magnification factor ($M$) and $f$-number of the lens. 
+    \subsubsection{Speckle Size in Lensed and Lens-less Setup}\label{Subsubsection:Speckle_Size}
+    The detected speckle size is largely influenced by the size of the aperture hole. Particle size increases as aperture value (\emph{f-number}) increases as a result of diffraction \cite{song}. Hu et al. stated that optimal speckle size is between 3 - 5 pixels for better quality of \gls{lsp}. If the speckle size is too small, it leads to image under-sampling causing large interpolation bias. On the other hand, if the speckle size is too large, it leads to poor quality of images because of low detail in images, resulting in large random errors \cite{hu}. Lecompte et al. concluded that when using smaller templates, the speckle pattern with large speckles led to most inaccurate results \cite{lecompte}. Charrett et al. used a speckle size of 4 pixels for their objective speckle setup (See Section \ref{Subsubsection:Objective_Subjective}) \cite{charrett_2019}. Francis et. al. suggested a pixel square of 2 \times\ 2, so that each speckle is made of 4 pixels \cite{francis_autonomous}. For an objective and a subjective speckle setup, speckle size (\sigma) can be measured by equation \ref{eqn:objective} and equation \ref{eqn:subjective} respectively \cite{cloud}. Because of an imaging lens in subjective speckle setup, speckle size can change based on the magnification factor ($M$) and $f$-number of the lens. 
     
     \vspace{5mm}
     \begin{itemize}
@@ -99,25 +96,25 @@ In this chapter information collected from literature survey will cover the foll
 
     \noindent Owing to use of lens and an aperture in subjective speckle setup (See Section \ref{Subsubsection:Objective_Subjective}), to increase speckle size, aperture hole size needs to be decreased (See Eqn. \ref{eqn:subjective}). Charrett et al. found that velocity measurement performance increased when speckle size was in between 2 - 5 pixels as seen in Fig. \ref{fig:charrett_mars_fig8} \cite{charrett_mars}.
 
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
         \includegraphics[width=0.4\textwidth]{images/c_sota/charrett_mars_fig8.png}
         \caption{Measured velocity vs. actual velocity for different speckle sizes. (Adapted from Charrett et al. 2010 \cite{charrett_mars})}
         \label{fig:charrett_mars_fig8}
     \end{figure}
 
-    \subsubsection{Objective vs Subjective Speckle Setup}\label{Subsubsection:Objective_Subjective}
+    \subsubsection{Objective versus Subjective Speckle Setup}\label{Subsubsection:Objective_Subjective}
 
-    As shown in Fig. \ref{fig:francis_fig2}, the objective speckle setup lacks a lens in front of image sensor. According to Francis et al. and Charrett et al. it has the following advantages: decreased number of components, and removal of aperture to control speckle size \cite{charrett_2018, francis_autonomous}.
+    As shown in Fig. \ref{fig:francis_fig2}, Charrett et al. define ``objective speckle setup" as a setup without a lens and a diaphragm in front of image sensor, while ``subjective speckle setup" contains a lens and diaphragm [Source: Page 3480, Section 2A, \cite{francis_autonomous}]. According to Francis et al. and Charrett et al., it has the following advantages: decreased number of components, and removal of aperture to control speckle size \cite{charrett_2018, francis_autonomous}.
 
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
         \includegraphics[width=0.7\textwidth]{images/c_sota/francis_fig2.png}
         \caption{Schematic of (a) Objective and (b) Subjective speckle setup (Adapted from Francis et al. 2012 \cite{francis_autonomous})}
         \label{fig:francis_fig2}
     \end{figure}
 
-    \noindent Francis et al. used a subjective speckle setup for their experiments, where laser beam was diverged to a diameter of \SI{18}{\milli\meter} to extend beyond the \gls{fov} of imaging system. This decreased influence of gaussian beam profile of laser beam, allowing the central part of beam, where intensity is the highest, to extend beyond the imaging area. Although this allows better and consistent illumination, but it decreased the signal levels. The decreased signal levels were further compounded because of smaller aperture size being used in the setup. Hence, slower velocities were used for translation as compared to objective speckle setup \cite{francis_autonomous}.
+    \noindent Francis et al. used a ``subjective speckle setup" for their experiments, where laser beam was diverged to a diameter of \SI{18}{\milli\meter} to extend beyond the \gls{fov} of imaging system. This decreased influence of gaussian beam profile of laser beam, allowing the central part of beam, where intensity is the highest, to extend beyond the imaging area. Although this allows better and consistent illumination, but it decreased the signal levels. The decreased signal levels were further compounded because of smaller aperture size being used in the setup. Hence, slower velocities were used for translation as compared to objective speckle setup \cite{francis_autonomous}.
 
 %     \begin{table}[h]
 %         \centering
@@ -151,10 +148,10 @@ In this chapter information collected from literature survey will cover the foll
 %     \end{figure}
 % \clearpage
 
-\subsection{Setup Parameters}
+\subsection{Impact of Setup Geometry on Speckle Pattern Analysis}
 
     \subsubsection{Distance between beam waist and detector}\label{Subsubsection:Distance_Beam_Waist_Detector}
-    Charrett et. al. decided the distance between detector (D) and beam waist (S) to be 20mm as seen from Fig. \ref{fig:charrett_2018_fig2} \cite{charrett_2018}. Francis et al. \cite{francis_autonomous} defined scaling factor as ratio between speckle translation to actual translation. The authors stated that sensitivity of setup (indicated by the scaling factor) decreases as angular separation between observation and illumination direction increases. Higher scaling factor is beneficial, as it gives better speckle movement detection for actual small displacements of workpiece \cite{francis_autonomous}.
+    Charrett et al. set the distance between detector (D) and beam waist (S) to be 20mm as seen from Fig. \ref{fig:charrett_2018_fig2} \cite{charrett_2018}. Francis et al. \cite{francis_autonomous} defined scaling factor as ratio between speckle translation to actual translation. The authors stated that sensitivity of setup (indicated by the scaling factor) decreases as angular separation between observation and illumination direction increases. Higher scaling factor is beneficial, as it gives better speckle movement detection for actual small displacements of workpiece \cite{francis_autonomous}.
 
     \begin{figure}[h]
         \centering
@@ -165,11 +162,11 @@ In this chapter information collected from literature survey will cover the foll
 
 
     \subsubsection{Cone Angle}
-    As mentioned in the section \ref{Subsubsection:Distance_Beam_Waist_Detector}, when the SRD angle (See Fig. \ref{fig:charrett_2018_fig2}) is small and the distance between beam waist and detector is small, the incidence and observation angles are closer to the normal. This results, that sensor was robust to changes in working height and small misalignments \cite{charrett_2018}. Charrett et al. also concluded from their experiments that, tilting the surface produced more error as compared to changing the vertical height distance between surface and plane containing S \& D \cite{charrett_2018}. Francis et. al. showed that, the smaller is the angular separation between the incidence angle of laser and observation angle of detector, the better is the sensitivity. Higher sensitivity is beneficial in better speckle movement detection, because a small displacement applied to sensor setup translates to larger displacement in image plane \cite{francis_autonomous}.
+    As mentioned in the section \ref{Subsubsection:Distance_Beam_Waist_Detector}, when the SRD angle (See Fig. \ref{fig:charrett_2018_fig2}) is small and the distance between beam waist and detector is small, the incidence and observation angles are closer to the normal. This results, that sensor was robust to changes in working height and small misalignments \cite{charrett_2018}. Francis et. al. showed that, the smaller is the angular separation between the incidence angle of laser and observation angle of detector, the better is the sensitivity. Higher sensitivity is beneficial in better speckle movement detection, because a small displacement applied to sensor setup translates to larger displacement in image plane \cite{francis_autonomous}.
     
     
     \subsubsection{Height from the work surface}
-    Charrett et. al. and Bandari et. al. used a setup where beam waist is \SI{150}{\milli\meter} above the working surface (See Fig. \ref{fig:charrett_2018_fig2}) \cite{charrett_2018, bandari}. No explanation was given for the specified value. In their paper, they have mentioned that change in working height resulted in positional error, as that meant that the laser spot translated by a certain value. Francis et. al. chose \SI{210}{\milli\meter} \cite{francis_autonomous}. Nagai et. al. used a setup to emit an almost parallel beam of light from the laser source \cite{nagai}. Thus, by changing heights between \SI{70}{\milli\meter} to \SI{500}{\milli\meter}, the laser spot diameter remained at an approximate value of \SI{3.7}{\milli\meter}. But, error in measurement suddenly increased after a certain value of height, owing to the weak luminance of the reflected laser as seen from Fig. \ref{fig:nagai_fig5}. Apart from this, their findings on changing height during translation of sensor setup in XY-plane, error does accumulate with either increment or decrement of height but remained within 5\% as seen from Fig. \ref{fig:nagai_fig7}.
+    Charrett et al. and Bandari et al. used a setup where beam waist is \SI{150}{\milli\meter} above the working surface (See Fig. \ref{fig:charrett_2018_fig2}) \cite{charrett_2018, bandari}. No explanation was given for the specified value. The authors also mentioned that change in working height resulted in positional error, as that meant that the laser spot translated by a certain value. Francis et al. chose \SI{210}{\milli\meter} \cite{francis_autonomous}. Nagai et al. tested their setup by changing heights between \SI{70}{\milli\meter} to \SI{500}{\milli\meter}, and the laser spot diameter remained at an approximate value of \SI{3.7}{\milli\meter}. The results indicated that error in measurement suddenly increased after a certain value of height, owing to the weak luminance of the reflected laser as seen from Fig. \ref{fig:nagai_fig5}. Apart from this, their findings on changing height during translation of sensor setup in XY-plane indicate that error does accumulate with either increment or decrement of height but remained within 5\% of \SI{200}{\milli\meter} as seen from Fig. \ref{fig:nagai_fig7} \cite{nagai}.
 
     \begin{figure}[h]
         \centering
@@ -186,7 +183,7 @@ In this chapter information collected from literature survey will cover the foll
     \end{figure}
 
     \subsubsection{Tilt/Yaw of the work surface}\label{subsubsection:tilt_yaw}
-    Charrett et al. \cite{charrett_2018} explored the impact of tilt and yaw motions in their experimental investigations. Their findings highlighted that tilt in the surface induces more pronounced effects on measurement errors compared to variations in the distance between the camera-laser plane and the workpiece surface. Additionally, the study observed that the sensor's offset from the rotation center results in the measurement of additional velocities. The magnitude of these velocities depends upon both the translation amount and the rotational angle of the surface, in relation to the amount of offset from the center of rotation. Moreover, the relative movement between the sensor setup and the surface introduced spurious velocity measurements due to the surface's movement, other than in-XY-plane translations (for e.g., in-plane-rotations, out-of-plane translations, and tilts) (See Fig. \ref{fig:charrett_2018_fig4}). This led to instantaneous changes in velocity measurements occurring only during the duration of this error motion.
+    Charrett et al. \cite{charrett_2018} explored the impact of tilt and yaw motions in their experimental investigations using the setup in Fig. \ref{fig:charrett_2018_fig4}. Their findings highlighted that tilt in the surface induces more pronounced effects on measurement errors compared to variations in the distance between the camera-laser plane and the workpiece surface. Additionally, the study observed that the sensor's offset from the rotation center results in the measurement of additional velocities. The magnitude of these velocities depends upon both the translation amount and the rotational angle of the surface, in relation to the amount of offset from the center of rotation. Moreover, the relative movement between the sensor setup and the surface introduced spurious velocity measurements due to the surface's movement, other than in-XY-plane translations (for e.g., in-plane-rotations, out-of-plane translations, and tilts). This led to instantaneous changes in velocity measurements occurring only during the duration of this error motion.
 
     \begin{figure}[h]
         \centering
@@ -195,7 +192,8 @@ In this chapter information collected from literature survey will cover the foll
         \label{fig:charrett_2018_fig4}
     \end{figure}
 
-    \noindent The authors also found that any yaw motion (about the Z-Axis) will result in rotation of speckle pattern and also record additional translation depending upon amount of offset from the center of rotation. It is suggested in this study to have laser spot ideally be colocated at the robot \gls{tcp} \cite{charrett_2018}. Any kind of tilt/yaw affects the efficacy of the \gls{ncc} algorithm negatively, as \gls{ncc} fails to take into account image rotation. This is further confirmed by Charrett et. al in another study \cite{charrett_extended_theory}. They tested surfaces with different gradients (See Fig. \ref{fig:charrett_extended_fig2}) and found out that, it leads to significant errors in correlation. Sjoedahl found that, with a tilt angle of less than 1/\emph{f}, with \emph{f} being the \emph{f}-number of the camera, resulted in an undetectable pattern \cite{sjoedahl}.
+    \vspace{5mm}
+    \noindent The authors also found that any yaw motion (about the Z-Axis) will result in rotation of speckle pattern and also record additional translation depending upon amount of offset from the center of rotation. It is suggested in this study to have laser spot ideally be colocated at the robot \gls{tcp} \cite{charrett_2018}. Any kind of tilt/yaw affects the efficacy of the \gls{ncc} algorithm negatively, as \gls{ncc} fails to take into account image rotation. This is further confirmed by Charrett et al. in another study \cite{charrett_extended_theory}. They tested surfaces with different gradients (See Fig. \ref{fig:charrett_extended_fig2}) and found out that, it leads to significant errors in correlation. Sjoedahl found that, with a tilt angle of less than 1/\emph{f}, with \emph{f} being the \emph{f}-number of the camera, resulted in an undetectable pattern \cite{sjoedahl}.
     
     \begin{figure}[h]
         \centering
@@ -204,14 +202,16 @@ In this chapter information collected from literature survey will cover the foll
         \label{fig:charrett_extended_fig2}
     \end{figure}
 
+\subsection{Additional experimental setup factors}
+
     \subsubsection{Monochromatic and Polychromatic Light}
     Dainty mentions that surface roughness does not affect the speckles statistics when monochromatic light was incident on the surface \cite{dainty}. But the \gls{rms} height variation $\sigma$ did affect the statistics of scattered light when polychromatic light source was used. Apart from the chromatic nature of light source, the coherence of the light also had an effect on the statistical properties of speckle pattern.
 
     \subsubsection{Velocity}
-    Nagai et. al concluded that measurement error increased with increasing speed and acceleration values. But the maximum error was less than 3\% for a velocity of 400 mm/s (See Fig. \ref{fig:nagai_fig8}) \cite{nagai}. Charrett et. al. found out that blurring of speckles at high velocities produced positional errors \cite{charrett_2018}. In another study by Charrett et al. \cite{charrett_mars}, low velocities are not measured if the camera's frame rate is high, as the speckle shift detected by correlation algorithms would be less than \~0.1 pixels when using sub-pixel interpolation or 1 pixel otherwise. Smid et. al. were unable to record the difference between speckle displacement of 1-3 pixels using \gls{ncc} between frames due to the low velocity values. Minimal speckle displacement recommended by the authors is 4 pixels \cite{smid_2007}.
+    Nagai et al. concluded that measurement error increased with increasing speed and acceleration values. But the maximum error was less than 3\% for a velocity of 400 mm/s (See Fig. \ref{fig:nagai_fig8}) \cite{nagai}. Charrett et al. found out that blurring of speckles at high velocities produced positional errors \cite{charrett_2018}. In another study by Charrett et al. \cite{charrett_mars}, low velocities are not measured if the camera's frame rate is high, as the speckle shift detected by correlation algorithms would be less than \~0.1 pixels when using sub-pixel interpolation or 1 pixel otherwise. Smid et al. were unable to record the difference between speckle displacement of 1-3 pixels using \gls{ncc} between frames due to the low velocity values. Minimal speckle displacement recommended by the authors is 4 pixels \cite{smid_2007}.
     
     \subsubsection{Decorrelation}\label{subsubsection:decorrelation}
-    Briers et. al. mentioned, that when there are small movements to the surface being imaged, the speckles remain correlated. But for larger translations, the speckle patterns \emph{decorrelate} and change completely \cite{briers}. Therefore, \gls{lsp} are sensitive to change in position, yaw, tilt, height. Hu et. al. also stated large displacements or tilts should be avoided, as decorrelation would affect the correlation calculation negatively \cite{hu}. Charrett et. al. have also mentioned that translation and decorrelation of speckle patterns dependent on object's rotation, translation, strain and surface roughness \cite{charrett_2018}. Sjoedahl et. al. made it sure that orientation of surface does not change, as it would result in complete decorrelation, and metal components could not be verified with their \emph{laser speckle fingerprints} \cite{sjoedahl}. \Gls{lsp} can deviate also, because of fluctuations in sampling of \Gls{lsp}, random camera noise and power fluctuations in laser source \cite{charrett_2019}. These are also the reasons, why a database approach would be discouraged going forward with the thesis.
+    Briers et al. mentioned, that when there are small movements to the surface being imaged, the speckles remain correlated. But for larger translations, the speckle patterns \emph{decorrelate} and change completely \cite{briers}. Therefore, \gls{lsp} are sensitive to change in position, yaw, tilt, height. Hu et al. also stated large displacements or tilts should be avoided, as decorrelation would affect the correlation calculation negatively \cite{hu}. Charrett et al. have also mentioned that translation and decorrelation of speckle patterns dependent on object's rotation, translation, strain and surface roughness \cite{charrett_2018}. \Gls{lsp} can deviate also, because of fluctuations in sampling of \Gls{lsp}, random camera noise and power fluctuations in laser source \cite{charrett_2019}.
 
     % \begin{figure}[h]
     %     \centering
@@ -220,10 +220,10 @@ In this chapter information collected from literature survey will cover the foll
     %     \label{fig:nagai_fig10}
     % \end{figure}
 
-    \begin{figure}[h]
+    \begin{figure}[ht]
         \centering
         \includegraphics[width=0.5\textwidth]{images/c_sota/nagai_fig8.png}
-        \caption{Error at different velocities. (Adapted from Nagai et. al 2010 \cite{nagai})}
+        \caption{Error at different velocities. (Reprinted from Nagai et. al 2010 \cite{nagai})}
         \label{fig:nagai_fig8}
     \end{figure}
     
@@ -231,7 +231,7 @@ In this chapter information collected from literature survey will cover the foll
     \subsubsection{Laser Power}
     Song et al. collected \glspl{lsp} for different laser powers in Table \ref{table:song_table_d}, and named the corresponding \glspl{lsp} D1-D5 respectively \cite{song}. The laser power affects brightness and contrast of \gls{lsp} as can seen from the \gls{agl} values.
 
-    \begin{table}
+    \begin{table}[ht]
         \centering
         \footnotesize
         \renewcommand{\arraystretch}{1.2}
@@ -254,9 +254,9 @@ In this chapter information collected from literature survey will cover the foll
 
 
     \subsubsection{Temperature}
-    Song et al. also sampled \gls{lsp} for different temperatures as shown in Table \ref{table:song_table_e} and showed that background radiation in high temperature affects brightness and contrast of speckle pattern, but it does not affect size and shape of speckle particles \cite{song}. This can be observed from the \gls{agl} and \gls{ass} values respectively.
+    Song et al. also sampled \gls{lsp} captured for different surface temperatures, as shown in Table \ref{table:song_table_e} and showed that background radiation in high temperature affects brightness and contrast of speckle pattern, but it does not affect size and shape of speckle particles \cite{song}. This can be observed from the \gls{agl} and \gls{ass} values respectively.
 
-    \begin{table}
+    \begin{table}[ht]
         \centering
         \footnotesize
         \renewcommand{\arraystretch}{1.2}
@@ -281,7 +281,7 @@ In this chapter information collected from literature survey will cover the foll
 \subsection{Material Parameters}
 
     \subsubsection{Surface Roughness}
-    Dainty in his article has mentioned that, if a surface has a roughness greater than wavelength of incident light, a speckle pattern will be produced, when a monochromatic laser is incident on it \cite{dainty}. Briers et al. state size of individual speckles is entirely dependent on the wavelength of the incident light and size of the aperture hole used to image the pattern \cite{briers}. An experimental verification by Hu et al. confirmed the fact that surface roughness had little impact on quality of speckle images \cite{hu}. Song et al. stated that the smaller the value of roughness is, better is the contrast. But it does not affect the size of speckle particles \cite{song}.
+    Dainty in his article has mentioned that, if a surface has a roughness greater than wavelength of incident light, a speckle pattern will be produced, when a monochromatic laser is incident on it \cite{dainty}. Briers et al. state size of individual speckles is entirely dependent on the wavelength of the incident light and size of the aperture hole used to image the pattern \cite{briers}. Song et al. stated that the smaller the value of roughness is, better is the contrast. But it does not affect the size of speckle particles \cite{song}.
     
 
     \subsubsection{Surface Material}
@@ -340,7 +340,7 @@ In this chapter information collected from literature survey will cover the foll
     \clearpage
 
     \vspace{5mm}
-    \noindent Nagai et. al. tested their setup to understand how different materials, for e.g. artificial lawn, stone, carpet, sand etc. as shown Fig. \ref{fig:nagai_fig12}, affected the tracking performance of \gls{lsp}. Materials such as paper, stone, plastic and aluminum plates are used, and absolute error recorded was less than \SI{8}{\milli\meter} (4\% of \SI{200}{\milli\meter}). The error recorded for artificial lawn was greater than \SI{10}{\milli\meter} (5\% of \SI{200}{\milli\meter}) (See Fig. \ref{fig:nagai_fig11}) \cite{nagai}.
+    \noindent Nagai et al. tested their setup to understand how different materials, for e.g. artificial lawn, stone, carpet, sand etc. as shown Fig. \ref{fig:nagai_fig12}, affected the tracking performance of \gls{lsp}. Materials such as paper, stone, plastic and aluminum plates are used, and absolute error recorded was less than \SI{8}{\milli\meter} (4\% of \SI{200}{\milli\meter}). The error recorded for artificial lawn was greater than \SI{10}{\milli\meter} (5\% of \SI{200}{\milli\meter}) (See Fig. \ref{fig:nagai_fig11}) \cite{nagai}.
 
 
     \begin{figure}[h]
@@ -358,256 +358,268 @@ In this chapter information collected from literature survey will cover the foll
     \end{figure}
 
     
-\section{Quality criteria for speckle patterns} \label{section:quality_lsp}
+\section{Quality criteria for speckle patterns}
+    This section covers the experimental findings for tests conducted on speckle patterns using the quality criteria by respective authors. The fundamentals of these quality parameters are covered in Section \ref{section:quality_lsp}.
 
-Referring to the findings illustrated in Fig. \ref{fig:image_quality_criteria.jpeg}, the evaluation of speckle pattern quality is determined with an objective to discern the quality criteria applicable to \gls{lsp}. While the emphasis is on identifying criteria specific to \gls{lsp}, the literature survey also incorporates considerations of quality criteria applicable to artificial speckle patterns.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{images/c_sota/image_quality_criteria.jpeg}
+%     \caption{Overview of quality criteria covered in literature survey.}
+%     \label{fig:image_quality_criteria.jpeg}
+% \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/c_sota/image_quality_criteria.jpeg}
-    \caption{Overview of quality criteria covered in literature survey.}
-    \label{fig:image_quality_criteria.jpeg}
-\end{figure}
+\subsection{Local Image Quality Criteria}
 
-    \subsection{Global Criteria}
+    \subsubsection{\glsfirst{sssig}}\label{subsubsection:sssig}
+        Pan et al. investigated the effect of subset size on measurement accuracy using the parameter \gls{sssig} \cite{pan_subset}. the authors took three different sample images and by changing different subset sizes conducted displacement tests. It was found that as \gls{sssig} increased, standard deviation of displacement error decreased. The authors also`' concluded that displacement measurement accuracy can be improved by the following:
+        \begin{itemize}
+            \item Increasing the subset \glsentryshort{sssig}.
+            \item Using a high bit depth camera (12-bit or 16-bit).
+            \item Increasing the contrast of image. The authors did not provide any specifics here.
+            \item Decreasing the image noise by using cooled \gls{ccd} and high quality camera lens.
+        \end{itemize}
+
+    \subsubsection{Subset Entropy}
+        The experiment findings by Yaofeng et al. showed that subset entropy can quantify subset image quality and has direct effect of correlation accuracy. It was observed by authors that standard deviation of measured displacement decreased from $\sim 0.05$ pixels to $\sim 0.02$ pixels, when subset entropy $\delta$ increased from $\sim 0.35$ to $\sim 0.6$ \cite{yaofeng}.
+
+    \subsubsection{\glsfirst{ass}}
+        Lecompte et al. investigated effects of subset size and speckle size on accuracy of measured displacements, using image morphology method to calculate speckle size \cite{lecompte}. By repeated erosion and dilation procedures, thresholding method is used to identify a speckle. The authors concluded from the conducted experiments that, larger subsets with larger speckle sizes yielded more accurate results for measured displacements in comparison to small subsets with large speckles. However, this paper only demonstrated that there is dependence of speckle size and subset size on displacement measurement, but does not provide any method to obtain optimal speckle size or subset size \cite{lecompte}.
+
+            % \subsubsection{Image Filter Techniques}
+            % According to Charrett et al., using image filters such as binary threshold and prewitt kernels (See Fig. \ref{fig:charrett_mars_fig12}) lead to reliable velocity measurements \cite{charrett_mars}. 
+
+
+            % \begin{figure}[h] 
+            %     \centering
+            %     \includegraphics[width=0.55\textwidth]{images/c_sota/charrett_mars_fig12.png}
+            %     \caption{Typical speckle images: (a) no pre-filter, (b) Canny edge detection, (c) binary threshold, (d) Prewitt gradient filters. \cite{charrett_mars}}
+            %     \label{fig:charrett_mars_fig12}
+            % \end{figure}
+
+            % \clearpage
+
+            % \begin{figure}[h]
+            %     \centering
+            %     \includegraphics[width=0.7\textwidth]{images/c_sota/charrett_mars_fig13.png}
+            %     \caption{(a) The mean calculated v component of velocity and (b) the minimum correlation Q-value that occurred plotted against stage velocity using the \gls{ncc} method and different pre-filters. \cite{charrett_mars}}
+            %     \label{fig:charrett_mars_fig13}
+            % \end{figure}
+
+
+    \subsection{Global Image Quality Criteria}
     
     \subsubsection{\glsfirst{mig}}\label{subsubsection:mig}
 
-        Pan et al. introduced a global speckle quality parameter called \gls{mig} ($\delta_f$) in their study \cite{pan_mig}. The authors found that \gls{mig} has direct effect on mean bias error and standard deviation of error for measured displacements. The use of global quality parameter is justified by authors, because speckles inside an image are normally distributed. Therefore, the local parameters for different subsets have minimal differences.
+        Pan et al. found that \gls{mig} has direct effect on mean bias error and standard deviation of error for measured displacements. The use of global quality parameter is justified by authors, because speckles inside an image are normally distributed. Therefore, the local parameters for different subsets have minimal differences \cite{pan_mig}. It was concluded from experiments that, with increment in \gls{mig}, mean bias error and standard deviation of error decreased. For a subset size of 61 \times\ 61 pixels, a speckle image with \gls{mig} value of 34.6444 demonstrated standard deviation of error of 0.001 pixels for a numerical displacement of 1 pixel. Conversely, speckle image with \gls{mig} value of 9.0379 exhibited maximum standard deviation of error of 0.007 pixels (See Fig. 5 in \cite{pan_mig}).   
 
-        \begin{equation}
-            \delta_f = \dfrac{\displaystyle \sum_{i=1}^{W} \displaystyle \sum_{j=1}^{H} |\nabla f(x_{ij})|}{(W \times H)}
-        \end{equation}
+        % \begin{equation}
+        %     \delta_f = \dfrac{\displaystyle \sum_{i=1}^{W} \displaystyle \sum_{j=1}^{H} |\nabla f(x_{ij})|}{(W \times H)}
+        % \end{equation}
 
-        \noindent where,
-        \begin{itemize}
-            \item \(|\nabla f(x_{ij})| = \sqrt{f_x(x_{ij})^2 + f_y(x_{ij})^2}\) is the modulus of local intensity gradient
-            \item \( f_x(x_{ij}), f_y(x_{ij}) \) are first derivatives of intensity along X- and Y-axis respectively at a pixel point $x_{ij}$
-            \item $W$ and $H$ are the image width and height.
-        \end{itemize}
+        % \noindent where,
+        % \begin{itemize}
+        %     \item \(|\nabla f(x_{ij})| = \sqrt{f_x(x_{ij})^2 + f_y(x_{ij})^2}\) is the modulus of local intensity gradient
+        %     \item \( f_x(x_{ij}), f_y(x_{ij}) \) are first derivatives of intensity along X- and Y-axis respectively at a pixel point $x_{ij}$
+        %     \item $W$ and $H$ are the image width and height.
+        % \end{itemize}
     
     \subsubsection{\glsfirst{miosd}}
-        Yu et al. described another speckle quality parameter called \gls{miosd} ($\omega_f$), and found that, measurement accuracy is dependent on both \gls{mig} and \gls{miosd}. According to the authors, high quality speckle patterns should have large \gls{mig} and lower \gls{miosd}. This quality parameter reflects the smoothness of gray surface of speckle patterns. Motivation of the authors behind needing this parameter is, that even speckle patterns with same \gls{mig} ($\delta_f$) can have different accuracies for measured displacements \cite{yu_miosd}. 
+        Yu et al. found that, measurement accuracy is dependent on both \gls{mig} and \gls{miosd}. According to the authors, high quality speckle patterns should have large \gls{mig} and lower \gls{miosd}. This quality parameter reflects the smoothness of gray surface of speckle patterns. Motivation of the authors behind needing this parameter is, that even speckle patterns with same \gls{mig} ($\delta_f$) can have different accuracies for measured displacements. As per the findings from experiments conducted by authors, the so called `good' speckle pattern should have large \gls{mig} and small \gls{miosd}. This correlation can be observed from Fig. \ref{fig:yu_miosd_mig.png} and \ref{fig:yu_miosd_error.png}, where for speckle size than 2 pixels, larger deviations in measured displacement are observed, which correlates to a higher \gls{miosd} value. On the other hand, if speckle size was greater than 5 pixels, image had a small \gls{mig}, which correlates to larger deviations in position measurement \cite{yu_miosd}.
 
-        \begin{equation}
-            \omega_f = \dfrac{\displaystyle \sum_{i=1}^{W} \displaystyle \sum_{j=1}^{H} |\nabla^2 f(x_{ij})|}{(W \times H)} 
-        \end{equation}
-
-        \noindent where,
-        \begin{itemize}
-            \item \(|\nabla^2f(x_{ij})| = \sqrt{f_{xx}(x_{ij})^2 + f_{yy}(x_{ij})^2}\) is modulus of second derivative of local intensity and,
-            \item $f_{xx}(x_{ij})$ and $f_{yy}(x_{ij})$ are second derivatives of intensities in X- and Y-directions of a pixel $x_{ij}$. 
-        \end{itemize}
-
-        \noindent The second derivatives can be calculated as follows:
-
-        \begin{equation}
-            f_{xx}(x_{ij}) = f(i,j-1) - 2f(i,j) +f(i,j+1)
-        \end{equation}
-
-        \begin{equation}
-            f_{yy}(x_{ij}) = f(i-1,j) - 2f(i,j) + f(i+1,j)
-        \end{equation}
-
-        \noindent As per the findings from experiments conducted by authors, the so called 'good' speckle pattern should have large \gls{mig} and small \gls{miosd}. If the speckle was smaller than 2 pixels, then the speckle pattern produced larger deviation in measured displacement, which correlated to a higher \gls{miosd} value. On the other hand, if speckle size was greater than 5 pixels, image had a small \gls{mig} and less spatial features for accurate displacement measurement \cite{yu_miosd}.
-
-    \subsubsection{\gls{msf}}
-        Hua et al. developed another speckle quality criteria called \gls{msf} ($S_f$). Firstly a subset of 1 point and 8 neighboring points are selected (See Fig. \ref{fig:msf_subset.png}). Then, from this subset a local parameter $(S_p)$ is calculated using the Eqn. \ref{eqn:local_msf}. It compares the pixel gray value of each point with the mean gray value of the subset, thus capturing local subset fluctuations in gray level. The global \gls{msf} parameter is calculated by taking ($S_p$) for the different points inside the image and using the Eqn. \ref{eqn:global_msf}. The authors applied numerical translations on the speckle patterns and observed that mean bias error in measured displacements is small when $S_f$ is high \cite{hua_msf}.
-
-        \begin{figure}[h]
+        \begin{figure}[ht] 
             \centering
-            \includegraphics[width=0.35\textwidth]{images/c_sota/msf_subset.png}
-            \caption{Selecting points inside a subset. (Adapted from Hua et al. 2011 \cite{hua_msf})}
-            \label{fig:msf_subset.png}
-        \end{figure}        
-        
-        \begin{equation}
-            S_p = \sum_{i=1}^{3} \sum_{j=1}^{3} |a_{ij} - \overline{a}|
-            \label{eqn:local_msf}
-        \end{equation}
+            \includegraphics[width=0.4\textwidth]{images/c_sota/yu_miosd_mig.png}
+            \caption{\glsfirst{mig} and \glsfirst{miosd} for 12 computer generated speckle patterns. (Adapted from Yu et al. 2014 \cite{yu_miosd})}
+            \label{fig:yu_miosd_mig.png}
+        \end{figure}
 
-        \begin{equation}
-            S_f = \dfrac{\sum_{p \in F} S_p}{H \times V}
-            \label{eqn:global_msf}
-        \end{equation}
+        \begin{figure}[ht] 
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/c_sota/yu_miosd_error.png}
+            \caption{Mean bias error and standard deviation of error for numerical displacement of 0.25 pixels (left) and 0.75 pixels (right) respectively for 12 computer generated speckle patterns (Adapted from Yu et al. 2014 \cite{yu_miosd})}
+            \label{fig:yu_miosd_error.png}
+        \end{figure}
     
-    \subsubsection{\gls{se}}
-        Liu et al. developed a quality parameter based on concept of entropy. This criterion quantifies information content of an image and captures `randomness' inside a speckle pattern.
+        % \begin{equation}
+        %     \omega_f = \dfrac{\displaystyle \sum_{i=1}^{W} \displaystyle \sum_{j=1}^{H} |\nabla^2 f(x_{ij})|}{(W \times H)} 
+        % \end{equation}
 
-        \begin{equation}
-            H(Y) = - \displaystyle \sum_{j=0}^{2^{\beta} - 1} p(a_j)\ log(p(a_j)) 
-        \end{equation}
+        % \noindent where,
+        % \begin{itemize}
+        %     \item \(|\nabla^2f(x_{ij})| = \sqrt{f_{xx}(x_{ij})^2 + f_{yy}(x_{ij})^2}\) is modulus of second derivative of local intensity and,
+        %     \item $f_{xx}(x_{ij})$ and $f_{yy}(x_{ij})$ are second derivatives of intensities in X- and Y-directions of a pixel $x_{ij}$. 
+        % \end{itemize}
 
-        where,
-        \begin{itemize}
-            \item H represents Shannon entropy (bits/pixel), 
-            \item $\beta$ denotes pixel depth of the image,
-            \item $p(a_j)$ signifies normalized probability of occurrence of each gray level. 
-        \end{itemize}
+        % \noindent The second derivatives can be calculated as follows:
 
-        \noindent In order to verify the accuracy of measured displacements using \gls{dic}, the images were numerically deformed to avoid errors introduced by imaging system. The experimental findings showed that images with large \gls{se} had small mean bias error. High \gls{se} values denotes that speckle image has more feature information or higher speckle `uniqueness' \cite{liu_shannon}.
+        % \begin{equation}
+        %     f_{xx}(x_{ij}) = f(i,j-1) - 2f(i,j) +f(i,j+1)
+        % \end{equation}
 
-    \subsubsection{\glsfirst{sdgis}}
-        To take aspects of gray intensities and speckle morphology (i.e speckle size and density) into account, Park et al. developed a global quality criterion. Artificial speckle patterns were generated for the study using airbrush techniques. The motivation of the authors behind using ths parameter is that, using gray-intensity alone to judge the speckle pattern quality does not take into account the variability of speckles within the image. 
-        
-        \vspace{5mm}
-        \noindent Quantifying quality of a speckle pattern involves, firstly, identifying boundary of speckles by converting a speckle pattern image to a binary image using Otsu's method of thresholding \cite{otsu}. \gls{SDGIS} calculation is then made for each speckle. As this is still local assessment of quality for one speckle, the general quality assessment is done for the subset region. Distribution curves of \gls{sdgis} are generated for each subset, and then averaged over a given percentage for overall quality assessment. More details can be found in their paper \cite{park_sdgis}.
+        % \begin{equation}
+        %     f_{yy}(x_{ij}) = f(i-1,j) - 2f(i,j) + f(i+1,j)
+        % \end{equation}
 
-        \begin{equation}
-            \rho = SD_{R50} \dfrac{SD_{R75} - SD_{R25}}{0.5}
-        \end{equation}
-
-        \noindent where,
-        \begin{itemize}
-            \item $\rho$ is speckle pattern quality,
-            \item $SD_{R25}$, $SD_{R50}$, $SD_{R75}$ are lower quartile (25\%), median (50\%) and upper quartile (75\%) in cumulative distribution curve of \gls{sdgis}.
-        \end{itemize}
-
-        \noindent Higher \gls{sdgis} means higher level of gray-gradient and can hence provide more `uniqueness' in image correlation. The authors observed that, when distribution curves of \gls{sdgis} are wide and value of $\rho$ is large, errors in \gls{dic} measurement are low \cite{park_sdgis}. 
-
-    \subsubsection{E\textbf{_f}}
-        According to Hu et al. \cite{hu_ef}, most of the existing literature on speckle pattern quality uses only one parameter to evaluate mean bias error and standard deviation of error. On the contrary, the principle of both these error models are quite different from each other. In their study, the authors used \gls{mig} to judge speckle pattern quality based on standard deviation of error. Additionally, $E_f$ is derived based on intensity gradient and its second derivative based on mean bias error. $E_f$ was also compared with different image quality criteria by using 8 artificial speckle patterns. The translation movement was applied on speckle patterns numerically using the fourier shifting method. 
-
-        \vspace{5mm}
-        \noindent The bias error calculation $k_x$, $k_y$ was done for both X- and Y-directions for whole speckle pattern using the Eqn. \ref{eqn:ef_kx} and \ref{eqn:ef_ky}. It can be seen from these equations that $E_f$ is related to first and second order image intensity gradient. 
-        
-        \begin{equation}
-            k_x = \dfrac{ \sum_{i=1}^{W} \sum_{j=1}^{H} |\nabla^2 f_x (x_{ij}) \ \nabla f_x (x_{ij}) | }{ \sum_{i=1}^{W} \sum_{j=1}^{H} [\nabla f_x (x_{ij})]^2 }
-            \label{eqn:ef_kx}
-        \end{equation}
-        
-        \begin{equation}
-            k_y = \dfrac{ \sum_{i=1}^{W} \sum_{j=1}^{H} |\nabla^2 f_y (x_{ij}) \ \nabla f_y (x_{ij}) | }{ \sum_{i=1}^{W} \sum_{j=1}^{H} [\nabla f_y (x_{ij})]^2 }
-            \label{eqn:ef_ky}
-        \end{equation}
-
-        \begin{equation}
-            E_f = \sqrt{k{_x}^{2} + k{_y}^{2}}
-        \end{equation}
-
-        \noindent In conclusion, the authors found that order of quality of speckle patterns can differ from one criteria to another because of different definitions of quality and different care indexes. With regards to \gls{mig} and $E_f$, the order of speckle pattern quality are aligns with experimental findings. Additionally the authors observed, that in relation to mean bias error and standard deviation of error, $E_f$ and \gls{mig} are more efficient in assessing the speckle pattern quality as compared to other image quality parameters like \gls{se} and \gls{mffi} \cite{hu_ef}.
-        
-    \subsection{Local Criteria}
-
-    \subsubsection{\glsfirst{sssig}}\label{subsubsection:sssig}
-    Pan et al. investigated the effect of subset size on measurement accuracy in the Ref. \cite{pan_subset}.  To define a subset, if an image is divided into $n$ equal sub-images, then each of these sub-images can be called as a subset. In their study they derive a theoretical model that is based on correlation criteria \gls{ssd} (See Section \ref{section:template_matching}) that can accurately predict accuracy of displacement measurement based on the value of \glsentryshort{sssig}.
-
-    \vspace{5mm}
-    \noindent In conclusion, the authors found that displacement measurement accuracy can be improved by the following:
-    \begin{itemize}
-        \item Increasing the subset \glsentryshort{sssig}.
-        \item Using a high bit depth camera (12-bit or 16-bit).
-        \item Increasing the contrast of image. The authors did not provide any specifics here.
-        \item Decreasing the image noise by using cooled \gls{ccd} and high quality camera lens.
-    \end{itemize}
-
-
-    \begin{equation}
-        \glsentryshort{sssig} = \displaystyle \sum_{i=1}^N \displaystyle \sum_{j=1}^N [f_{x,y(x_{ij})}]^2
-    \end{equation}
-    
-    \subsubsection{Subset Entropy}
-        Yaofeng et al. in their study introduced a local quality parameter known as \emph{subset entropy} (\delta) \cite{yaofeng}. Here, the subset is defined as 8 neighboring pixels around the pixel of interest. The motivation for this study by the authors is to define this local parameter that can evaluate the effect of this image quality of each subset on accuracy of measured displacement.
-
-        \begin{equation}
-            \delta = \dfrac{\sum_{P \in S} \sum_{i=1}^{8}|I_P - I_i|}{2^\beta MN}
-        \end{equation}
-
-        where,
-        \begin{itemize} 
-            \item $\delta$ denotes subset entropy
-            \item $P$ is a pixel point inside subset $S$
-            \item Subset $S$ dimensions are $M\times N$
-            \item $I_P$ is intensity at point $P$
-            \item $I_i$ is intensity at one of the 8 pixel points neighboring point $P$
-            \item \beta\ is the pixel depth
-        \end{itemize}
-
-        \noindent The experiment findings by Yaofeng et al. show that subset entropy can quantify subset image quality and have direct effect of correlation accuracy. The standard deviation of measured displacement decreases with larger subset entropy \cite{yaofeng}.
-
-        \subsubsection{\glsfirst{ass}}
-        Lecompte et al. investigated effects of subset size and speckle size on accuracy of measured displacements, using image morphology method to calculate speckle size. By repeated erosion and dilation procedures, thresholding method is used to identify a speckle. The authors concluded from the conducted experiments that, larger subsets with larger speckle sizes yielded more accurate results for measured displacements in comparison to small subsets with large speckles. However, this paper only demonstrated that there is dependence of speckle size and subset size on displacement measurement, but does not provide any method to obtain optimal speckle size or subset size \cite{lecompte}.
-
-        % \subsubsection{Image Filter Techniques}
-        % According to Charrett et al., using image filters such as binary threshold and prewitt kernels (See Fig. \ref{fig:charrett_mars_fig12}) lead to reliable velocity measurements \cite{charrett_mars}. 
-
-
-        % \begin{figure}[h] 
-        %     \centering
-        %     \includegraphics[width=0.55\textwidth]{images/c_sota/charrett_mars_fig12.png}
-        %     \caption{Typical speckle images: (a) no pre-filter, (b) Canny edge detection, (c) binary threshold, (d) Prewitt gradient filters. \cite{charrett_mars}}
-        %     \label{fig:charrett_mars_fig12}
-        % \end{figure}
-
-        % \clearpage
+    \subsubsection{\glsfirst{msf}}
+        Hua et al. applied numerical translations on the speckle patterns and observed that mean bias error in measured displacements is small when \gls{msf} value ($S_f$) is high \cite{hua_msf}. For a numerical displacement of 1 pixels applied on the speckle images, maximum mean bias error of 0.06 pixels was observed for a speckle image with \gls{msf} value of 64.51. Conversely, for speckle image with \gls{msf} value of 114.51, showed maximum mean bias error of 0.01 pixels.  Optimal speckle size between 2 to 4 pixels was suggested by the authors, as it displayed higher \gls{msf} values compared to other speckle sizes. Thus, a correlation was drawn between influence of speckle size on position measurement accuracy. 
 
         % \begin{figure}[h]
         %     \centering
-        %     \includegraphics[width=0.7\textwidth]{images/c_sota/charrett_mars_fig13.png}
-        %     \caption{(a) The mean calculated v component of velocity and (b) the minimum correlation Q-value that occurred plotted against stage velocity using the \gls{ncc} method and different pre-filters. \cite{charrett_mars}}
-        %     \label{fig:charrett_mars_fig13}
-        % \end{figure}
+        %     \includegraphics[width=0.35\textwidth]{images/c_sota/msf_subset.png}
+        %     \caption{Selecting points inside a subset. (Adapted from Hua et al. 2011 \cite{hua_msf})}
+        %     \label{fig:msf_subset.png}
+        % \end{figure}        
+        
+        % \begin{equation}
+        %     S_p = \sum_{i=1}^{3} \sum_{j=1}^{3} |a_{ij} - \overline{a}|
+        %     \label{eqn:local_msf}
+        % \end{equation}
+
+        % \begin{equation}
+        %     S_f = \dfrac{\sum_{p \in F} S_p}{H \times V}
+        %     \label{eqn:global_msf}
+        % \end{equation}
+    
+    \subsubsection{\glsfirst{se}}
+        % Liu et al. developed a quality parameter based on concept of entropy. This criterion quantifies information content of an image and captures `randomness' inside a speckle pattern.
+
+        % \begin{equation}
+        %     H(Y) = - \displaystyle \sum_{j=0}^{2^{\beta} - 1} p(a_j)\ log(p(a_j)) 
+        % \end{equation}
+
+        % where,
+        % \begin{itemize}
+        %     \item $H$ represents Shannon entropy (bits/pixel), 
+        %     \item $\beta$ denotes pixel depth of the image,
+        %     \item $p(a_j)$ signifies normalized probability of occurrence of each gray level. 
+        % \end{itemize}
+
+        Liu et al. numerically deformed the images to avoid errors introduced by imaging system. The experimental findings showed that images with large \gls{se} had small mean bias error. This trend can be observed from Fig. \ref{subfig:liu_shannon_entropy.png}, where for speckle patterns with high \gls{se} values, corresponding mean error values are low. Another conclusion drawn by authors was, that continuously increasing number of speckles, does not always correlate to higher accuracy. High \gls{se} values denotes that speckle image has more feature information or higher speckle `uniqueness' \cite{liu_shannon}.
+
+        \begin{figure}[ht] 
+            \centering
+            \begin{subfigure}{0.49\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/c_sota/liu_shannon_entropy.png}
+                \caption{\glsfirst{se} values.}
+                \label{subfig:liu_shannon_entropy.png}
+            \end{subfigure}
+            \begin{subfigure}{0.49\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/c_sota/liu_mean_error.png}
+                \caption{Mean error values versus speckle numbers.}
+                \label{subfig:liu_mean_error.png}
+            \end{subfigure}
+            \caption{\glsfirst{se} and mean error values for 23 computer generated speckle patterns. (Reprinted from Liu et al. 2015 \cite{liu_shannon})}
+            \label{fig:liu_shannon}
+        \end{figure}
+
+    \subsubsection{\glsfirst{sdgis}}
+        The motivation of Park et al. behind using this parameter is that, using gray-intensity alone to judge the speckle pattern quality does not take into account the variability of speckles within the image. The authors generated 12 artificial speckle patterns for this study using airbrush techniques, and found that higher \glsentryshort{sdgis} meant higher level of gray-gradient and hence provided more `uniqueness' in image correlation. In Fig. \ref{fig:park_sdgis_error.png}, it can be clearly observed that as \gls{sdgis} value ($\rho$) is increasing, mean error in pixels is decreasing. The correlation coefficient between this error and $\rho$ is -0.8793 with a \emph{p}-value of 1.9977 \times\ $10^{-16}$. The legend inside this figure shows the values 0.2, 0.5, 1.0, and \SI{1.2}{\milli\meter} which correspond to different nozzle sizes used for airbrushing, whereas white, gray and black colors indicate the low-, medium- and high-volume fractions respectively which is addressed by varying spraying time \cite{park_sdgis}.
+
+        \begin{figure}[ht] 
+            \centering
+            \includegraphics[width=0.5\textwidth]{images/c_sota/park_sdgis_error.png}
+            \caption{Relationship between $\rho$ and mean error for 12 different speckle patterns. (Adapted from Park et al. 2017 \cite{park_sdgis})}
+            \label{fig:park_sdgis_error.png}
+        \end{figure}
+            
+        
+        % \vspace{5mm}
+        % \noindent Quantifying quality of a speckle pattern involves, firstly, identifying boundary of speckles by converting a speckle pattern image to a binary image using Otsu's method of thresholding \cite{otsu}. \glsentryshort{sdgis} calculation is then made for each speckle. As this is still local assessment of quality for only one speckle, the general quality assessment is done for the subset region. Distribution curves of \glsentryshort{sdgis} are generated for each subset, and then averaged over a given percentage for overall quality assessment. More details can be found in their study \cite{park_sdgis}.
+
+        % \begin{equation}
+        %     \rho = SD_{R50} \dfrac{SD_{R75} - SD_{R25}}{0.5}
+        % \end{equation}
+
+        % \noindent where,
+        % \begin{itemize}
+        %     \item $\rho$ is speckle pattern quality,
+        %     \item $SD_{R25}$, $SD_{R50}$, $SD_{R75}$ are lower quartile (25\%), median (50\%) and upper quartile (75\%) in cumulative distribution curve of \glsentryshort{sdgis}.
+        % \end{itemize} 
+
+    \subsubsection{E\textbf{_f}}
+        According to Hu et al. \cite{hu_ef}, most of the existing literature on speckle pattern quality uses only one parameter to evaluate mean bias error and standard deviation of error. On the contrary, the principle of both these error models are quite different from each other. $E_f$ was also compared with different image quality criteria by using 8 artificial speckle patterns. The translation movement was applied on speckle patterns numerically using the fourier shifting method \cite{schreier}. In conclusion, the authors found that order of quality of speckle patterns can differ from one criteria to another because of different definitions of quality and different care indexes. With regards to \gls{mig} and $E_f$, the order of speckle pattern quality are aligns with experimental findings. Additionally the authors observed, that in relation to mean bias error and standard deviation of error, $E_f$ and \gls{mig} are more efficient in assessing the speckle pattern quality as compared to other image quality parameters like \gls{se} and \gls{mffi} \cite{hu_ef}.
+
+        % \vspace{5mm}
+        % \noindent The bias error calculation $k_x$, $k_y$ was done for both X- and Y-directions for whole speckle pattern using the Eqn. \ref{eqn:ef_kx} and \ref{eqn:ef_ky}. It can be seen from these equations that $E_f$ is related to first and second order image intensity gradient. 
+        
+        % \begin{equation}
+        %     k_x = \dfrac{ \sum_{i=1}^{W} \sum_{j=1}^{H} |\nabla^2 f_x (x_{ij}) \ \nabla f_x (x_{ij}) | }{ \sum_{i=1}^{W} \sum_{j=1}^{H} [\nabla f_x (x_{ij})]^2 }
+        %     \label{eqn:ef_kx}
+        % \end{equation}
+        
+        % \begin{equation}
+        %     k_y = \dfrac{ \sum_{i=1}^{W} \sum_{j=1}^{H} |\nabla^2 f_y (x_{ij}) \ \nabla f_y (x_{ij}) | }{ \sum_{i=1}^{W} \sum_{j=1}^{H} [\nabla f_y (x_{ij})]^2 }
+        %     \label{eqn:ef_ky}
+        % \end{equation}
+
+        % \begin{equation}
+        %     E_f = \sqrt{k{_x}^{2} + k{_y}^{2}}
+        % \end{equation}
 
     \subsection{Miscellaneous}
 
     \subsubsection{\glsfirst{mffi}}
 
-        As per the authors of Ref. \cite{song} most of the traditional quality criteria consider either contrast of the speckle pattern or speckle morphology and are evaluated for artificial speckle patterns instead of \gls{lsp}. To quantify quality of a \gls{lsp}, Song et al. suggested a new parameter called \gls{mffi}. It takes 3 things into account:
-        \begin{enumerate}
+        Song et al. mentioned that most of the traditional quality criteria consider either contrast of the speckle pattern or speckle morphology and are evaluated for artificial speckle patterns instead of \gls{lsp} \cite{song}. To take speckle morphology and gray level information together into account, the authors developed \gls{mffi} quality criteria ($\delta_{MFFI}$). According to findings from the authors, the smaller $\delta_{MFFI}$ is better is the \gls{lsp} quality, which correlated to lower mean bias error and standard deviation of error in measured displacements \cite{song}.
+        
+        % To quantify quality of a \gls{lsp}, Song et al. suggested a new parameter called \gls{mffi}. It takes 3 things into account:
+        % \begin{enumerate}
             
-            \item \textbf{\gls{igd} ($\delta_{IGD}$)}: If the pixels inside a \gls{lsp} are distributed across all possible gray levels $L$, $\delta_{IGD}$ will have the smaller value in comparison to an image where all pixels have same gray intensity values. According to authors, gray levels being distributed means, speckle patterns contains a lot of `information' \cite{song}.
+        %     \item \textbf{\gls{igd} ($\delta_{IGD}$)}: If the pixels inside a \gls{lsp} are distributed across all possible gray levels $L$, $\delta_{IGD}$ will have the smaller value in comparison to an image where all pixels have same gray intensity values. According to authors, gray levels being distributed means, speckle patterns contains a lot of `information' \cite{song}.
                 
-                \begin{equation}
-                    \delta_{IGD} = \sqrt{\sum_{k=0}^{L-1} P_{k}^{2} / (W \times H)}
-                \end{equation}
+        %         \begin{equation}
+        %             \delta_{IGD} = \sqrt{\sum_{k=0}^{L-1} P_{k}^{2} / (W \times H)}
+        %         \end{equation}
                 
-                \noindent where, 
-                \begin{itemize}
-                    \item $P_k$ denotes the number of pixels of a particular gray level inside a \gls{lsp},
-                    \item $W$ and $H$ denote the width and height of image in pixels,
-                    \item $L$ denotes gray level number of an image.
-                \end{itemize}
+        %         \noindent where, 
+        %         \begin{itemize}
+        %             \item $P_k$ denotes the number of pixels of a particular gray level inside a \gls{lsp},
+        %             \item $W$ and $H$ denote the width and height of image in pixels,
+        %             \item $L$ denotes gray level number of an image.
+        %         \end{itemize}
 
-                \noindent If $L = 5$, then $k = {0, 1, 2, 3, 4}$ and number of pixels inside each gray level are given by \(\{P_k, k = 0, 1, ... , L-1\}\).
+        %         \noindent If $L = 5$, then $k = {0, 1, 2, 3, 4}$ and number of pixels inside each gray level are given by \(\{P_k, k = 0, 1, ... , L-1\}\).
 
-            \item \textbf{\gls{msdg} ($\delta_{MSDG}$)}: This parameter quantifies the contrast inside an image. It is defined by Eqn. \ref{eqn:msdg}. It identifies the concentration of a certain gray level distribution. The more dispersed the distribution, the higher the value of this parameter, and the better the quality of speckle pattern \cite{song}. 
+        %     \item \textbf{\gls{msdg} ($\delta_{MSDG}$)}: This parameter quantifies the contrast inside an image. It is defined by Eqn. \ref{eqn:msdg}. It identifies the concentration of a certain gray level distribution. The more dispersed the distribution, the higher the value of this parameter, and the better the quality of speckle pattern \cite{song}. 
                 
-                \begin{equation}
-                    \delta_{MSDG} = \sqrt{\sum_{k=0}^{L-1} \biggl\{ (k - \overline{P})^2 \times Q_k \biggr\}}
-                    \label{eqn:msdg}
-                \end{equation}
+        %         \begin{equation}
+        %             \delta_{MSDG} = \sqrt{\sum_{k=0}^{L-1} \biggl\{ (k - \overline{P})^2 \times Q_k \biggr\}}
+        %             \label{eqn:msdg}
+        %         \end{equation}
 
-                \noindent where,
-                \begin{itemize}
-                    \item \(Q_k = P_{k}/(W \times H)\)
-                    \item Mean gray value \(\overline{P} = \sum_{k=0}^{L-1} k \times Q_k\)
-                \end{itemize}   
+        %         \noindent where,
+        %         \begin{itemize}
+        %             \item \(Q_k = P_{k}/(W \times H)\)
+        %             \item Mean gray value \(\overline{P} = \sum_{k=0}^{L-1} k \times Q_k\)
+        %         \end{itemize}   
 
             
-            \item \textbf{\gls{sdsps} ($\delta_{SDSPS}$)}: This parameter is calculated by Eqn. \ref{eqn:sdsps}, and considers the speckle morphology inside a \gls{lsp}. This parameter gives a high value when differences between speckle sizes is large. The number of speckles inside a speckle pattern is calculated firstly by Otsu's thresholding \cite{otsu}, and then boundary detection to calculate number of points inside each speckle \cite{song}.  
+        %     \item \textbf{\gls{sdsps} ($\delta_{SDSPS}$)}: This parameter is calculated by Eqn. \ref{eqn:sdsps}, and considers the speckle morphology inside a \gls{lsp}. This parameter gives a high value when differences between speckle sizes is large. The number of speckles inside a speckle pattern is calculated firstly by Otsu's thresholding \cite{otsu}, and then boundary detection to calculate number of points inside each speckle \cite{song}.  
 
-            \begin{equation}
-                \delta_{SDSPS} = \sqrt{\frac{1}{T} \displaystyle \sum_{n=1}^{T} \  (A_n - \overline{A})^2} (max(A_n) > 1)
-                \label{eqn:sdsps}
-            \end{equation}
+        %     \begin{equation}
+        %         \delta_{SDSPS} = \sqrt{\frac{1}{T} \displaystyle \sum_{n=1}^{T} \  (A_n - \overline{A})^2} (max(A_n) > 1)
+        %         \label{eqn:sdsps}
+        %     \end{equation}
 
-            where,
-            \begin{itemize}
-                \item $A_n$ denotes size of every speckle particle,
-                \item mean speckle size \(\overline{A} = \sum_{n=1}^{T} A_n / T\),
-                \item $T$ is number of speckle particles.
-            \end{itemize} 
-        \end{enumerate}
+        %     where,
+        %     \begin{itemize}
+        %         \item $A_n$ denotes size of every speckle particle,
+        %         \item mean speckle size \(\overline{A} = \sum_{n=1}^{T} A_n / T\),
+        %         \item $T$ is number of speckle particles.
+        %     \end{itemize} 
+        % \end{enumerate}
 
-        \noindent Finally, these parameters are combined to give $\delta_{MFFI}$ using Eqn. \ref{eqn:mffi}. The authors mentioned, that by combining multiple methods, the shortcoming of considering only a single factor is overcome.
+        % \noindent Finally, these parameters are combined to give $\delta_{MFFI}$ using Eqn. \ref{eqn:mffi}. The authors mentioned, that by combining multiple methods, the shortcoming of considering only a single factor is overcome.
 
-        \begin{equation}
-            \delta_{MFFI} = \dfrac{a \times \delta_{IGD}}{\delta_{MSDG} \times \delta_{SDSPS}}
-            \label{eqn:mffi}
-        \end{equation}
+        % \begin{equation}
+        %     \delta_{MFFI} = \dfrac{a \times \delta_{IGD}}{\delta_{MSDG} \times \delta_{SDSPS}}
+        %     \label{eqn:mffi}
+        % \end{equation}
 
-        \vspace{3mm}
-        \noindent where, $a$ denotes a linear coefficient to adjust value of $\delta_{MFFI}$ for better illustration. According to findings from the authors, the smaller $\delta_{MFFI}$ is better is the \gls{lsp} quality. The values of \gls{mffi} are also in agreement with the mean bias error and standard deviation of error in measured displacements \cite{song}.
+        % \vspace{3mm}
+        % \noindent where, $a$ denotes a linear coefficient to adjust value of $\delta_{MFFI}$ for better illustration. 
 
 
     \subsubsection{Quality assessment using Deep-Learning based \glsentryshort{cnn}}
@@ -843,14 +855,14 @@ For the purpose of \gls{lsi} with methods other than template matching (See Chap
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{images/c_sota/charrett_2019_fig4.png}
-    \caption{Comparison of error in translation measurements between 2D-\gls{ncc} and feature tracking. (Adapted from Charrett et al. 2019 \cite{charrett_2019})}
+    \caption{Comparison of error in translation measurements between 2D-\gls{ncc} and feature tracking. (Reprinted from Charrett et al. 2019 \cite{charrett_2019})}
     \label{fig:charrett_2019_fig4}
 \end{figure} 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/c_sota/charrett_2019_fig5.png}
-    \caption{Evaluation of rotational measurement accuracy by feature tracking methods using rotated dataset of \gls{lsp} (See Table 3 of Ref. \cite{charrett_2019}). (a) Measured rotation versus actual rotation. (b) The number of matched features after application of distance threshold, described in Section 4.2 and Table 2 of Ref. \cite{charrett_2019}. Plots (c,d) show measurement errors, with in (d) vertical scale is changed to outline accuracy clearly. (Adapted from Charrett et al. 2019\cite{charrett_2019})}
+    \caption{Evaluation of rotational measurement accuracy by feature tracking methods using rotated dataset of \gls{lsp} (See Table 3 of Ref. \cite{charrett_2019}). (a) Measured rotation versus actual rotation. (b) The number of matched features after application of distance threshold, described in Section 4.2 and Table 2 of Ref. \cite{charrett_2019}. Plots (c,d) show measurement errors, with in (d) vertical scale is changed to outline accuracy clearly. (Reprinted from Charrett et al. 2019\cite{charrett_2019})}
     \label{fig:charrett_2019_fig5}
 \end{figure} 
 
@@ -891,7 +903,7 @@ For the purpose of \gls{lsi} with methods other than template matching (See Chap
 \section{Real Applications of Template Matching} \label{section:real_template_matching}
 
     \subsection{Velocity measurement using \gls{lsp} for a Mars exploration rover}
-        In order to improve the odometry information coming from wheel encoders, Charrett et al. explored the possibility of using laser speckle images to perform velocity measurement in this paper \cite{charrett_mars}. The paper aimed at exploring different algorithms aiding velocimetry and the possibility of forming speckle images using Mars soil analogues using a laboratory setup (See Fig. \ref{fig:charrett_mars_fig2.png}). Out of all the tested algorithms, \gls{ncc} performed the best with odometry error of 0.2\% at speeds of upto \SI{1}{\milli\meter/\second} and less than 0.75\% at \SI{50}{\milli\meter/\second}. They also mentioned that this technique should scale well to higher velocities of \sim\SI{85}{\milli\meter/\second} (usual speed of exploration rovers), if higher frame rate camera is used and better image signals can be captured from the surface. But, testing speckle velocimetry at these speeds requires further investigation. Other open issues concerning this study includes finding out influence of vehicle motions and rotations \cite{charrett_mars}.
+        In order to improve the odometry information coming from wheel encoders, Charrett et al. explored the possibility of using laser speckle images to perform velocity measurement in this study \cite{charrett_mars}. The paper aimed at exploring different algorithms aiding velocimetry and the possibility of forming speckle images using Mars soil analogues using a laboratory setup (See Fig. \ref{fig:charrett_mars_fig2.png}). Out of all the tested algorithms, \gls{ncc} performed the best with odometry error of 0.2\% at speeds of upto \SI{1}{\milli\meter/\second} and less than 0.75\% at \SI{50}{\milli\meter/\second}. They also mentioned that this technique should scale well to higher velocities of \sim\SI{85}{\milli\meter/\second} (usual speed of exploration rovers), if higher frame rate camera is used and better image signals can be captured from the surface. But, testing speckle velocimetry at these speeds requires further investigation. Other open issues concerning this study includes finding out influence of vehicle motions and rotations \cite{charrett_mars}.
 
         \begin{figure}[ht]
             \centering
@@ -901,17 +913,11 @@ For the purpose of \gls{lsi} with methods other than template matching (See Chap
         \end{figure}
         
     \subsection{Robotic tool speed measurement using \gls{lsp}} \label{subsection:robotic_tool_speed}
-        In the Ref. \cite{charrett_2018}, the authors proposed a sensor concept that can be used for measurement of robot \gls{tcp} speed. The sensor concept can be seen in Fig. \ref{fig:sensor_concept.png}. It involved using a camera-laser setup which records \gls{lsp} for in-plane movements, and then uses 2D-\gls{ncc} for measuring velocity. Initial experiments are done on a laboratory setup, where relative movement between sensor setup and surface is done using a 6-axis hexapod (See Fig. \ref{fig:charrett_2018_fig4}). The authors reported a high sensor accuracy with maximum error of \pm\SI{0.01}{\milli\meter/\second} over a velocity range of \pm\SI{70}{\milli\meter/\second}. For lower velocity range of \pm\SI{10}{\milli\meter/\second}, error in velocity measurement reduced to \textless \SI{0.004}{\milli\meter/\second}. The sensor's precision was measured by giving hexapod stage circular path, and varying the X and Y velocity components. Here, peak velocity errors \SI{0.34}{\milli\meter/\second} at \SI{1}{\milli\meter/\second} and \pm\SI{2.28}{\milli\meter/\second} at \pm\SI{70}{\milli\meter/\second} were observed \cite{charrett_2018}.
+        In \cite{charrett_2018}, Charrett et al. proposed a sensor concept that can be used for measurement of robot \gls{tcp} speed. The sensor concept can be seen in Fig. \ref{fig:sensor_concept.png}. It involved using a camera-laser setup which records \gls{lsp} for in-plane movements, and then uses 2D-\gls{ncc} for measuring velocity. Initial experiments are done on a laboratory setup, where relative movement between sensor setup and surface is done using a 6-axis hexapod (See Fig. \ref{fig:charrett_2018_fig4}). The authors reported a high sensor accuracy with maximum error of \pm\SI{0.01}{\milli\meter/\second} over a velocity range of \pm\SI{70}{\milli\meter/\second}. For lower velocity range of \pm\SI{10}{\milli\meter/\second}, error in velocity measurement reduced to \textless \SI{0.004}{\milli\meter/\second}. The sensor's precision was measured by giving hexapod stage circular path, and varying the X and Y velocity components. Here, peak velocity errors \SI{0.34}{\milli\meter/\second} at \SI{1}{\milli\meter/\second} and \pm\SI{2.28}{\milli\meter/\second} at \pm\SI{70}{\milli\meter/\second} were observed \cite{charrett_2018}.
         
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.4\textwidth]{images/b_fundamentals/sensor_concept.png}
-            \caption{Sensor concept. In (a) \gls{lsi} setup captures images for relative movement between robot \gls{tcp} and workpiece surface. In (b) 2D-\gls{ncc} between reference and current image gives the correlation peak indicating the occurred translation (Adapted from Charrett et al. 2018 \cite{charrett_2018}).}
-            \label{fig:sensor_concept.png}
-        \end{figure}
 
     \subsection{Three-\gls{dof} sensor for robot manufacturing}
-        Charrett et al. in Ref. \cite{charrett_wpos} developed another sensor concept (Fig. \ref{fig:charrett_wpos_fig1.png}), for measurement of 3-translation \gls{dof} of robot \gls{tcp} called \gls{wpos}. It involves an optical sensor setup that utilizes the principles of \gls{rri} \cite{kissinger_rri} for out-of-plane positioning, and laser-speckle correlation for in-plane positioning or potential rotation \cite{charrett_2019}. A brief overview of these techniques is provided below:
+        Charrett et al. developed another sensor concept (Fig. \ref{fig:charrett_wpos_fig1.png}), for measurement of 3-translation \gls{dof} of robot \gls{tcp} called \gls{wpos} \cite{charrett_wpos}. It involves an optical sensor setup that utilizes the principles of \gls{rri} \cite{kissinger_rri} for out-of-plane positioning, and laser-speckle correlation for in-plane positioning or potential rotation \cite{charrett_2019}. A brief overview of these techniques is provided below:
 
         \subsubsection{\glsfirst{rri}}
             \gls{rri} is an interferometry technique based on sinusoidal wavelength modulation of laser diodes. It gives high resolution measurement of interferometric phase thus giving nanometer level precision in displacement measurement at multi-kHz bandwidths \cite{kissinger_rri}. In \gls{wpos}, \gls{rri} is used to measure the distance between workpiece surface and robot \gls{tcp}. As per the authors, \gls{rri} also offers advantages such as large working ranges (\geq\ \SI{10}{\centi\meter}), small sensor heads (\leq\ \SI{10}{\milli\meter}), and that interferometric nature of this process allows it to be immune to background light (for example, from arc-welding) \cite{kissinger_rri}.

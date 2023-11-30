@@ -1,90 +1,82 @@
 \chapter{Motivation and Goal}\label{chap:motivation_and_goal}
 
-In many areas of manufacturing it is advantageous to use robots because of their flexibility and cost-effective productivity, but they suffer from the problems of low stiffness i.e. resistance of individual components to deformation, low positioning accuracy and insufficient rigidity i.e. overall ability of robot to maintain it's shape as a whole \cite{ji, chen}. Materials that robots are made out of, expand with heat, and hence result in non-linear error. Apart from the given reasons, errors resulting from improper calibration, sensor inaccuracies, and incorrect servo loops \cite{greenway, torgny} can result in deviations in robot \Gls{tcp} pose from the intended path as shown in Figure \ref{fig:fig_walderich}. Hence, research has to be conducted in area of minimizing these errors and estimating better robot \Gls{tcp} pose for more accurate machining processes.
+\section*{Motivation}
+    In many areas of manufacturing it is advantageous to use robots because of their flexibility and cost-effective productivity, but they suffer from the problems of low stiffness i.e. resistance of individual components to deformation, low positioning accuracy and insufficient rigidity i.e. overall ability of robot to maintain it's shape as a whole \cite{ji, chen}. Materials that robots are made out of, expand with heat, and hence result in non-linear error. Apart from the given reasons, errors resulting from improper calibration, sensor inaccuracies, and incorrect servo loops \cite{greenway, torgny} can result in deviations in robot \Gls{tcp} pose from the intended path as shown in Figure \ref{fig:fig_walderich}. Hence, research has to be conducted in area of minimizing these errors and estimating better robot \Gls{tcp} pose for more accurate manufacturing processes.
 
-\vspace{5mm}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/a_introduction/Pathaccuracy.png}
+            \caption{Attained path (in red) of a Universal Robot UR5e compared to command path (in blue) (left) and the specimen after laser cutting with a robot (right). (\textcopyright \ Philipp Walderich) \cite{img_walderich}}
+            \label{fig:fig_walderich}
+        \end{figure}
 
-    \vspace{5mm}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.9\textwidth]{images/a_introduction/Pathaccuracy.png}
-        \caption{Attained path in red of a Universal Robot UR5e compared to command path in blue (left) and the specimen after laser cutting with a robot (right). (\textcopyright \ Philipp Walderich) \cite{img_walderich}}
-        \label{fig:fig_walderich}
-    \end{figure}
-    \vspace{5mm}
-
-    \noindent In the recent years the prices of lasers have decreased by 70\% and low cost fiber lasers have seen a surge in market demand \cite{optech}. If the aforementioned deviations in robot pose are minimized, robots owing to their advantages of flexibility, low-cost operation along with cheaper lasers can be a viable option in future of \gls{lmp}.
+        \noindent In the recent years the prices of lasers have decreased by 70\% and low cost fiber lasers have seen a surge in market demand \cite{optech}. If the aforementioned deviations in robot pose are minimized, robots owing to their advantages of flexibility, low-cost operation along with cheaper lasers can be a viable option in future of manufacturing processes, for instance laser additive manufacturing.
     
-    \vspace{5mm}
 
-    \noindent One way to counter these errors is, to have an optical calibration of robot pose using either external methods such as photogrammetry, laser tracker systems or machine vision methods using onboard mounted cameras. The combination of robot movement and these methods is a suitable solution for overcoming the problem of positional inaccuracy \cite{perez}.
+\section*{Introduction to Robot Pose Estimation Methods}
+
+    \noindent One way to counter these errors is, to have an optical position estimation of robot pose using either external methods such as photogrammetry, laser tracker systems or machine vision methods using onboard mounted cameras. The combination of robot movement and these methods is a suitable solution for overcoming the problem of positional inaccuracy \cite{perez}.
     
-    \vspace{5mm}
+    \subsection*{Stereo Vision and Photogrammetry}
+        Techniques like photogrammetry and stereo vision require well illuminated conditions, as these techniques rely on recognizing keypoints and features within the image frame. As a result, physical marks such as reflective stickers or laser points become necessary for these these techniques, as shown in Fig. \ref{fig:fig_perez_4}. Solutions to deal with robot pose involving photogrammetry use multiple cameras or attaching \gls{led} reference targets for camera imaging. If one wants to avoid using physical markers, markerless stereo vision systems involve using feature tracking algorithms to find points of interest within the image frame. These have found their use in indoor and outdoor robot odometry applications. But, these techniques fail, when the surfaces are low-textured \cite{perez}. For low-textured surfaces, some authors have employed techniques for example, spraying the specimen surface to generate artificial features. This has a disadvantage, as it is more difficult to control the random pattern characteristics \cite{stoilov}. Stoilov et al. used screen printing method to apply computer generated random patterns on surfaces \cite{stoilov}. They concluded that the quality of generated patterns for measuring deformation is good enough, despite the lower signal-to-noise ratio. 
+
+        \vspace{5mm}
+        \noindent However, using these methods may prove impractical for purposes of \gls{lmp} because of high intensity emission in spectral range, and the melting processes that can render artificial patterns useless. It is also highly likely that in \gls{lmp}, one works with surfaces that are sparsely featured. While these techniques are able to determine robot pose accurately to range of \SI{64}{\micro\meter} \cite{perez}, it involves processing a large amount of image data that can be influenced by factors such as brightness and lights in industrial environments. Moreover, solutions to overcome their disadvantages involve costlier approaches.
     
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{images/a_introduction/perez_fig4.png}
+            \caption{Physical marks used in marker-based stereo vision. (a) Stickers (b) Laser points. (Adapted from Pérez et al. 2016 \cite{perez})}
+            \label{fig:fig_perez_4}
+        \end{figure}
+
+    \subsection*{\glsfirst{tof}}
+        Other 3D vision techniques for example, \gls{tof} cameras employ light pulses. Depth information of the scene is calculated based on the time it takes for the reflected light to be received by the sensor. Some of the problems mentioned by Pérez et al. include occlusion of light from other objects, low raw data quality because of noise, depth inhomogeneity at object boundaries, multiple reflections from objects \cite{perez}. Moreover, point cloud data generated from these techniques also needs to be processed using algorithms such as \gls{icp}. Hence, the robustness of final setup depends on: point cloud acquisition and its subsequent treatment. The maximum accuracy mentioned by Pérez et al. for \gls{tof} is \SI{10}{\milli\meter} \cite{perez}, which is low for purpose of laser aided manufacturing.
+
+    \subsection*{Laser Tracker}
+        Another solution is to use a laser tracker, which tracks position of reflective target in space and time. Thereby, enabling calculation of geometric and dynamic parameters of the robot \gls{tcp}, as can be seen in Fig. \ref{fig:perez_fig13}. But this kind of setup increases costs, and can suffer from problem of occlusion.  
+
+        \begin{figure}[h]
+            % \hspace{3cm}
+            \centering
+            \includegraphics[width=0.4\textwidth]{images/a_introduction/perez_fig13.png}
+            \caption{Laser tracker (Adapted from Pérez et al. 2016 \cite{perez}) Note: Scale information not provided in original source.}
+            \label{fig:perez_fig13}
+        \end{figure}
     
-    \noindent Techniques like photogrammetry and stereo vision require better illumination conditions, as these techniques rely on recognizing keypoints and features within the image frame for better accuracy. As a result, physical marks such as reflective stickers or laser points become necessary for these these techniques, as shown in Fig. \ref{fig:fig_perez_4}. Solutions to deal with robot pose involving photogrammetry involves using multiple cameras or attaching \gls{led} reference targets for camera imaging, and reflectors suitable for laser tracking to robot's \gls{tcp}. All of these then should be calibrated with local coordinates to improve accuracy. Another solution is to use a laser tracker, which can track the geometric and dynamic parameters of the robot, as can be seen in Fig. \ref{fig:perez_fig13}. But this kind of setup increases costs, and can suffer from problem of occlusion. If one wants to avoid using physical markers, markerless stereo vision systems involve using feature tracking algorithms to find points of interest within the image frame. These have found their use in indoor and outdoor robot odometry applications. But, these techniques fail, when the surfaces are low-textured \cite{perez}. For low-textured surfaces, some authors have employed techniques for example, by spraying the specimen surface. This has a disadvantage, as it is more difficult to control the random pattern characteristics \cite{stoilov}. Stoilov et. al. used screen printing method to apply computer generated random patterns on surfaces \cite{stoilov}. They concluded that the quality of generated patterns for measuring deformation is good enough, despite the lower signal-to-noise ratio (i.e. the ratio between main peak and secondary peak value). Using these methods may prove impractical for purposes of \gls{lmp} because of high temperatures involved that can render the artificial patterns useless. It is also highly likely that in \Gls{lmp}, one works with surfaces that are featureless.
+    \subsection*{\glsfirst{lsi}}
+    \gls{lsi} involves installing a camera-laser sensor setup on robot end-effector, and calculating the relative displacement between end-effector and surface by processing the \gls{lsp} images. This technique has been gaining traction in the recent years because of advancements made in camera and signal processing technology \cite{filter, farsad}. It has simpler image processing requirements in comparison to other machine vision techniques, and works on surfaces that are sparsely featured \cite{francis_autonomous}. This is possible, as nature of \gls{lsp} formation involves production of unique keypoints and patterns. As a result, feature tracking approaches can be used as well. It has found it's application in industry, vehicle odometry measurements \cite{charrett_mars}, for sound detection and regeneration of audio signals \cite{nan_wu}, and for recognizing solid metal components based on their `laser speckle fingerprint' as investigated by Sjödahl et al. in Section 2 of Ref. \cite{sjoedahl}. Apart from that, \gls{lsp}'s shape and size is also not affected by high temperatures \cite{song}, and \gls{dic} using \gls{lsp} does not require database of images for correlation \cite{farsad}. The sensor setup for \gls{lsi} being low-cost is another advantage \cite{charrett_2018}.
 
-    \vspace{5mm}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/a_introduction/perez_fig4.png}
-        \caption{Physical marks used in marker-based stereo vision. (a) Stickers (b) Laser points. \cite{perez}}
-        \label{fig:fig_perez_4}
-    \end{figure}
-    \vspace{5mm}
-
-    \vspace{5mm}
-    \begin{figure}[h]
-        % \hspace{3cm}
-        \centering
-        \includegraphics[width=0.4\textwidth]{images/a_introduction/perez_fig13.png}
-        \caption{Laser tracker (Adapted from Pérez et. al. 2016 \cite{perez}) Note: Scale information not provided in original source.}
-        \label{fig:perez_fig13}
-    \end{figure}
-    \vspace{5mm}
     
-    \noindent Other 3D vision techniques for example, \gls{tof} cameras employ light pulses. Depth information of the scene is calculated based on the time it takes for the reflected light to be received by the sensor. Although \gls{tof} does not get affected by ambient light in the scene, occlusion from other objects can become a problem. Other problems of \gls{tof} as mentioned by Perez et. al. include, low raw data quality because of noise, depth inhomogeneity at object boundaries, multiple reflections from objects \cite{perez}. Moreover, point cloud data generated from these techniques also needs to be processed using algorithms such as \gls{icp}. Hence, the robustness of final setup depends on: point cloud acquisition and its subsequent treatment. The maximum accuracy mentioned by Perez et. al. for \gls{tof} is \SI{10}{\milli\meter} \cite{perez}.
-    
-    \vspace{5mm}
-    \noindent In conclusion, stereo vision and photogrammetry are able to determine robot pose accurately to range of \SI{64}{\micro\meter} \cite{perez}. But it involves processing a large amount of image data, can be influenced by factors such as brightness and lights in industrial environments and solutions to overcome their disadvantages involve costlier approaches. \gls{tof} because of it's noisy data, and low accuracy, is not suitable for the purpose of \gls{lmp}.
+    \section*{Goals and Objectives}
+        However, displacement measurement accuracy using speckle pattern images is influenced by errors from various sources. Pan et al. categorized these errors into those arising from physical setup and the correlation algorithm (See Table \ref{table:error_sources_pan_review}). Effects from these error sources have been researched before, but there is still lacks a comprehensive theoretical model that can help predict the displacement measurement accuracy and precision using these speckle images \cite{pan_review}. Additionally, quality of a speckle pattern image plays a significant role in the accuracy of measured displacement \cite{pan_mig, crammond}. Majority of the current literature addresses determining the quality of artificial speckle patterns, i.e. speckle patterns made by computer generated patterns \cite{stoilov} or painting surfaces with airbrush techniques \cite{park}, which is not a good fit for \gls{lsp} \cite{song}. 
 
-    \vspace{5mm}
+        \begin{table}[h]
+            \centering
+            \footnotesize
+            \renewcommand{\arraystretch}{1.2}
+            \begin{tabular}{p{7cm}p{7cm}}
+                \toprule
+                Errors related to specimen, loading and imaging & Speckle pattern \\
+                & Non-parallel alignment between image sensor and object surface \\
+                & Out-of-plane displacement \\
+                & Imaging distortion \\
+                & Noise during image acquisition and digitization \\
 
-    \noindent \gls{lsi} has been gaining traction in the recent years because of advancements made in camera and signal processing technology \cite{filter, farsad}, and has simpler image processing requirements in comparison to other machine vision techniques. Another one of the advantages of \gls{lsi} is, that it works on surfaces that are featureless \cite{francis_autonomous}. Feature tracking approaches can also be used in \gls{lsi}, because of \gls{lsp}'s property of producing unique keypoints and patterns even for featureless surfaces. As a result, it has found it's application in industry, vehicle odometry measurements \cite{charrett_mars}, for sound detection and regeneration of audio signals \cite{nan_wu}, and for recognizing solid metal components based on their "laser speckle fingerprint" \cite{sjoedahl}. Apart from that, \gls{lsp}'s shape and size is also not affected by high temperatures \cite{song}, and \gls{dic} using \gls{lsp} does not require database of images for correlation \cite{farsad}. The sensor setup for \gls{lsi} being low-cost is another potential advantage \cite{charrett_2018}.
+                \\
 
-    \vspace{5mm}
-    \noindent However, displacement measurement accuracy of \gls{dic} using speckle pattern images is influenced by errors from various sources. Pan et. al. categorized these errors into those arising from physical setup and the correlation algorithm (See Table \ref{table:error_sources_pan_review}). Effects from these error sources have been researched before, but there is still lacks a comprehensive theoretical model that can help predict the displacement measurement accuracy and precision using 2D-\gls{dic} method \cite{pan_review}. 
+                Errors related to correlation algorithm & Subset Size \\
+                & Correlation function \\
+                & Sub-pixel algorithm \\
+                & Shape function \\
+                & Interpolation scheme \\
+                \bottomrule
+            \end{tabular}
+            \caption{Error sources in displacement measurement using speckle imaging. \cite{pan_review} (Adapted from Pan et al. 2009)}
+            \label{table:error_sources_pan_review}
+        \end{table}
 
-    \vspace{5mm}
-    \begin{table}[h]
-        \centering
-        \footnotesize
-        \renewcommand{\arraystretch}{1.2}
-        \begin{tabular}{p{7cm}p{7cm}}
-            \toprule
-            Errors related to specimen, loading and imaging & Speckle pattern \\
-            & Non-parallel between image sensor and object surface \\
-            & Out-of-plane displacement \\
-            & Imaging distortion \\
-            & Noise during image acquisition and digitization \\
-
-            \\
-
-            Errors related to correlation algorithm & Subset Size \\
-            & Correlation function \\
-            & Sub-pixel algorithm \\
-            & Shape function \\
-            & Interpolation scheme \\
-            \bottomrule
-        \end{tabular}
-        \caption{Error sources in 2D \gls{dic}. \cite{pan_review} (Adapted from Pan et. al. 2009)}
-        \label{table:error_sources_pan_review}
-    \end{table}
-
-    \vspace{5mm}
-    \noindent Quality of a speckle pattern image plays a significant role in the accuracy of measured displacement \cite{pan_mig, crammond}. Majority of the current literature addresses measuring the quality of artificial speckle patterns, i.e. speckle patterns made by computer generated patterns \cite{stoilov} or painting surfaces with airbrush techniques \cite{park}, which is not a good fit for \gls{lsp} \cite{song}. The motivation of this thesis is to address this gap, by researching on state-of-the-art criteria for assessing the quality of \gls{lsp} instead of artificial speckle patterns, and also investigate effects of \gls{lsp} quality on accuracy of measured displacements using a single quality criteria of choice. In the future, this research aims to contribute to using the \gls{lsi} sensor concept (Covered in Section \ref{subsection:robotic_tool_speed}) for \gls{lmp} by using an onboard camera. This approach seeks to address the challenges posed by other methods for optical calibration of robot \gls{tcp} position. 
-    
-    
-\end{fraunhofertext}
+        \vspace{5mm}
+        \noindent The motivation of this thesis is to address this gap, by exploring state-of-the-art criteria for assessing the quality of \gls{lsp} instead of artificial speckle patterns, and investigating the efficiency of chosen quality metric in predicting the accuracy of measured displacements. In the future, this research aims to contribute to implementing the \gls{lsi} sensor concept (Covered in Section \ref{subsection:robotic_tool_speed}) by using an onboard camera, in order to address the challenges posed by other methods for optical position estimation of robot \gls{tcp} position. 
 
 \clearpage

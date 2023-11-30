@@ -2,7 +2,7 @@
 
 \section{Experimental Setup}
 
-In order to investigate the effects of \gls{lsp} image quality on relative position measurement, a laboratory setup was created, as shown in Fig. \ref{fig:corrected_setup.png} and \ref{fig:new_setup_potrait.PNG}. This setup will simulate only the relative planar translation happening between camera-laser sensor setup, akin to an onboard sensor on a robot, and a surface by moving the hexapod. It consists of components listed below. The camera, laser module was mounted on ThorLabs MB1530F/M optical breadboard with distance between camera and laser collimation point fixed at \SI{26}{\milli\meter}. The camera is mounted such that the image sensor is parallel to the XY-plane of hexapod surface, and it will be used to capture \gls{lsp} images during translation of hexapod.
+In order to investigate the effects of \gls{lsp} image quality on relative position measurement, a laboratory setup was created, as shown in Fig. \ref{fig:corrected_setup.png} and \ref{fig:new_setup_potrait.PNG}. This setup acts as a proxy for relative planar translation happening between camera-laser sensor setup, akin to an onboard sensor on a robot, and a surface by moving the hexapod. It consists of components listed below. The camera, laser module was mounted on ThorLabs MB1530F/M optical breadboard with distance between camera and laser collimation point fixed at \SI{26}{\milli\meter}. The camera is mounted such that the image sensor is parallel to the XY-plane of hexapod surface, and it will be used to capture \gls{lsp} images during translation of hexapod.
 
 \vspace{2mm}
 \noindent \textbf{Components:}
@@ -44,7 +44,7 @@ In order to investigate the effects of \gls{lsp} image quality on relative posit
 \end{figure}
 
 \subsection{Camera}
-    The camera used for the experiments is manufactured by Allied Vision and the model's name is Mako G-040B. It is a \gls{poe} enabled, GenICam\cite{genicam} compliant monochrome camera. It can run at frame rate of 286 \gls{fps} at full resolution of 0.4 megapixel. It has a progressive scan \gls{cmos} Sony IMX287 image sensor with a pixel size of \SI{6.9}{\micro\meter} \times \ \SI{6.9}{\micro\meter}. The quantum efficiency of this camera is denoted in gray in Fig. \ref{fig:quantum_efficiency.png}. The rest of the technical details can be found in the Table \ref{table:camera_specs}.
+    The camera used for the experiments is manufactured by Allied Vision and the model's name is Mako G-040B. It is a \gls{poe} enabled, GenICam\cite{genicam} compliant monochrome camera. It can run at frame rate of 286 \gls{fps} at full resolution of 0.4 megapixel. It has a progressive scan \gls{cmos} Sony IMX287 image sensor with a pixel size of \SI{6.9}{\micro\meter} \times \ \SI{6.9}{\micro\meter}. The quantum efficiency of this camera is denoted in gray in Fig. \ref{fig:quantum_efficiency.png} (Appendix). The rest of the technical details can be found in the Table \ref{table:camera_specs} (Appendix).
 
     \vspace{10mm}
 
@@ -101,7 +101,7 @@ In order to investigate the effects of \gls{lsp} image quality on relative posit
 
 \subsection{Lens Body}
     \subsection*{Camera Lens}
-        The camera lens, manufactured by Edmund Optics, has a fixed focal length of \SI{25}{\milli\meter}. The aperture is adjustable from \emph{f}/1.85 to \emph{f}/16. This allows the working distance to be in range \SI{200}{\milli\meter} - $\infty$.
+        The camera lens, manufactured by Edmund Optics, has a fixed focal length of \SI{25}{\milli\meter}. The diaphragm adjusts the aperture size in range of \emph{f}/1.85 to \emph{f}/16. This allows the working distance to be in range \SI{200}{\milli\meter} - $\infty$.
 
     \subsection*{Bandpass Filter}
         The bandpass filter FLH635-10 from ThorLabs allows 85\% transmission of laser with wavelength of \SI{635}{\nano\meter}. The pass region for this filter is \SI{10}{\nano\meter} at \gls{fwhm}. The bandpass filter is needed to avoid influence of light other than the laser source on the conducted experiments.
@@ -124,7 +124,7 @@ In order to investigate the effects of \gls{lsp} image quality on relative posit
         \end{figure}
 
 \subsection{Hexapod}
-The M-824.3DG hexapod from \gls{pi} contains six linear actuators between base plate and platform. Some of the advantages of this hexapod include it's high stiffness, six-dimensional motion, and high resolution. All motion commands for the movement of the platform are defined by three linear and three rotational coordinate values. The rotational axes defined by (U, V, W) are initially coincident with translational axes (X, Y, Z) of the hexapod coordinate system, as shown in Fig. \ref{fig:hexapod_coordinate.png}. This hexapod is capable of moving \SI{\pm22.5}{\milli\meter} along X and Y axes with a resolution of \SI{0.3}{\micro\meter}. For larger movements in range of few millimeters, the final position values can differ by \SI{\pm0.5}{\micro\meter}. Rest of the technical details can be found in the Table \ref{table:technical_specifications_hexapod}.
+The M-824.3DG hexapod from \gls{pi} contains six linear actuators between base plate and platform. Some of the advantages of this hexapod include it's high stiffness, six-dimensional motion, and high resolution. All motion commands for the movement of the platform are defined by three linear and three rotational coordinate values. The rotational axes defined by (U, V, W) are initially coincident with translational axes (X, Y, Z) of the hexapod coordinate system, as shown in Fig. \ref{fig:hexapod_coordinate.png}. This hexapod is capable of moving \SI{\pm22.5}{\milli\meter} along X and Y axes with a resolution of \SI{0.3}{\micro\meter}. For larger movements in range of few millimeters, the final position values can differ by \SI{\pm0.5}{\micro\meter}. Rest of the technical details can be found in the Table \ref{table:technical_specifications_hexapod} (Appendix).
 
 \begin{figure}[ht]
     \centering
@@ -144,16 +144,16 @@ As per the research questions outlined in Chapter\ \ref{chap:research_questions}
 \begin{itemize}
     \item Capture \gls{lsp} images for hexapod movement
     \item Perform \gls{ncc} on recorded images
-    \item Finding out accuracy of measured displacement
+    \item Determining accuracy of measured displacement
 \end{itemize}
 
 In order to achieve the testing goal, the procedure can be divided into the following parts:
 
 \begin{itemize}
-    \item \textbf{Implementation of \gls{ncc} algorithm}
-    \item \textbf{Calibration}
+    \item Implementation of \gls{ncc} algorithm (Section \ref{section:code_logic})
+    \item Calibration (Section \ref{section:calibration})
     % \item \textbf{Constant Parameters}: During data collection 
-    \item \textbf{Data Collection}
+    \item Data Collection (Section \ref{section:data_collection})
     % \item \textbf{Testing Analysis}
 \end{itemize}
 
@@ -172,7 +172,7 @@ In order to achieve the testing goal, the procedure can be divided into the foll
 
 \subsection{Implementation of \gls{ncc} algorithm}\label{section:code_logic}
     \subsubsection*{Template Location}
-        The camera image sensor has rectangular dimensions of 728 pixels \times \ 544 pixels as given in Table \ref{table:camera_specs}. A square \gls{roi} was chosen at the center of the frame of dimensions 128 pixels \times \ 128 pixels. This is denoted by the square box outlined in black in Fig. \ref{subfig:frame_0_rect.png}. As per the literature survey conducted in Chapter \ref{chapter:sota} Section \ref{subsubsection:template_size}, template size plays a significant role in the accuracy of measured displacement, and the larger the template is, the more `randomness' of speckle pattern can be captured \cite{pan_subset}. But, there is an upper limit to the template size, as too big increases computational times \cite{yaofeng}. The\gls{roi} window size of 128 pixels \times \ 128 pixels is used for the experiments, which is also the size used by Charrett et al. in Ref. \cite{charrett_2018} for an image sensor size of 512 pixels \times \ 512 pixels.
+        A square \gls{roi} was chosen at the center of the frame of dimensions 128 pixels \times \ 128 pixels. This is denoted by the square box outlined in black in Fig. \ref{subfig:frame_0_rect.png}. As per the literature survey conducted in Chapter \ref{chapter:sota} Section \ref{subsubsection:template_size}, template size plays a significant role in the accuracy of measured displacement, and the larger the template is, the more `randomness' of speckle pattern can be captured \cite{pan_subset}. But, there is an upper limit to the template size, as too big increases computational times \cite{yaofeng}. The\gls{roi} window size of 128 pixels \times \ 128 pixels is used for the experiments, which is also the size comparable to Charrett et al. in Ref. \cite{charrett_2018} for an image sensor size of 512 pixels \times \ 512 pixels.
 
         % The way the camera is mounted for the experiments, it meant that the width of image was more than it's height. It also became necessary going forward, that a square \gls{roi} at the center of this image frame with dimensions of 128 pixels \times \ 128 pixels would be used as a template for \gls{ncc} going forward. The reason is, for position verification of the hexapod, the data collection procedure made it necessary to use the \gls{roi} at the center of the image frame (See Section \ref{section:data_collection}). This is denoted by the square box outlined in black in Fig. \ref{fig:frame_0_rect.png}. The size for \gls{roi} was chosen for the following reasons:
         % \begin{itemize}
@@ -202,10 +202,12 @@ In order to achieve the testing goal, the procedure can be divided into the foll
         % In OpenCV, as shown in Fig. \ref{fig:frame_0_rect.png}, for a pixel coordinate (X, Y), X increases as we are going towards the right and Y increases as we traverse through the pixels downwards. For the project, while using \gls{ncc} with OpenCV two functions were employed namely, \texttt{matchTemplate()} and \texttt{minMaxLoc()}. The former function matches the template with the underlying image and saves it's results in another matrix. The latter function allows us to use the result from first function in order to find the location of correlation peak. In doing so, it gives the absolute location of top-left corner of the tracked template according to the OpenCV coordinate axes. Therefore, in order to measure relative movement of the hexapod from the center of image frame, changes were made to reflect pixel shift from origin to center of the \gls{roi}. For e.g., if the hexapod moves from (\SI{0}{\milli\meter}, \SI{0}{\milli\meter}) to (\SI{3}{\milli\meter}, \SI{3}{\milli\meter}) in the first quadrant, the template is tracked in the the fourth quadrant. This is shown by the arrow in Fig. \ref{fig:frame_60_rect.png}. 
 
 \subsection{Calibration}\label{section:calibration}
-    The \gls{ncc} method provides displacement information in pixel units, requiring calibration for conversion to physical distance. To ensure a more accurate calibration, it's crucial to optimize for optimal \gls{lsp} image quality. Based on the predetermined research questions, the camera parameters such as exposure time and gain need to appropriately selected for calibration process, as they have a direct effect on \gls{lsp} image quality.
+    The \gls{ncc} method provides displacement information in pixel units, requiring calibration for conversion to physical distance. To ensure a more accurate calibration, it's crucial to optimize for optimal \gls{lsp} image quality. Based on the predetermined research questions, the camera parameters such as exposure time and gain need to be appropriately selected for the calibration process, as they have a direct effect on \gls{lsp} image quality.
 
     \subsubsection*{Calibration Matrix}\label{subsection:calib_matrix}
-        In order to convert the pixel shift to displacement, the following method of calibration was adopted for our experiments, as described by Charrett et. al. \cite{charrett_2018}. For calibration, hexapod is moved \SI{0.1}{\milli\meter} along its X and Y axis at separate times. These distances can be named as, $a_x$ and $a_y$ respectively for both axes. The images are acquired at the same time for these movements. If there is a misalignment between hexapod's and image sensor's XY plane, it would be detected as pixel shift ($A_{xx}$, $A_{yx}$) by the \gls{ncc} algorithm. Here, the first subscript denotes the direction of pixel shift and second subscript denotes direction of movement of hexapod. Similarly, for hexapod's movement along y-axis by distance $a_y$, it would be detected as ($A_{xy}$, $A_{yy}$) in pixel shift. Now, the values for calibration matrix can be calculated as per the formulae given in Eqn. \ref{eqn:calib_matrix_param}.
+        In order to convert the pixel shift to displacement, the following method of calibration was adopted for our experiments, as described by Charrett et al. \cite{charrett_2018}. For calibration, hexapod is moved \SI{0.1}{\milli\meter} along its X and Y axis at separate times. These distances can be named as, $a_x$ and $a_y$ respectively for both axes. The images are acquired simultaneously with these movements. If there is a misalignment between hexapod's and image sensor's XY plane (see Fig. \ref{fig:misalignment.png}), it would be detected as pixel shift ($A_{xx}$, $A_{yx}$) and ($A_{xy}$, $A_{yy}$) by the \gls{ncc} algorithm. Here, the first subscript denotes the direction of pixel shift and second subscript denotes direction of movement of hexapod. Now, the values for calibration matrix can be calculated as per the formulae given in Eqn. \ref{eqn:calib_matrix_param}.
+
+        % For hexapod's movement along y-axis by distance $a_y$, it would be detected as ($A_{xy}$, $A_{yy}$) in pixel shift.
 
         \begin{figure}[h]
             \centering
@@ -238,7 +240,7 @@ In order to achieve the testing goal, the procedure can be divided into the foll
             \end{bmatrix}
         \end{equation}
 
-        \noindent with elements of $T$ given by:
+        \noindent with elements of calibration matrix $T$ given by:
 
         \begin{equation}\label{eqn:calib_matrix_param}
             \begin{aligned}
@@ -249,12 +251,12 @@ In order to achieve the testing goal, the procedure can be divided into the foll
             \end{aligned}
         \end{equation}
 
-    \subsubsection*{Camera Parameters}\label{subsection:camera_parameters}
+    \subsubsection*{Choosing Camera Parameters for Calibration}\label{subsection:camera_parameters}
         \begin{itemize}
             
-            \item \textbf{Choosing exposure time:} The exposure time for calibration was decided on basis of the highest \gls{mig} value, as it was chosen as the quality parameter of choice (See Chapter \ref{chapter:methodology}).
+            \item \textbf{Choosing exposure time:} The exposure time for calibration was decided on basis of the highest \gls{mig} value as explained in Section \ref{subsection:data_collection_procedure} below. The reason behind this is to investigate, if images wither higher \gls{mig} values lead to more accurate displacement measurement results.
             
-            \item \textbf{Choosing gain:} Increasing gain means increasing intensity of pixels. Hence, noise in the image is amplified as well. Therefore, for the purpose of calibration, the gain was set to 0.
+            \item \textbf{Choosing gain:} Increasing gain leads to increasing noise in the image. Therefore, for the purpose of calibration, the gain was set to 0.
 
         \end{itemize}
 
@@ -302,24 +304,25 @@ In order to achieve the testing goal, the procedure can be divided into the foll
         During the process of image capture for calibration the following parameters were kept constant:
         \begin{itemize}
             \item Camera Aperture: \emph{f}/1.85
-            \item Height between hexapod surface and camera-laser setup: \SI{150}{\milli\meter}
+            \item Height between hexapod surface and \gls{lsi} setup: \SI{150}{\milli\meter}
             \item Laser Spot Diameter: \SI{7}{\milli\meter}
+            \item Speed of Hexapod: \SI{1}{\milli\meter/\second}
         \end{itemize}
         
-        \noindent The calibration was done separately for X- and Y-axis and the details of the procedure can be found in the Table \ref{table:calibration_plan} given below. As the hexapod was manually controlled, the number of images differed during each of the 40 image acquisitions, and as a result mean number of images is calculated.
+        \noindent The calibration was done separately for X- and Y-axis and the details of the procedure can be found in the Table \ref{table:calibration_plan}. As the hexapod was manually controlled, the number of images differed during each of the 40 image acquisitions, and as a result mean number of images is calculated.
 
         \begin{table}[ht]
             \centering
             \footnotesize
             % \adjustbox{max width=\textwidth}
             % {
-            \begin{tabular}{ccccc}
+            \begin{tabular}{cccc}
                 \toprule
-                \textbf{Calibration Axis} & \textbf{Coordinate (mm, mm)} & \textbf{Speed of} & \textbf{Repetitions} & \textbf{Mean number of} \\
-                 & & \textbf{Hexapod (mm/s)} & & \textbf{recorded images} \\
+                \textbf{Calibration Axis} & \textbf{Coordinate (mm, mm)} & \textbf{Repetitions} & \textbf{Mean number of} \\
+                 & & & \textbf{recorded images} \\
                 \midrule
-                X & (0.1, 0) & 1 & 40 & 56.425 \\
-                Y & (0, 0.1) & 1 & 40 & 49.15 \\
+                X & (0.1, 0) & 40 & 56 \\
+                Y & (0, 0.1) & 40 & 49 \\
                 \bottomrule
             \end{tabular}
             % }
@@ -341,7 +344,7 @@ In order to achieve the testing goal, the procedure can be divided into the foll
     
 \subsection{Data Collection}\label{section:data_collection}
     \subsubsection*{Choosing exposure times for the camera}
-        As testing the camera's entire exposure range would be impractical, it became necessary to choose specific exposure time values. Another issue to investigate is, if \gls{lsp} images with high value of image quality parameter correspond to higher accuracy of displacement measurement. Therefore, $E3$ was chosen, as it displayed highest \gls{mig} value among all the exposure times, as seen in Fig. \ref{fig:exposure_time_mig.png}. $E1$ and $E6$ were chosen to discuss the contrary. $E2$, $E4$, and $E5$ were chosen for more data points. The images to determine these exposure times were captured once, and as hexapod is manually operated, the number of images differ for each acquisition (See Fig. \ref{fig:frames_exposure_time.png}).
+        As testing the camera's entire exposure range would be impractical, it became necessary to choose specific exposure time values. Another issue to investigate is, if \gls{lsp} images with high value of \gls{mig} correspond to higher accuracy of displacement measurement. Therefore, $E3$ was chosen, as it displayed highest \gls{mig} value among all the exposure times, as seen in Fig. \ref{fig:exposure_time_mig.png}. $E1$ and $E6$ were chosen to discuss the contrary. $E2$, $E4$, and $E5$ were chosen for more data points. The images to determine these exposure times were captured once, and as hexapod is manually operated, the number of images differ for each acquisition (See Fig. \ref{fig:frames_exposure_time.png}).
 
         \begin{figure}[ht]
             \centering
@@ -377,8 +380,8 @@ In order to achieve the testing goal, the procedure can be divided into the foll
 
             \begin{figure}[ht]
                 \centering
-                \includegraphics[width=0.65\textwidth]{images/e_experiments/testing_2.png}
-                \caption{Relative movements of hexapod to positions of data collection.}
+                \includegraphics[width=0.62\textwidth]{images/e_experiments/calibration.png}
+                \caption{Schematic of relative movements of hexapod to positions of data collection. Note: The image is not to scale.}
                 \label{fig:testing_2.png}
             \end{figure}
 
